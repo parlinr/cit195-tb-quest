@@ -12,9 +12,9 @@ namespace TBQuest
         {
             MenuName = "MissionIntro",
             MenuTitle = "",
-            MenuChoices = new Dictionary<char, TravelerAction>()
+            MenuChoices = new Dictionary<char, ColonistAction>()
                     {
-                        { ' ', TravelerAction.None }
+                        { ' ', ColonistAction.None }
                     }
         };
 
@@ -22,9 +22,9 @@ namespace TBQuest
         {
             MenuName = "InitializeMission",
             MenuTitle = "Initialize Mission",
-            MenuChoices = new Dictionary<char, TravelerAction>()
+            MenuChoices = new Dictionary<char, ColonistAction>()
                 {
-                    { '1', TravelerAction.Exit }
+                    { '1', ColonistAction.Exit }
                 }
         };
 
@@ -32,22 +32,22 @@ namespace TBQuest
         {
             MenuName = "MainMenu",
             MenuTitle = "Main Menu",
-            MenuChoices = new Dictionary<char, TravelerAction>()
+            MenuChoices = new Dictionary<char, ColonistAction>()
                 {
-                    { '1', TravelerAction.TravelerInfo },
-                    { '2', TravelerAction.Exit }
+                    { '1', ColonistAction.ColonistInfo },
+                    { '2', ColonistAction.Exit }
                 }
         };
 
         //public static Menu ManageTraveler = new Menu()
         //{
         //    MenuName = "ManageTraveler",
-        //    MenuTitle = "Manage Traveler",
-        //    MenuChoices = new Dictionary<char, TravelerAction>()
+        //    MenuTitle = "Manage Colonist",
+        //    MenuChoices = new Dictionary<char, ColonistAction>()
         //            {
-        //                TravelerAction.MissionSetup,
-        //                TravelerAction.TravelerInfo,
-        //                TravelerAction.Exit
+        //                ColonistAction.MissionSetup,
+        //                ColonistAction.TravelerInfo,
+        //                ColonistAction.Exit
         //            }
         //};
     }

@@ -12,7 +12,7 @@ namespace TBQuest
     public static class Text
     {
         public static List<string> HeaderText = new List<string>() { "The Aion Project" };
-        public static List<string> FooterText = new List<string>() { "Laughing Leaf Productions, 2016" };
+        public static List<string> FooterText = new List<string>() { "(C) MMXVII" };
 
         public static string MissionIntro()
         {
@@ -70,10 +70,10 @@ namespace TBQuest
             return messageBoxText;
         }
 
-        public static string InitializeMissionGetTravelerAge(Traveler gameTraveler)
+        public static string InitializeMissionGetTravelerAge(Colonist gameColonist)
         {
             string messageBoxText =
-                $"Very good then, we will call you {gameTraveler.Name} on this mission.\n" +
+                $"Very good then, we will call you {gameColonist.Name} on this mission.\n" +
                 " \n" +
                 "Enter your age below.\n" +
                 " \n" +
@@ -82,7 +82,7 @@ namespace TBQuest
             return messageBoxText;
         }
 
-        public static string InitializeMissionGetTravelerRace(Traveler gameTraveler)
+        public static string InitializeMissionGetTravelerRace(Colonist gameTraveler)
         {
             string messageBoxText =
                 $"{gameTraveler.Name}, it will be important for us to know your race on this mission.\n" +
@@ -107,7 +107,7 @@ namespace TBQuest
             return messageBoxText;
         }
 
-        public static string InitializeMissionEchoTravelerInfo(Traveler gameTraveler)
+        public static string InitializeMissionEchoTravelerInfo(Colonist gameTraveler)
         {
             string messageBoxText =
                 $"Very good then {gameTraveler.Name}.\n" +

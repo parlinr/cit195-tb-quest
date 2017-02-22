@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBQuest
 {
-    public enum TravelerAction
+    public enum ColonistAction
     {
         None,
         MissionSetup,
@@ -17,9 +17,9 @@ namespace TBQuest
         PutDownItem,
         PutDownTreasure,
         Travel,
-        TravelerInfo,
-        TravelerInventory,
-        TravelerTreasure,
+        ColonistInfo,
+        ColonistInventory,
+        ColonistTreasure,
         ListTARDISDestinations,
         ListItems,
         ListTreasures,

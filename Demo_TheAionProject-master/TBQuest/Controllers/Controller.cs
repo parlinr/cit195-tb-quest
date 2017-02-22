@@ -14,7 +14,7 @@ namespace TBQuest
         #region FIELDS
 
         private ConsoleView _gameConsoleView;
-        private Traveler _gameTraveler;
+        private Colonist _gameColonist;
         private bool _playingGame;
 
         #endregion
@@ -48,8 +48,8 @@ namespace TBQuest
         /// </summary>
         private void InitializeGame()
         {
-            _gameTraveler = new Traveler();
-            _gameConsoleView = new ConsoleView(_gameTraveler);
+            _gameColonist = new Colonist();
+            _gameConsoleView = new ConsoleView(_gameColonist);
             _playingGame = true;
 
             Console.CursorVisible = false;
@@ -60,7 +60,7 @@ namespace TBQuest
         /// </summary>
         private void ManageGameLoop()
         {
-            TravelerAction travelerActionChoice = TravelerAction.None;
+            ColonistAction travelerActionChoice = ColonistAction.None;
 
             //
             // display splash screen
@@ -99,14 +99,14 @@ namespace TBQuest
                 //
                 switch (travelerActionChoice)
                 {
-                    case TravelerAction.None:
+                    case ColonistAction.None:
                         break;
 
-                    case TravelerAction.TravelerInfo:
+                    case ColonistAction.ColonistInfo:
                         _gameConsoleView.DisplayTravelerInfo();
                         break;
 
-                    case TravelerAction.Exit:
+                    case ColonistAction.Exit:
                         _playingGame = false;
                         break;
 
@@ -118,43 +118,19 @@ namespace TBQuest
             //
             // close the application
             //
-            Environment.Exit(1);
+            Environment.Exit(42);
         }
 
         private void InitializeMission()
         {
-            //
-            // intro
-            //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionIntro(), ActionMenu.MissionIntro, "");
-            _gameConsoleView.GetContinueKey();
+            Colonist playerResponse = new Colonist();
+            playerResponse = _gameConsoleView.DisplayGetTravelerInfo(_gameConsoleView);
 
-            //
-            // get traveler's name
-            //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Name", Text.InitializeMissionGetTravelerName(), ActionMenu.MissionIntro, "");
-            _gameConsoleView.DisplayInputBoxPrompt("Enter your name: ");
-            _gameTraveler.Name = _gameConsoleView.GetString();
-
-            //
-            // get traveler's age
-            //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Age", Text.InitializeMissionGetTravelerAge(_gameTraveler), ActionMenu.MissionIntro, "");
-            _gameConsoleView.DisplayInputBoxPrompt($"Enter your age {_gameTraveler.Name}: ");
-            _gameTraveler.Age = _gameConsoleView.GetInteger();
-
-            //
-            // get traveler's race
-            //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Race", Text.InitializeMissionGetTravelerRace(_gameTraveler), ActionMenu.MissionIntro, "");
-            _gameConsoleView.DisplayInputBoxPrompt($"Enter your race {_gameTraveler.Name}: ");
-            _gameTraveler.Race = _gameConsoleView.GetRace();
-
-            //
-            // echo the traveler's info
-            //
-            _gameConsoleView.DisplayGamePlayScreen("Mission Initialization - Complete", Text.InitializeMissionEchoTravelerInfo(_gameTraveler), ActionMenu.MissionIntro, "");
-            _gameConsoleView.GetContinueKey();
+            _gameColonist.Name = playerResponse.Name;
+            _gameColonist.Age = playerResponse.Age;
+            _gameColonist.Race = playerResponse.Race;
+            
+            
         }
 
         #endregion

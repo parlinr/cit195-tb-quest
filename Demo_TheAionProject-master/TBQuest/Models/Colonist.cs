@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheAionProject
+namespace TBQuest
 {
     /// <summary>
     /// the character class the player uses in the game
     /// </summary>
-    public class Traveler : Character
+    public class Colonist : Character
     {
         #region ENUMERABLES
 
@@ -30,12 +30,12 @@ namespace TheAionProject
 
         #region CONSTRUCTORS
 
-        public Traveler()
+        public Colonist()
         {
 
         }
 
-        public Traveler(string name, RaceType race, int spaceTimeLocationID) : base(name, race, spaceTimeLocationID)
+        public Colonist(string name, RaceType race, int spaceTimeLocationID) : base(name, race, spaceTimeLocationID)
         {
 
         }

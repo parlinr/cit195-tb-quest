@@ -11,9 +11,9 @@ namespace TBQuest
         #region FIELDS
 
         //
-        // declare a Traveler object for the ConsoleView object to use
+        // declare a Colonist object for the ConsoleView object to use
         //
-        Traveler _gameTraveler;
+        Colonist _gameColonist;
 
         #endregion
 
@@ -26,9 +26,9 @@ namespace TBQuest
         /// <summary>
         /// default constructor to create the console view objects
         /// </summary>
-        public ConsoleView(Traveler gameTraveler)
+        public ConsoleView(Colonist gameColonist)
         {
-            _gameTraveler = gameTraveler;
+            _gameColonist = gameColonist;
 
             InitializeDisplay();
         }
@@ -66,9 +66,9 @@ namespace TBQuest
         /// get a action menu choice from the user
         /// </summary>
         /// <returns>action menu choice</returns>
-        public TravelerAction GetActionMenuChoice(Menu menu)
+        public ColonistAction GetActionMenuChoice(Menu menu)
         {
-            TravelerAction choosenAction = TravelerAction.None;
+            ColonistAction choosenAction = ColonistAction.None;
 
             ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
             char keyPressed = keyPressedInfo.KeyChar;
@@ -191,9 +191,9 @@ namespace TBQuest
             Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
             int topRow = ConsoleLayout.MenuBoxPositionTop + 3;
 
-            foreach (KeyValuePair<char, TravelerAction> menuChoice in menu.MenuChoices)
+            foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
             {
-                if (menuChoice.Value != TravelerAction.None)
+                if (menuChoice.Value != ColonistAction.None)
                 {
                     string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
                     Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
@@ -266,8 +266,49 @@ namespace TBQuest
 
         public void DisplayTravelerInfo()
         {
-            DisplayGamePlayScreen("Traveler Information", Text.InitializeMissionEchoTravelerInfo(_gameTraveler), ActionMenu.MissionIntro, "");
+            DisplayGamePlayScreen("Colonist Information", Text.InitializeMissionEchoTravelerInfo(_gameColonist), ActionMenu.MissionIntro, "");
             GetContinueKey();
+        }
+
+        public Colonist DisplayGetTravelerInfo(ConsoleView console)
+        {
+            Colonist tempObject = new Colonist();
+
+            //
+            // intro
+            //
+            console.DisplayGamePlayScreen("Mission Initialization", Text.InitializeMissionIntro(), ActionMenu.MissionIntro, "");
+            console.GetContinueKey();
+
+            //
+            // get traveler's name
+            //
+            console.DisplayGamePlayScreen("Mission Initialization - Name", Text.InitializeMissionGetTravelerName(), ActionMenu.MissionIntro, "");
+            console.DisplayInputBoxPrompt("Enter your name: ");
+            tempObject.Name = console.GetString();
+
+            //
+            // get traveler's age
+            //
+            console.DisplayGamePlayScreen("Mission Initialization - Age", Text.InitializeMissionGetTravelerAge(tempObject), ActionMenu.MissionIntro, "");
+            console.DisplayInputBoxPrompt($"Enter your age {tempObject.Name}: ");
+            tempObject.Age = console.GetInteger();
+
+            //
+            // get traveler's race
+            //
+            console.DisplayGamePlayScreen("Mission Initialization - Race", Text.InitializeMissionGetTravelerRace(tempObject), ActionMenu.MissionIntro, "");
+            console.DisplayInputBoxPrompt($"Enter your race {tempObject.Name}: ");
+            tempObject.Race = console.GetRace();
+
+            //
+            // echo the traveler's info
+            //
+            console.DisplayGamePlayScreen("Mission Initialization - Complete", Text.InitializeMissionEchoTravelerInfo(tempObject), ActionMenu.MissionIntro, "");
+            console.GetContinueKey();
+
+
+            return tempObject;
         }
 
         #endregion
