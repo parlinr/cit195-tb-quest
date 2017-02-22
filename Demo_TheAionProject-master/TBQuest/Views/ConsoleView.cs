@@ -121,17 +121,17 @@ namespace TBQuest
             Console.Clear();
             Console.CursorVisible = false;
 
-
+            //use the "ogre" font from www.network-science.de/ascii/
+            //Ogre font (c) 1993 Glenn Chappell & Ian Chai
             Console.SetCursorPosition(0, 10);
             string tabSpace = new String(' ', 35);
-            Console.WriteLine(tabSpace + @" _____ _              ___  _               ______          _           _   ");
-            Console.WriteLine(tabSpace + @"|_   _| |            / _ \(_)              | ___ \        (_)         | |  ");
-            Console.WriteLine(tabSpace + @"  | | | |__   ___   / /_\ \_  ___  _ __    | |_/ _ __ ___  _  ___  ___| |_ ");
-            Console.WriteLine(tabSpace + @"  | | | '_ \ / _ \  |  _  | |/ _ \| '_ \   |  __| '__/ _ \| |/ _ \/ __| __|");
-            Console.WriteLine(tabSpace + @"  | | | | | |  __/  | | | | | (_) | | | |  | |  | | | (_) | |  __| (__| |_ ");
-            Console.WriteLine(tabSpace + @"  \_/ |_| |_|\___|  \_| |_|_|\___/|_| |_|  \_|  |_|  \___/| |\___|\___|\__|");
-            Console.WriteLine(tabSpace + @"                                                         _/ |              ");
-            Console.WriteLine(tabSpace + @"                                                        |__/             ");
+            Console.WriteLine(tabSpace + @"   __                           _     ");
+            Console.WriteLine(tabSpace + @"  /__\_  ____ _ _ __ ___  _ __ | | ___ ");
+            Console.WriteLine(tabSpace + @" /_\ \ \/ / _` | '_ ` _ \| '_ \| |/ _ \");
+            Console.WriteLine(tabSpace + @"//__  >  < (_| | | | | | | |_) | |  __/");
+            Console.WriteLine(tabSpace + @"\__/ /_/\_\__,_|_| |_| |_| .__/|_|\___|");
+            Console.WriteLine(tabSpace + @"                         |_|           ");
+  
 
             Console.SetCursorPosition(80, 25);
             Console.Write("Press any key to continue or Esc to exit.");
@@ -152,7 +152,7 @@ namespace TBQuest
             ConsoleWindowControl.DisableResize();
             ConsoleWindowControl.DisableMaximize();
             ConsoleWindowControl.DisableMinimize();
-            Console.Title = "The Aion Project";
+            Console.Title = "Example";
 
             //
             // set the default console window values
@@ -264,13 +264,13 @@ namespace TBQuest
         }
 
 
-        public void DisplayTravelerInfo()
+        public void DisplayColonistInfo()
         {
             DisplayGamePlayScreen("Colonist Information", Text.InitializeMissionEchoTravelerInfo(_gameColonist), ActionMenu.MissionIntro, "");
             GetContinueKey();
         }
 
-        public Colonist DisplayGetTravelerInfo(ConsoleView console)
+        public Colonist DisplayGetColonistInfo(ConsoleView console)
         {
             Colonist tempObject = new Colonist();
 

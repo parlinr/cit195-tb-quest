@@ -11,24 +11,15 @@ namespace TBQuest
     /// </summary>
     public static class Text
     {
-        public static List<string> HeaderText = new List<string>() { "The Aion Project" };
-        public static List<string> FooterText = new List<string>() { "(C) MMXVII" };
+        public static List<string> HeaderText = new List<string>() { "Example" };
+        public static List<string> FooterText = new List<string>() { "(c) MMXVII" };
 
         public static string MissionIntro()
         {
             string messageBoxText =
-            "You have been hired by the Norlon Corporation to participate " +
-            "in its latest endeavor, the Aion Project. Your mission is to " +
-            "test the limits of the new Aion Engine and report back to " +
-            "the Norlon Corporation.\n" +
-            " \n" +
-            "Press the Esc key to exit the game at any point.\n" +
-            " \n" +
-            "Your mission begins now.\n" +
-            " \n" +
-            "\tYour first task will be to set up the initial parameters of your mission.\n" +
-            " \n" +
-            "\tPress any key to begin the Mission Initialization Process.\n";
+            "You are a colonist of a far-off land, atempting to establish a colony" +
+            "in the Kanti system. The Kanti system has three planets: (names here);" +
+            "your colony is on (a planet). The Kanti system has ....";
 
             return messageBoxText;
         }

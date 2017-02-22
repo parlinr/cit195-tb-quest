@@ -103,7 +103,7 @@ namespace TBQuest
                         break;
 
                     case ColonistAction.ColonistInfo:
-                        _gameConsoleView.DisplayTravelerInfo();
+                        _gameConsoleView.DisplayColonistInfo();
                         break;
 
                     case ColonistAction.Exit:
@@ -124,7 +124,7 @@ namespace TBQuest
         private void InitializeMission()
         {
             Colonist playerResponse = new Colonist();
-            playerResponse = _gameConsoleView.DisplayGetTravelerInfo(_gameConsoleView);
+            playerResponse = _gameConsoleView.DisplayGetColonistInfo(_gameConsoleView);
 
             _gameColonist.Name = playerResponse.Name;
             _gameColonist.Age = playerResponse.Age;
