@@ -70,9 +70,24 @@ namespace TBQuest
         {
             ColonistAction choosenAction = ColonistAction.None;
 
-            ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
-            char keyPressed = keyPressedInfo.KeyChar;
-            choosenAction = menu.MenuChoices[keyPressed];
+            bool validKeystroke = false;
+            while (!validKeystroke)
+            {
+                try
+                {
+                    ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+                    char keyPressed = keyPressedInfo.KeyChar;
+                    choosenAction = menu.MenuChoices[keyPressed];
+                }
+                catch (KeyNotFoundException)
+                {
+                    DisplayInputBoxPrompt("Invalid keystroke");
+                    continue;
+                }
+                validKeystroke = true;
+            }
+            
+           
 
             return choosenAction;
         }
