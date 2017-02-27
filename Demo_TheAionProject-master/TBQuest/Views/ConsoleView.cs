@@ -377,13 +377,12 @@ namespace TBQuest
             //Ogre font (c) 1993 Glenn Chappell & Ian Chai
             Console.SetCursorPosition(0, 10);
             string tabSpace = new String(' ', 35);
-            Console.WriteLine(tabSpace + @"   __                           _     ");
-            Console.WriteLine(tabSpace + @"  /__\_  ____ _ _ __ ___  _ __ | | ___ ");
-            Console.WriteLine(tabSpace + @" /_\ \ \/ / _` | '_ ` _ \| '_ \| |/ _ \");
-            Console.WriteLine(tabSpace + @"//__  >  < (_| | | | | | | |_) | |  __/");
-            Console.WriteLine(tabSpace + @"\__/ /_/\_\__,_|_| |_| |_| .__/|_|\___|");
-            Console.WriteLine(tabSpace + @"                         |_|           ");
-  
+            Console.WriteLine(tabSpace + @"                  _   _   ___           __ _   ");
+            Console.WriteLine(tabSpace + @"  /\ /\__ _ _ __ | |_(_) / __\ __ __ _ / _| |_ ");
+            Console.WriteLine(tabSpace + @" / //_/ _` | '_ \| __| |/ / | '__/ _` | |_| __|");
+            Console.WriteLine(tabSpace + @"/ __ \ (_| | | | | |_| / /__| | | (_| |  _| |_ ");
+            Console.WriteLine(tabSpace + @"\/  \/\__,_|_| |_|\__|_\____/_|  \__,_|_|  \__|");
+              
 
             Console.SetCursorPosition(80, 25);
             Console.Write("Press any key to continue or Esc to exit.");
