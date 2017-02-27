@@ -55,6 +55,17 @@ namespace TBQuest
         }
 
         /// <summary>
+        /// clear the current line
+        /// </summary>
+        public void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
+            Console.Write(new string(' ', Console.WindowWidth - 7));
+            Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
+        }
+
+        /// <summary>
         /// wait for any keystroke to continue
         /// </summary>
         public void GetContinueKey()
@@ -120,6 +131,185 @@ namespace TBQuest
             Enum.TryParse<Character.RaceType>(Console.ReadLine(), out raceType);
 
             return raceType;
+        }
+        /// <summary>
+        /// gets the initial strength value form the user
+        /// </summary>
+        /// <param name="console"></param>
+        /// <param name="tempObject"></param>
+        /// <returns>user's chosen strength value</returns>
+        public int GetStrength(ConsoleView console, Colonist tempObject)
+        {
+            int userStrength = 0;
+            bool validStrength = false;
+            while (!validStrength)
+            {
+                console.ClearCurrentConsoleLine();
+                console.DisplayInputBoxPrompt($"Enter your strength value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                try
+                {
+                    userStrength = console.GetInteger();
+                }
+                catch (FormatException)
+                {
+                    console.DisplayInputBoxPrompt("Not an integer.");
+                    continue;
+                }
+                catch (Exception)
+                {
+                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    continue;
+                }
+
+                if (userStrength > tempObject.AbilityPoints || userStrength < 0)
+                {
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of strength than is possible.");
+                    continue;
+                }
+
+                tempObject.AbilityPoints -= userStrength;
+                validStrength = true;
+
+            }
+
+            return userStrength;
+            
+
+        }
+        /// <summary>
+        /// gets the initial constitution value from the user
+        /// </summary>
+        /// <param name="console"></param>
+        /// <param name="tempObject"></param>
+        /// <returns>user chosen constitution value</returns>
+        public int GetConstitution(ConsoleView console, Colonist tempObject)
+        {
+            int userConstitution = 0;
+            bool validConstitution = false;
+            while (!validConstitution)
+            {
+                console.ClearCurrentConsoleLine();
+                console.DisplayInputBoxPrompt($"Enter your constitution value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                try
+                {
+                    userConstitution = console.GetInteger();
+                }
+                catch (FormatException)
+                {
+                    console.DisplayInputBoxPrompt("Not an integer.");
+                    continue;
+                }
+                catch (Exception)
+                {
+                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    continue;
+                }
+
+                if (userConstitution > tempObject.AbilityPoints || userConstitution < 0)
+                {
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of constitution than is possible.");
+                    continue;
+                }
+
+                tempObject.AbilityPoints -= userConstitution;
+                validConstitution= true;
+
+            }
+
+            return userConstitution;
+
+
+
+        }
+
+        /// <summary>
+        /// gets the initial magic value from the user
+        /// </summary>
+        /// <param name="console"></param>
+        /// <param name="tempObject"></param>
+        /// <returns>user chosen magic value</returns>
+        public int GetMagic(ConsoleView console, Colonist tempObject)
+        {
+            int userMagic = 0;
+            bool validMagic = false;
+            while (!validMagic)
+            {
+                console.ClearCurrentConsoleLine();
+                console.DisplayInputBoxPrompt($"Enter your magic value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                try
+                {
+                    userMagic = console.GetInteger();
+                }
+                catch (FormatException)
+                {
+                    console.DisplayInputBoxPrompt("Not an integer.");
+                    continue;
+                }
+                catch (Exception)
+                {
+                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    continue;
+                }
+
+                if (userMagic > tempObject.AbilityPoints || userMagic < 0)
+                {
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of magic than is possible.");
+                    continue;
+                }
+
+                tempObject.AbilityPoints -= userMagic;
+                validMagic = true;
+
+            }
+
+            return userMagic;
+
+
+        }
+
+        /// <summary>
+        /// gets the initial agility value from the user
+        /// </summary>
+        /// <param name="console"></param>
+        /// <param name="tempObject"></param>
+        /// <returns>user chosen agility value</returns>
+        public int GetAgility(ConsoleView console, Colonist tempObject)
+        {
+            int userAgility = 0;
+            bool validAgility = false;
+            while (!validAgility)
+            {
+                console.ClearCurrentConsoleLine();
+                console.DisplayInputBoxPrompt($"Enter your agility value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                try
+                {
+                    userAgility = console.GetInteger();
+                }
+                catch (FormatException)
+                {
+                    console.DisplayInputBoxPrompt("Not an integer.");
+                    continue;
+                }
+                catch (Exception)
+                {
+                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    continue;
+                }
+
+                if (userAgility > tempObject.AbilityPoints || userAgility < 0)
+                {
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of agility than is possible.");
+                    continue;
+                }
+
+                tempObject.AbilityPoints -= userAgility;
+                validAgility = true;
+
+            }
+
+            return userAgility;
+
+
         }
 
         /// <summary>
@@ -312,9 +502,29 @@ namespace TBQuest
             //
             // get traveler's race
             //
+
+            /*
             console.DisplayGamePlayScreen("Mission Initialization - Race", Text.InitializeMissionGetTravelerRace(tempObject), ActionMenu.MissionIntro, "");
             console.DisplayInputBoxPrompt($"Enter your race {tempObject.Name}: ");
             tempObject.Race = console.GetRace();
+            */
+
+            //
+            // get ability points
+            //
+            console.DisplayGamePlayScreen("Mission Initialization - Ability Points", Text.InitializeMissionGetAbilityPoints(tempObject), ActionMenu.MissionIntro, "");
+            
+            tempObject.AbilityPoints = 10;
+            tempObject.Strength = console.GetStrength(console, tempObject);
+            tempObject.Constitution = console.GetConstitution(console, tempObject);
+            tempObject.Magic = console.GetMagic(console, tempObject);
+            tempObject.Agility = console.GetAgility(console, tempObject);
+
+            //reset ability points in case player did not use all 10 of them
+            tempObject.AbilityPoints = 0;
+
+            //console.GetContinueKey();
+            
 
             //
             // echo the traveler's info

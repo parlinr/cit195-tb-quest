@@ -128,7 +128,10 @@ namespace TBQuest
 
             _gameColonist.Name = playerResponse.Name;
             _gameColonist.Age = playerResponse.Age;
-            _gameColonist.Race = playerResponse.Race;
+            _gameColonist.Strength = playerResponse.Strength;
+            _gameColonist.Constitution = playerResponse.Constitution;
+            _gameColonist.Magic = playerResponse.Magic;
+            _gameColonist.Agility = playerResponse.Agility;
             
             
         }
