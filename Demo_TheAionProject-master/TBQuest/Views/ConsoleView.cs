@@ -403,7 +403,7 @@ namespace TBQuest
             ConsoleWindowControl.DisableResize();
             ConsoleWindowControl.DisableMaximize();
             ConsoleWindowControl.DisableMinimize();
-            Console.Title = "Example";
+            Console.Title = "KantiCraft";
 
             //
             // set the default console window values
