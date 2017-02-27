@@ -51,6 +51,7 @@
     <Compile Include="ConsoleUtilities\ConsoleWindowHelper.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\EditColonist.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Colonist.cs" />
     <Compile Include="Models\ColonistAction.cs" />

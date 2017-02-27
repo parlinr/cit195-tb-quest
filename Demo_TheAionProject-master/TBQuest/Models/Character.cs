@@ -16,9 +16,7 @@ namespace TBQuest
         public enum RaceType
         {
             None,
-            Human,
-            Thorian,
-            Xantorian
+            Human
         }
 
         #endregion
@@ -30,8 +28,10 @@ namespace TBQuest
         private int _age;
         private RaceType _race;
         private bool _isAlive = true;
+        
 
         
+
 
 
         #endregion

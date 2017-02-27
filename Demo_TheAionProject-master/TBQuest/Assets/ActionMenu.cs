@@ -35,7 +35,8 @@ namespace TBQuest
             MenuChoices = new Dictionary<char, ColonistAction>()
                 {
                     { '1', ColonistAction.ColonistInfo },
-                    { '2', ColonistAction.Exit }
+                    { '2', ColonistAction.EditColonistInfo},
+                    { '3', ColonistAction.Exit }
                 }
         };
 
@@ -50,5 +51,25 @@ namespace TBQuest
         //                ColonistAction.Exit
         //            }
         //};
+
+        /*
+        public static Menu EditColonistMenu = new Menu()
+        {
+            MenuName = "EditColonistMenu",
+            MenuTitle = "Edit Character Menu",
+            EditColonistMenuChoices = new Dictionary<char, EditColonist>()
+            {
+                { '1', EditColonist.Name },
+                { '2', EditColonist.Age },
+                { '3', EditColonist.Strength },
+                { '4', EditColonist.Constitution },
+                { '5', EditColonist.Magic },
+                { '6', EditColonist.Agility },
+                { '7', EditColonist.WeaponName },
+                { '8', EditColonist.Exit }
+            }
+        };
+        */
+
     }
 }

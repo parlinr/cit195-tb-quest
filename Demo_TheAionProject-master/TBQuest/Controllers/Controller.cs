@@ -105,6 +105,19 @@ namespace TBQuest
                     case ColonistAction.ColonistInfo:
                         _gameConsoleView.DisplayColonistInfo();
                         break;
+                    case ColonistAction.EditColonistInfo:
+                        Colonist playerEdit = new Colonist();
+                        playerEdit = _gameConsoleView.DisplayEditColonistInfo(_gameConsoleView);
+
+                        _gameColonist.Name = playerEdit.Name;
+                        _gameColonist.IsMeleeColonist = playerEdit.IsMeleeColonist;
+                        _gameColonist.Age = playerEdit.Age;
+                        _gameColonist.Strength = playerEdit.Strength;
+                        _gameColonist.Constitution = playerEdit.Constitution;
+                        _gameColonist.Magic = playerEdit.Magic;
+                        _gameColonist.Agility = playerEdit.Agility;
+                        _gameColonist.WeaponName = playerEdit.WeaponName;
+                        break;
 
                     case ColonistAction.Exit:
                         _playingGame = false;
@@ -127,11 +140,13 @@ namespace TBQuest
             playerResponse = _gameConsoleView.DisplayGetColonistInfo(_gameConsoleView);
 
             _gameColonist.Name = playerResponse.Name;
+            _gameColonist.IsMeleeColonist = playerResponse.IsMeleeColonist;
             _gameColonist.Age = playerResponse.Age;
             _gameColonist.Strength = playerResponse.Strength;
             _gameColonist.Constitution = playerResponse.Constitution;
             _gameColonist.Magic = playerResponse.Magic;
             _gameColonist.Agility = playerResponse.Agility;
+            _gameColonist.WeaponName = playerResponse.WeaponName;
             
             
         }

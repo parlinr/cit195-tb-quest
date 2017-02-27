@@ -12,7 +12,7 @@ namespace TBQuest
     public class Colonist : Character
     {
         #region ENUMERABLES
-
+       
 
         #endregion
 
@@ -22,8 +22,10 @@ namespace TBQuest
         private int _magic = 0;
         private int _agility = 0;
         private int _abilityPoints = 0;
+        private bool _isBeingChased = false;
+        private bool _isMeleeColonist = false;
+        private string _weaponName = "";
 
-       
         #endregion
 
 
@@ -57,6 +59,25 @@ namespace TBQuest
             get { return _abilityPoints; }
             set { _abilityPoints = value; }
         }
+
+        public bool IsBeingChased
+        {
+            get { return _isBeingChased; }
+            set { _isBeingChased = value; }
+        }
+
+        public bool IsMeleeColonist
+        {
+            get { return _isMeleeColonist; }
+            set { _isMeleeColonist = value; }
+        }
+
+        public string WeaponName
+        {
+            get { return _weaponName; }
+            set { _weaponName = value; }
+        }
+
 
         #endregion
 

@@ -18,11 +18,19 @@ namespace TBQuest
         PutDownTreasure,
         Travel,
         ColonistInfo,
+        EditColonistInfo,
         ColonistInventory,
         ColonistTreasure,
         ListTARDISDestinations,
         ListItems,
         ListTreasures,
+        EditName,
+        EditAge,
+        EditStrength,
+        EditConstitution,
+        EditMagic,
+        EditAgility,
+        EditWeaponName,
         Exit
     }
 }

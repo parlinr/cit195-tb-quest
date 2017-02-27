@@ -111,6 +111,14 @@ namespace TBQuest
             return messageBoxText;
         }
 
+        public static string InitializeMissionGetWeaponName(Colonist gameColonist)
+        {
+            string messageBoxText =
+                $"Since you put four or more points into strength {gameColonist.Name} you may now name your weapon.";
+
+            return messageBoxText;
+        }
+
         public static string InitializeMissionEchoTravelerInfo(Colonist gameTraveler)
         {
             string messageBoxText =
@@ -123,10 +131,22 @@ namespace TBQuest
                 $"\tColonist Age: {gameTraveler.Age}\n" +
                 $"\tColonist Strength: {gameTraveler.Strength}\n" +
                 $"\tColonist Constitution: {gameTraveler.Constitution}\n" +
-                $"\tColonist Magic: {gameTraveler.Magic}\n" + 
-                $"\tColonist Agility: {gameTraveler.Agility}\n" +
-                " \n" +
+                $"\tColonist Magic: {gameTraveler.Magic}\n" +
+                $"\tColonist Agility: {gameTraveler.Agility}\n";
+                if (gameTraveler.IsMeleeColonist)
+                {
+                    messageBoxText += $"\tWeapon Name: {gameTraveler.WeaponName}\n";
+                }
+                messageBoxText += " \n" +
                 "Press any key to begin your mission.";
+
+            return messageBoxText;
+        }
+
+        public static string EditColonistInfo()
+        {
+            string messageBoxText =
+                $"Use the menu to the right to edit the desired attribute.";
 
             return messageBoxText;
         }

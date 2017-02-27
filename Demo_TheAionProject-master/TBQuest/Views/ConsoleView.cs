@@ -92,6 +92,7 @@ namespace TBQuest
                 }
                 catch (KeyNotFoundException)
                 {
+                    ClearCurrentConsoleLine();
                     DisplayInputBoxPrompt("Invalid keystroke");
                     continue;
                 }
@@ -118,7 +119,7 @@ namespace TBQuest
         /// <returns>integer value</returns>
         public int GetInteger()
         {
-            return int.Parse(Console.ReadLine());
+           return int.Parse(Console.ReadLine());
         }
 
         /// <summary>
@@ -152,18 +153,24 @@ namespace TBQuest
                 }
                 catch (FormatException)
                 {
-                    console.DisplayInputBoxPrompt("Not an integer.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
                 catch (Exception)
                 {
-                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("An unknown error occurred. Press enter to try agian.");
+                    console.GetContinueKey();
                     continue;
                 }
 
                 if (userStrength > tempObject.AbilityPoints || userStrength < 0)
                 {
-                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of strength than is possible.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of strength than is possible. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
 
@@ -184,6 +191,7 @@ namespace TBQuest
         /// <returns>user chosen constitution value</returns>
         public int GetConstitution(ConsoleView console, Colonist tempObject)
         {
+            console.DisplayGamePlayScreen("Mission Initialization - Ability Points", Text.InitializeMissionGetAbilityPoints(tempObject), ActionMenu.MissionIntro, "");
             int userConstitution = 0;
             bool validConstitution = false;
             while (!validConstitution)
@@ -196,18 +204,24 @@ namespace TBQuest
                 }
                 catch (FormatException)
                 {
-                    console.DisplayInputBoxPrompt("Not an integer.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
                 catch (Exception)
                 {
-                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("An unknown error occurred. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
 
                 if (userConstitution > tempObject.AbilityPoints || userConstitution < 0)
                 {
-                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of constitution than is possible.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of constitution than is possible. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
 
@@ -242,18 +256,24 @@ namespace TBQuest
                 }
                 catch (FormatException)
                 {
-                    console.DisplayInputBoxPrompt("Not an integer.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
                 catch (Exception)
                 {
-                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("An unknown error occurred. Pres enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
 
                 if (userMagic > tempObject.AbilityPoints || userMagic < 0)
                 {
-                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of magic than is possible.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of magic than is possible. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
 
@@ -287,18 +307,24 @@ namespace TBQuest
                 }
                 catch (FormatException)
                 {
-                    console.DisplayInputBoxPrompt("Not an integer.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
                 catch (Exception)
                 {
-                    console.DisplayInputBoxPrompt("An unknown error occurred.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("An unknown error occurred. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
 
                 if (userAgility > tempObject.AbilityPoints || userAgility < 0)
                 {
-                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of agility than is possible.");
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of agility than is possible. Press enter to try again.");
+                    console.GetContinueKey();
                     continue;
                 }
 
@@ -310,6 +336,27 @@ namespace TBQuest
             return userAgility;
 
 
+        }
+
+        /// <summary>
+        /// melee characters (>=4 strength at character creation) can name their weapon
+        /// </summary>
+        /// <param name="console"></param>
+        /// <param name="tempObject"></param>
+        /// <returns></returns>
+        public string GetWeaponName (ConsoleView console, Colonist tempObject)
+        {
+            string playerWeaponName = "";
+
+            if (tempObject.Strength >= 4)
+            {
+                tempObject.IsMeleeColonist = true;
+                console.DisplayGamePlayScreen("Mission Intiialization - Name Weapon", Text.InitializeMissionGetWeaponName(tempObject), ActionMenu.MissionIntro, "");
+                console.DisplayInputBoxPrompt($"Enter your weapon's name {tempObject.Name}.");
+                playerWeaponName = console.GetString();
+            }
+
+            return playerWeaponName;
         }
 
         /// <summary>
@@ -495,9 +542,44 @@ namespace TBQuest
             //
             // get traveler's age
             //
-            console.DisplayGamePlayScreen("Mission Initialization - Age", Text.InitializeMissionGetTravelerAge(tempObject), ActionMenu.MissionIntro, "");
-            console.DisplayInputBoxPrompt($"Enter your age {tempObject.Name}: ");
-            tempObject.Age = console.GetInteger();
+            bool validAge = false;
+            while (!validAge)
+            {
+                int userAge;
+                console.DisplayGamePlayScreen("Mission Initialization - Age", Text.InitializeMissionGetTravelerAge(tempObject), ActionMenu.MissionIntro, "");
+                console.DisplayInputBoxPrompt($"Enter your age {tempObject.Name}: ");
+                try
+                {
+                    userAge = console.GetInteger();
+                }
+                catch (FormatException)
+                {
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("You did not enter an integer. Press enter to try again.");
+                    console.GetContinueKey();
+                    continue;
+
+                }
+                catch (Exception)
+                {
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("You did not enter an integer. Press enter to try again.");
+                    console.GetContinueKey();
+                    continue;
+                }
+
+                if (userAge < 0)
+                {
+                    console.ClearCurrentConsoleLine();
+                    console.DisplayInputBoxPrompt("You did not enter a valid age. Press enter to try again.");
+                    console.GetContinueKey();
+                    continue;
+                }
+
+                validAge = true;
+                tempObject.Age = userAge;
+            }
+            
 
             //
             // get traveler's race
@@ -516,9 +598,11 @@ namespace TBQuest
             
             tempObject.AbilityPoints = 10;
             tempObject.Strength = console.GetStrength(console, tempObject);
+            tempObject.WeaponName = console.GetWeaponName(console, tempObject);
             tempObject.Constitution = console.GetConstitution(console, tempObject);
             tempObject.Magic = console.GetMagic(console, tempObject);
             tempObject.Agility = console.GetAgility(console, tempObject);
+            
 
             //reset ability points in case player did not use all 10 of them
             tempObject.AbilityPoints = 0;
@@ -534,6 +618,15 @@ namespace TBQuest
 
 
             return tempObject;
+        }
+
+        public Colonist DisplayEditColonistInfo(ConsoleView console)
+        {
+            Colonist playerEdit = new Colonist();
+
+            playerEdit = DisplayGetColonistInfo(console);
+
+            return playerEdit;
         }
 
         #endregion
