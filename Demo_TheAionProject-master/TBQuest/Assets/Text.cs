@@ -11,7 +11,7 @@ namespace TBQuest
     /// </summary>
     public static class Text
     {
-        public static List<string> HeaderText = new List<string>() { "Example" };
+        public static List<string> HeaderText = new List<string>() { "KantiCraft" };
         public static List<string> FooterText = new List<string>() { "(c) MMXVII" };
 
         public static string MissionIntro()
