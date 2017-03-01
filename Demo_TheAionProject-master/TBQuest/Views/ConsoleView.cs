@@ -642,6 +642,7 @@ namespace TBQuest
 
             Location currentLocation = _gameUniverse.GetLocationByID(LocationID);
             DisplayGamePlayScreen("Current Location Info", Text.CurrentLocationInfo(1, _gameUniverse), ActionMenu.MainMenu, "");
+            GetContinueKey();
         }
 
         #endregion

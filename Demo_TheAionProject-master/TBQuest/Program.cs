@@ -14,7 +14,7 @@ namespace TBQuest
 
             Console.ReadKey();
 
-            //TODO look around functionality still broken
+            
         }
     }
 }

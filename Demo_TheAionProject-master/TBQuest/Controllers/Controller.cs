@@ -51,9 +51,10 @@ namespace TBQuest
         private void InitializeGame()
         {
             _gameColonist = new Colonist();
+            _gameUniverse = new Universe();
             _gameConsoleView = new ConsoleView(_gameColonist, _gameUniverse);
             _playingGame = true;
-            _gameUniverse = new Universe();
+            
 
             Console.CursorVisible = false;
         }
