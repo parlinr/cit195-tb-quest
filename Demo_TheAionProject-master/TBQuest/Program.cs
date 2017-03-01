@@ -13,6 +13,8 @@ namespace TBQuest
             Controller ganmeController = new Controller();
 
             Console.ReadKey();
+
+            //TODO look around functionality still broken
         }
     }
 }

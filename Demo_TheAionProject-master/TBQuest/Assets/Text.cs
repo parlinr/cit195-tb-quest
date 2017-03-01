@@ -27,8 +27,11 @@ namespace TBQuest
             return messageBoxText;
         }
 
-        public static string CurrentLocationInfo()
+        #region CurrentLocationInfo 
+
+        public static string CurrentLocationInfo(int LocationID, Universe gameUniverse)
         {
+            gameUniverse.GetLocationByID(LocationID);
             string messageBoxText =
             "You are at the colony on Brypso. \n" +
             " \n" +
@@ -36,6 +39,7 @@ namespace TBQuest
 
             return messageBoxText;
         }
+        #endregion
 
         #region Initialize Mission Text
 

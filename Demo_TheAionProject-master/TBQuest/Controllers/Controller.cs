@@ -16,7 +16,9 @@ namespace TBQuest
         private ConsoleView _gameConsoleView;
         private Colonist _gameColonist;
         private bool _playingGame;
+        private Universe _gameUniverse;
 
+        
         #endregion
 
         #region PROPERTIES
@@ -49,8 +51,9 @@ namespace TBQuest
         private void InitializeGame()
         {
             _gameColonist = new Colonist();
-            _gameConsoleView = new ConsoleView(_gameColonist);
+            _gameConsoleView = new ConsoleView(_gameColonist, _gameUniverse);
             _playingGame = true;
+            _gameUniverse = new Universe();
 
             Console.CursorVisible = false;
         }
@@ -87,11 +90,16 @@ namespace TBQuest
             InitializeMission();
 
             //
+            //prepare game play screen
+            //
+            //_gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(), ActionMenu.MainMenu, "");
+
+            //
             // game loop
             //
             while (_playingGame)
             {
-                _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(), ActionMenu.MainMenu, "");
+                _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(1, _gameUniverse), ActionMenu.MainMenu, "");
                 travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
 
                 //
@@ -117,6 +125,9 @@ namespace TBQuest
                         _gameColonist.Magic = playerEdit.Magic;
                         _gameColonist.Agility = playerEdit.Agility;
                         _gameColonist.WeaponName = playerEdit.WeaponName;
+                        break;
+                    case ColonistAction.LookAround:
+                        _gameConsoleView.DisplayCurrentLocationInfo();
                         break;
 
                     case ColonistAction.Exit:
@@ -147,6 +158,7 @@ namespace TBQuest
             _gameColonist.Magic = playerResponse.Magic;
             _gameColonist.Agility = playerResponse.Agility;
             _gameColonist.WeaponName = playerResponse.WeaponName;
+            _gameColonist.LocationID = 1;
             
             
         }

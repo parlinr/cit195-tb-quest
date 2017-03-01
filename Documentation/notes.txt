@@ -1,0 +1,4 @@
+for LocationID:
+	-location 0 is the player's inventory
+	-location 1 will be the initial location (in some sort of "purgatory")
+	

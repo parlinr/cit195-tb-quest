@@ -14,6 +14,7 @@ namespace TBQuest
         // declare a Colonist object for the ConsoleView object to use
         //
         Colonist _gameColonist;
+        Universe _gameUniverse;
 
         #endregion
 
@@ -26,9 +27,10 @@ namespace TBQuest
         /// <summary>
         /// default constructor to create the console view objects
         /// </summary>
-        public ConsoleView(Colonist gameColonist)
+        public ConsoleView(Colonist gameColonist, Universe gameUniverse)
         {
             _gameColonist = gameColonist;
+            _gameUniverse = gameUniverse;
 
             InitializeDisplay();
         }
@@ -36,7 +38,13 @@ namespace TBQuest
         #endregion
 
         #region METHODS
-
+        /// <summary>
+        /// Displays the content of the screen
+        /// </summary>
+        /// <param name="messageBoxHeaderText"></param>
+        /// <param name="messageBoxText"></param>
+        /// <param name="menu"></param>
+        /// <param name="inputBoxPrompt"></param>
         public void DisplayGamePlayScreen(string messageBoxHeaderText, string messageBoxText, Menu menu, string inputBoxPrompt)
         {
             //
@@ -626,6 +634,14 @@ namespace TBQuest
             playerEdit = DisplayGetColonistInfo(console);
 
             return playerEdit;
+        }
+
+        public void DisplayCurrentLocationInfo()
+        {
+            int LocationID = _gameColonist.LocationID;
+
+            Location currentLocation = _gameUniverse.GetLocationByID(LocationID);
+            DisplayGamePlayScreen("Current Location Info", Text.CurrentLocationInfo(1, _gameUniverse), ActionMenu.MainMenu, "");
         }
 
         #endregion

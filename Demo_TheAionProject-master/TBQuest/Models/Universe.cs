@@ -12,7 +12,7 @@ namespace TBQuest
     public class Universe
     {
         #region Lists maintained by Universe object
-
+        private List<Location> _locations;
         #endregion
 
         #region Constructor
@@ -27,7 +27,22 @@ namespace TBQuest
         #region Methods
         private void InitializeUniverse()
         {
+            _locations = UniverseObjects.Locations;
 
+        }
+
+        public Location GetLocationByID(int LocationID)
+        {
+            Location returnLocation = null;
+            foreach (Location location in _locations)
+            {
+                if (location.LocationID == LocationID)
+                {
+                    returnLocation = location;
+                }
+            }
+
+            return returnLocation;
         }
         #endregion
     }

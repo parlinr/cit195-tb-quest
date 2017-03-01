@@ -25,6 +25,7 @@ namespace TBQuest
         private bool _isBeingChased = false;
         private bool _isMeleeColonist = false;
         private string _weaponName = "";
+        private int LocationID = 1;
 
         #endregion
 

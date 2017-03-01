@@ -24,7 +24,7 @@ namespace TBQuest
         #region FIELDS
 
         private string _name;
-        //private int _spaceTimeLocationID;
+        protected int _locationID;
         private int _age;
         private RaceType _race;
         private bool _isAlive = true;
@@ -50,13 +50,13 @@ namespace TBQuest
             set { _isAlive = value; }
         }
 
-        /*
-        public int SpaceTimeLocationID
+        
+        public int LocationID
         {
-            get { return _spaceTimeLocationID; }
-            set { _spaceTimeLocationID = value; }
+            get { return _locationID; }
+            set { _locationID = value; }
         }
-        */
+        
 
         public int Age
         {
@@ -79,11 +79,11 @@ namespace TBQuest
 
         }
 
-        public Character(string name, RaceType race, int spaceTimeLocationID)
+        public Character(string name, RaceType race, int locationID)
         {
             _name = name;
             _race = race;
-            //_spaceTimeLocationID = spaceTimeLocationID;
+            _locationID = locationID;
         }
 
         #endregion
