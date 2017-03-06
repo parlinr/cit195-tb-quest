@@ -37,7 +37,10 @@ namespace TBQuest
                     { '1', ColonistAction.ColonistInfo },
                     { '2', ColonistAction.EditColonistInfo},
                     { '3', ColonistAction.LookAround},
-                    { '4', ColonistAction.Exit }
+                    { '4', ColonistAction.Travel},
+                    { '5', ColonistAction.ColonistLocationsVisited},
+                    {'6', ColonistAction.ListTARDISDestinations},
+                    {'0', ColonistAction.Exit }
                 }
         };
 

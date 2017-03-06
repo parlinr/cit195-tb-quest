@@ -31,6 +31,7 @@ namespace TBQuest
         EditMagic,
         EditAgility,
         EditWeaponName,
+        ColonistLocationsVisited,
         Exit
     }
 }

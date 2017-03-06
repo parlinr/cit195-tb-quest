@@ -8,6 +8,15 @@ namespace TBQuest
 {
     public class ConsoleView
     {
+        #region ENUMERABLES
+        private enum ViewStatus
+        { 
+            ColonistInitialization,
+            PlayingGame
+        }
+        #endregion
+    
+
         #region FIELDS
 
         //
@@ -15,6 +24,8 @@ namespace TBQuest
         //
         Colonist _gameColonist;
         Universe _gameUniverse;
+
+        ViewStatus _viewStatus;
 
         #endregion
 
@@ -31,6 +42,8 @@ namespace TBQuest
         {
             _gameColonist = gameColonist;
             _gameUniverse = gameUniverse;
+
+            _viewStatus = ViewStatus.ColonistInitialization;
 
             InitializeDisplay();
         }
@@ -88,6 +101,7 @@ namespace TBQuest
         public ColonistAction GetActionMenuChoice(Menu menu)
         {
             ColonistAction choosenAction = ColonistAction.None;
+            Console.CursorVisible = false;
 
             bool validKeystroke = false;
             while (!validKeystroke)
@@ -101,7 +115,9 @@ namespace TBQuest
                 catch (KeyNotFoundException)
                 {
                     ClearCurrentConsoleLine();
-                    DisplayInputBoxPrompt("Invalid keystroke");
+                    DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
+                    Console.ReadLine();
+                    ClearCurrentConsoleLine();
                     continue;
                 }
                 validKeystroke = true;
