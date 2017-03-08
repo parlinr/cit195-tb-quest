@@ -156,5 +156,36 @@ namespace TBQuest
         }
 
         #endregion
+
+        #region List All Locations
+        public static string ListLocations(List<Location> locations)
+        {
+            string messageBoxText = 
+                "Locations\n" +
+                "\n" +
+
+                //
+                //display table header
+                //
+            "ID".PadRight(10) + "Name".PadRight(30) + "\n" +
+            "---".PadRight(10) + "----------------------".PadRight(30) + "\n";
+
+            //
+            //display all locations
+            //
+            string locationList = null;
+            foreach (Location location in locations)
+            {
+                locationList +=
+                    $"{location.LocationID}".PadRight(10) +
+                    $"{location.CommonName}".PadRight(30) +
+                    Environment.NewLine;
+            }
+
+            messageBoxText += locationList;
+            return messageBoxText;
+        }
+
+        #endregion
     }
 }

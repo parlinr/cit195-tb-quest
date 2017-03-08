@@ -24,8 +24,9 @@ namespace TBQuest
         //
         Colonist _gameColonist;
         Universe _gameUniverse;
-
         ViewStatus _viewStatus;
+
+        
 
         #endregion
 

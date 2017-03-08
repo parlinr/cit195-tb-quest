@@ -11,10 +11,22 @@ namespace TBQuest
     /// </summary>
     public class Universe
     {
-        #region Lists maintained by Universe object
+        #region FIELDS
         private List<Location> _locations;
         #endregion
 
+        #region PROPERTIES
+        public List<Location> Locations
+        {
+            get { return _locations; }
+            set { _locations = value; }
+
+        }
+        
+
+        #endregion
+
+        
         #region Constructor
         //default constructor
         public Universe()
