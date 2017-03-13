@@ -21,7 +21,7 @@ namespace TBQuest
         EditColonistInfo,
         ColonistInventory,
         ColonistTreasure,
-        ListTARDISDestinations,
+        ListLocations,
         ListItems,
         ListTreasures,
         EditName,

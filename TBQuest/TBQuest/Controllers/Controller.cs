@@ -128,9 +128,12 @@ namespace TBQuest
                         _gameColonist.WeaponName = playerEdit.WeaponName;
                         break;
                     case ColonistAction.LookAround:
-                        _gameConsoleView.DisplayCurrentLocationInfo();
+                        _gameConsoleView.DisplayLookAround();
                         break;
-
+                    case ColonistAction.ListLocations:
+                        _gameConsoleView.DisplayListOfLocations();
+                        break;
+                    
                     case ColonistAction.Exit:
                         _playingGame = false;
                         break;

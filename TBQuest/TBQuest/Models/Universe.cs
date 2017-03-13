@@ -43,9 +43,13 @@ namespace TBQuest
 
         }
 
-        public Location GetLocationByID(int LocationID)
+        public Location GetLocationById(int LocationID)
         {
             Location returnLocation = null;
+
+            //
+            //iterate through list and get correct one
+            //
             foreach (Location location in _locations)
             {
                 if (location.LocationID == LocationID)
@@ -54,7 +58,72 @@ namespace TBQuest
                 }
             }
 
+            //
+            //the specified Id was not found
+            //throw an exception
+            //
+            if (returnLocation == null)
+            {
+                string feedbackMessage = $"The Location ID {LocationID} does not exist in the " +
+                    "current game universe.";
+                throw new ArgumentException(LocationID.ToString(), feedbackMessage);
+            }
+
             return returnLocation;
+        }
+
+        public bool IsValidLocationId(int locationId)
+        {
+            List<int> locationIds = new List<int>();
+
+            //
+            //create list of location ids
+            //
+            foreach (Location location in _locations)
+            {
+                locationIds.Add(location.LocationID);
+            }
+
+            //
+            //determine if the location id is a valid id and return
+            //the result
+            //
+            if (locationIds.Contains(locationId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsAccessibleLocation(int locationId)
+        {
+            Location location = GetLocationById(locationId);
+            if (location.Accessible == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public int GetMaxLocationId()
+        {
+            int maxId = 0;
+
+            foreach (Location location in Locations)
+            {
+                if (location.LocationID > maxId)
+                {
+                    maxId = location.LocationID;
+                }
+            }
+
+            return maxId;
         }
         #endregion
     }

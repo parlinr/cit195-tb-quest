@@ -31,7 +31,7 @@ namespace TBQuest
 
         public static string CurrentLocationInfo(int LocationID, Universe gameUniverse)
         {
-            gameUniverse.GetLocationByID(LocationID);
+            gameUniverse.GetLocationById(LocationID);
             string messageBoxText =
             "You are at the colony on Brypso. \n" +
             " \n" +
@@ -183,6 +183,20 @@ namespace TBQuest
             }
 
             messageBoxText += locationList;
+            messageBoxText += "\n" + "\n" + "\n" +
+            "Press any key to continue.";
+            
+            return messageBoxText;
+        }
+
+        public static string LookAround(Location location)
+        {
+            string messageBoxText =
+                $"Current Location: {location.CommonName}\n" +
+                "\n" +
+                location.GeneralContents + "\n" +
+                "Press any key to continue.";
+
             return messageBoxText;
         }
 

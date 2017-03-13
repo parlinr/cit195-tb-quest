@@ -657,8 +657,24 @@ namespace TBQuest
         {
             int LocationID = _gameColonist.LocationID;
 
-            Location currentLocation = _gameUniverse.GetLocationByID(LocationID);
+            Location currentLocation = _gameUniverse.GetLocationById(LocationID);
             DisplayGamePlayScreen("Current Location Info", Text.CurrentLocationInfo(1, _gameUniverse), ActionMenu.MainMenu, "");
+            GetContinueKey();
+        }
+
+        public void DisplayListOfLocations()
+        {
+            DisplayGamePlayScreen("List: Locations", Text.ListLocations
+                (_gameUniverse.Locations), ActionMenu.MainMenu, "");
+            GetContinueKey();
+        }
+
+        public void DisplayLookAround()
+        {
+            Location currentLocation = _gameUniverse.GetLocationById
+                (_gameColonist.LocationID);
+            DisplayGamePlayScreen("Current Location", Text.LookAround(currentLocation),
+                ActionMenu.MainMenu, "");
             GetContinueKey();
         }
 
