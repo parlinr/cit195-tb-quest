@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace TBQuest
 {
+    /// <summary>
+    /// Contains the user interface menus used throughout the project
+    /// </summary>
     public static class ActionMenu
     {
         public static Menu MissionIntro = new Menu()

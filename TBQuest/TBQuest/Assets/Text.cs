@@ -14,6 +14,10 @@ namespace TBQuest
         public static List<string> HeaderText = new List<string>() { "KantiCraft" };
         public static List<string> FooterText = new List<string>() { "(c) MMXVII" };
 
+        /// <summary>
+        /// Returns a string containing the introduction to the game's story
+        /// </summary>
+        /// <returns></returns>
         public static string MissionIntro()
         {
             string messageBoxText =
@@ -28,21 +32,27 @@ namespace TBQuest
         }
 
         #region CurrentLocationInfo 
-
+        /// <summary>
+        /// Returns a string containing information about the player's current location
+        /// </summary>
+        /// <param name="LocationID"></param>
+        /// <param name="gameUniverse"></param>
+        /// <returns></returns>
         public static string CurrentLocationInfo(int LocationID, Universe gameUniverse)
         {
-            gameUniverse.GetLocationById(LocationID);
-            string messageBoxText =
-            "You are at the colony on Brypso. \n" +
-            " \n" +
-            "\tChoose from the menu options to proceed.\n";
+            Location currentLocation = gameUniverse.GetLocationById(LocationID);
+            string messageBoxText = currentLocation.Description;
+            messageBoxText += "\nChoose from the menu options to proceed.\n";
 
             return messageBoxText;
         }
         #endregion
 
         #region Initialize Mission Text
-
+        /// <summary>
+        /// Returns a string of text telling the player they must set up their character 
+        /// </summary>
+        /// <returns></returns>
         public static string InitializeMissionIntro()
         {
             string messageBoxText =
