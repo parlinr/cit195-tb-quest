@@ -17,6 +17,7 @@ namespace TBQuest
         private Colonist _gameColonist;
         private bool _playingGame;
         private Universe _gameUniverse;
+        private Location _currentLocation;
 
         
         #endregion

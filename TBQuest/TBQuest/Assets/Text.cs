@@ -31,6 +31,10 @@ namespace TBQuest
             return messageBoxText;
         }
 
+        //
+        //Method regions
+        //
+
         #region CurrentLocationInfo 
         /// <summary>
         /// Returns a string containing information about the player's current location
@@ -48,7 +52,7 @@ namespace TBQuest
         }
         #endregion
 
-        #region Initialize Mission Text
+        #region InitializeMissionIntro
         /// <summary>
         /// Returns a string of text telling the player they must set up their character 
         /// </summary>
@@ -210,6 +214,56 @@ namespace TBQuest
             return messageBoxText;
         }
 
+        #endregion
+
+        #region Travel
+        public static string Travel(Colonist gameColonist, List<Location> locations)
+        {
+            string messageBoxText =
+                $"{gameColonist.Name}, the colony HQ will need to know the name of the new location. \n" +
+                " \n" +
+                "Enter the ID number of your desired location from the table below.\n" +
+                " \n" +
+
+                //
+                //display table header
+                //
+
+                "ID".PadRight(10) + "Name.PadRight(30)" + "Accessible".PadRight(10) + " \n" +
+                "---".PadRight(10) + "---------------------".PadRight(30) + "-------".PadRight(10) + "\n";
+
+            //
+            //display all locations except current location
+            //
+            string locationList = null;
+            foreach (Location location in locations)
+            {
+                if (location.LocationID != gameColonist.LocationID)
+                {
+                    locationList +=
+                        $"{location.LocationID}".PadRight(10) +
+                        $"{location.CommonName}".PadRight(30) +
+                        $"{location.Accessible}".PadRight(10) +
+                        Environment.NewLine;
+                }
+            }
+
+            messageBoxText += locationList;
+
+            return messageBoxText;
+        }
+        #endregion
+
+        #region CurrentLocationInfo
+        public static string CurrentLocationInfo(Location location)
+        {
+            string messageBoxText =
+                $"Current Location: {location.CommonName}\n" +
+                " \n" +
+                location.Description;
+
+            return messageBoxText;
+        }
         #endregion
     }
 }

@@ -678,6 +678,22 @@ namespace TBQuest
             GetContinueKey();
         }
 
+        //TODO: finish this method
+        public int DisplayGetNextLocation()
+        {
+            int locationId = 0;
+            bool validLocationId = false;
+
+            DisplayGamePlayScreen("Travel to a New Location", Text.Travel(_gameColonist,
+                _gameUniverse.Locations), ActionMenu.MainMenu, "");
+
+            while (!validLocationId)
+            {
+                //get integer from the player
+                
+            }
+        }
+
         #endregion
     }
 }
