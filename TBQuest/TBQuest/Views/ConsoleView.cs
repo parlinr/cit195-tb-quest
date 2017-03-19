@@ -763,6 +763,11 @@ namespace TBQuest
             console.DisplayGamePlayScreen("Mission Initialization - Complete", Text.InitializeMissionEchoTravelerInfo(tempObject), ActionMenu.MissionIntro, "");
             console.GetContinueKey();
 
+            //
+            // set _viewStatus to PlayingGame
+            //
+            _viewStatus = ViewStatus.PlayingGame;
+
 
             return tempObject;
         }

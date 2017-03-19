@@ -95,7 +95,7 @@ namespace TBQuest
             //prepare game play screen
             //
             _currentLocation = _gameUniverse.GetLocationById(_gameColonist.LocationID);
-            UpdateGameStatus();
+            
             
 
             //
@@ -103,6 +103,11 @@ namespace TBQuest
             //
             while (_playingGame)
             {
+                //
+                //process all flags, updates, and stats
+                //
+                UpdateGameStatus();
+
                 _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_gameColonist.LocationID, _gameUniverse), ActionMenu.MainMenu, "");
                 travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
                 
