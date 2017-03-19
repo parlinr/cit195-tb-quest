@@ -25,7 +25,11 @@ namespace TBQuest
         private bool _isBeingChased = false;
         private bool _isMeleeColonist = false;
         private string _weaponName = "";
-        private int LocationID = 1;
+        private List<int> _locationsVisited;
+        private int _experiencePoints;
+        private int _health;
+        private int _lives;
+
 
         #endregion
 
@@ -79,6 +83,30 @@ namespace TBQuest
             set { _weaponName = value; }
         }
 
+        public List<int> LocationsVisited
+        {
+            get { return _locationsVisited; }
+            set { _locationsVisited = value; }
+        }
+
+        public int ExperiencePoints
+        {
+            get { return _experiencePoints; }
+            set { _experiencePoints = value; }
+        }
+
+        public int Lives
+        {
+            get { return _lives; }
+            set { _lives = value; }
+        }
+
+        public int Health
+        {
+            get { return _health; }
+            set { _health = value; }
+        }
+
 
         #endregion
 
@@ -87,19 +115,30 @@ namespace TBQuest
 
         public Colonist()
         {
-
+            _locationsVisited = new List<int>();
         }
 
         public Colonist(string name, RaceType race, int spaceTimeLocationID) : base(name, race, spaceTimeLocationID)
         {
-
+            _locationsVisited = new List<int>();
         }
 
         #endregion
 
 
         #region METHODS
-        
+        public bool HasVisited(int _locationId)
+        {
+            if (LocationsVisited.Contains(_locationId))
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         #endregion
     }

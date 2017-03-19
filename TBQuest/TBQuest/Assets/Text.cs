@@ -171,6 +171,19 @@ namespace TBQuest
 
         #endregion
 
+        #region StatusBox
+        public static List<string> StatusBox(Colonist colonist, Universe universe)
+        {
+            List<string> statusBoxText = new List<string>();
+
+            statusBoxText.Add($"Experience Points: {colonist.ExperiencePoints}\n");
+            statusBoxText.Add($"Health: {colonist.Health}\n");
+            statusBoxText.Add($"Lives: {colonist.Lives}\n");
+
+            return statusBoxText;
+        }
+        #endregion
+
         #region List All Locations
         public static string ListLocations(List<Location> locations)
         {
@@ -229,7 +242,7 @@ namespace TBQuest
                 //display table header
                 //
 
-                "ID".PadRight(10) + "Name.PadRight(30)" + "Accessible".PadRight(10) + " \n" +
+                "ID".PadRight(10) + "Name".PadRight(30) + "Accessible".PadRight(10) + " \n" +
                 "---".PadRight(10) + "---------------------".PadRight(30) + "-------".PadRight(10) + "\n";
 
             //
@@ -261,6 +274,37 @@ namespace TBQuest
                 $"Current Location: {location.CommonName}\n" +
                 " \n" +
                 location.Description;
+
+            return messageBoxText;
+        }
+        #endregion
+
+        #region VisitedLocations
+        public static string VisitedLocations(List<Location> locations)
+        {
+            string messageBoxText =
+                "Locations Visited\n" +
+                " \n" +
+
+                //
+                //display table header
+                //
+                "ID".PadRight(10) + "Name".PadRight(30) + "\n" +
+                "---".PadRight(10) + "-------------------".PadRight(30) + "\n";
+
+            //
+            //display all locations
+            //
+            string locationList = null;
+            foreach (Location location in locations)
+            {
+                locationList +=
+                    $"{location.LocationID}".PadRight(10) +
+                    $"{location.CommonName}".PadRight(30) +
+                    Environment.NewLine;
+            }
+
+            messageBoxText += locationList;
 
             return messageBoxText;
         }

@@ -59,5 +59,15 @@ namespace TBQuest
         public static ConsoleColor InputBoxBorderColor = ConsoleColor.Yellow;
         public static ConsoleColor InputBoxHeaderBackgroundColor = ConsoleColor.Black;
         public static ConsoleColor InputBoxHeaderForegroundColor = ConsoleColor.Gray;
+        public static ConsoleColor InputBoxErrorMessageForegroundColor = ConsoleColor.Red;
+
+        //
+        // status box colors
+        //
+        public static ConsoleColor StatusBoxBackgroundColor = ConsoleColor.Black;
+        public static ConsoleColor StatusBoxForegroundColor = ConsoleColor.Gray;
+        public static ConsoleColor StatusBoxBorderColor = ConsoleColor.Yellow;
+        public static ConsoleColor StatusBoxHeaderBackgroundColor = ConsoleColor.Black;
+        public static ConsoleColor StatusBoxHeaderForegroundColor = ConsoleColor.Gray;
     }
 }

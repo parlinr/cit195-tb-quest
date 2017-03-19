@@ -16,7 +16,8 @@ namespace TBQuest
                 LocationID = 1,
                 Description = "You are in the atrium of the main colony building.",
                 GeneralContents = "",
-                Accessible = true
+                Accessible = true,
+                ExperiencePoints = 0
 
 
             },
@@ -28,7 +29,8 @@ namespace TBQuest
                 Description = "You are in the hangar of the main colony building. From here, you "
                               + "may travel to the other planets in the system.",
                 GeneralContents = "",
-                Accessible = true
+                Accessible = true,
+                ExperiencePoints = 0
 
             },
 
@@ -39,7 +41,8 @@ namespace TBQuest
                 Description = "You are in the motor pool of the main colony building. From here, "
                                + "you may travel to other locations on Brypso.",
                 GeneralContents = "",
-                Accessible = true
+                Accessible = true,
+                ExperiencePoints = 0
             }
         };
     }

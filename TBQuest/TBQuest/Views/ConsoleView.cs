@@ -74,6 +74,7 @@ namespace TBQuest
             DisplayMessageBox(messageBoxHeaderText, messageBoxText);
             DisplayMenuBox(menu);
             DisplayInputBox();
+            DisplayStatusBox();
         }
 
         /// <summary>
@@ -147,6 +148,69 @@ namespace TBQuest
            return int.Parse(Console.ReadLine());
         }
 
+        private bool GetInteger(string prompt, int minimumValue, int maximumValue, out int integerChoice)
+        {
+            bool validResponse = false;
+            integerChoice = 0;
+
+            DisplayInputBoxPrompt(prompt);
+            while (!validResponse)
+            {
+                if (int.TryParse(Console.ReadLine(), out integerChoice))
+                {
+                    if (integerChoice >= minimumValue && integerChoice <= maximumValue)
+                    {
+                        validResponse = true;
+                    }
+                    else
+                    {
+                        ClearInputBox();
+                        DisplayInputErrorMessage($"You must enter an integer value between {minimumValue} and {maximumValue}. Please try again.");
+                        DisplayInputBoxPrompt(prompt);
+                    }
+                }
+                else
+                {
+                    ClearInputBox();
+                    DisplayInputErrorMessage($"You must enter an integer value between {minimumValue} and {maximumValue}. Please try again.");
+                    DisplayInputBoxPrompt(prompt);
+                }
+            }
+
+            Console.CursorVisible = false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// clear the input box
+        /// </summary>
+        private void ClearInputBox()
+        {
+            string backgroundColorString = new String(' ', ConsoleLayout.InputBoxWidth - 4);
+
+            Console.ForegroundColor = ConsoleTheme.InputBoxBackgroundColor;
+            for (int row = 1; row < ConsoleLayout.InputBoxHeight - 2; row++)
+            {
+                Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + row);
+                DisplayInputBoxPrompt(backgroundColorString);
+            }
+            Console.ForegroundColor = ConsoleTheme.InputBoxForegroundColor;
+        }
+
+        /// <summary>
+        /// display the error message in the input box of the game screen
+        /// </summary>
+        /// <param name="errorMessage">error message text</param>
+        public void DisplayInputErrorMessage(string errorMessage)
+        {
+            Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 2);
+            Console.ForegroundColor = ConsoleTheme.InputBoxErrorMessageForegroundColor;
+            Console.Write(errorMessage);
+            Console.ForegroundColor = ConsoleTheme.InputBoxForegroundColor;
+            Console.CursorVisible = true;
+        }
+
         /// <summary>
         /// get a character race value from the user
         /// </summary>
@@ -171,7 +235,7 @@ namespace TBQuest
             while (!validStrength)
             {
                 console.ClearCurrentConsoleLine();
-                console.DisplayInputBoxPrompt($"Enter your strength value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                console.DisplayInputBoxPrompt($"Enter your strength value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
                 try
                 {
                     userStrength = console.GetInteger();
@@ -222,7 +286,7 @@ namespace TBQuest
             while (!validConstitution)
             {
                 console.ClearCurrentConsoleLine();
-                console.DisplayInputBoxPrompt($"Enter your constitution value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                console.DisplayInputBoxPrompt($"Enter your constitution value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
                 try
                 {
                     userConstitution = console.GetInteger();
@@ -274,7 +338,7 @@ namespace TBQuest
             while (!validMagic)
             {
                 console.ClearCurrentConsoleLine();
-                console.DisplayInputBoxPrompt($"Enter your magic value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                console.DisplayInputBoxPrompt($"Enter your magic value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
                 try
                 {
                     userMagic = console.GetInteger();
@@ -325,7 +389,7 @@ namespace TBQuest
             while (!validAgility)
             {
                 console.ClearCurrentConsoleLine();
-                console.DisplayInputBoxPrompt($"Enter your agility value {tempObject.Name} (0-{tempObject.AbilityPoints})");
+                console.DisplayInputBoxPrompt($"Enter your agility value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
                 try
                 {
                     userAgility = console.GetInteger();
@@ -531,6 +595,65 @@ namespace TBQuest
                 ConsoleLayout.InputBoxHeight);
         }
 
+        /// <summary>
+        /// draw the status box on the game screen
+        /// </summary>
+        public void DisplayStatusBox()
+        {
+            Console.BackgroundColor = ConsoleTheme.InputBoxBackgroundColor;
+            Console.ForegroundColor = ConsoleTheme.InputBoxBorderColor;
+
+            //
+            // display the outline for the status box
+            //
+            ConsoleWindowHelper.DisplayBoxOutline(
+                ConsoleLayout.StatusBoxPositionTop,
+                ConsoleLayout.StatusBoxPositionLeft,
+                ConsoleLayout.StatusBoxWidth,
+                ConsoleLayout.StatusBoxHeight);
+
+            //
+            // display the text for the status box if playing game
+            //
+            if (_viewStatus == ViewStatus.PlayingGame)
+            {
+                //
+                // display status box header with title
+                //
+                Console.BackgroundColor = ConsoleTheme.StatusBoxBorderColor;
+                Console.ForegroundColor = ConsoleTheme.StatusBoxForegroundColor;
+                Console.SetCursorPosition(ConsoleLayout.StatusBoxPositionLeft + 2, ConsoleLayout.StatusBoxPositionTop + 1);
+                Console.Write(ConsoleWindowHelper.Center("Game Stats", ConsoleLayout.StatusBoxWidth - 4));
+                Console.BackgroundColor = ConsoleTheme.StatusBoxBackgroundColor;
+                Console.ForegroundColor = ConsoleTheme.StatusBoxForegroundColor;
+
+                //
+                // display stats
+                //
+                int startingRow = ConsoleLayout.StatusBoxPositionTop + 3;
+                int row = startingRow;
+                foreach (string statusTextLine in Text.StatusBox(_gameColonist, _gameUniverse))
+                {
+                    Console.SetCursorPosition(ConsoleLayout.StatusBoxPositionLeft + 3, row);
+                    Console.Write(statusTextLine);
+                    row++;
+                }
+            }
+            else
+            {
+                //
+                // display status box header without header
+                //
+                Console.BackgroundColor = ConsoleTheme.StatusBoxBorderColor;
+                Console.ForegroundColor = ConsoleTheme.StatusBoxForegroundColor;
+                Console.SetCursorPosition(ConsoleLayout.StatusBoxPositionLeft + 2, ConsoleLayout.StatusBoxPositionTop + 1);
+                Console.Write(ConsoleWindowHelper.Center("", ConsoleLayout.StatusBoxWidth - 4));
+                Console.BackgroundColor = ConsoleTheme.StatusBoxBackgroundColor;
+                Console.ForegroundColor = ConsoleTheme.StatusBoxForegroundColor;
+            }
+        }
+
+
         public void DisplayInputBoxPrompt(string prompt)
         {
             Console.SetCursorPosition(ConsoleLayout.InputBoxPositionLeft + 4, ConsoleLayout.InputBoxPositionTop + 1);
@@ -653,12 +776,15 @@ namespace TBQuest
             return playerEdit;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void DisplayCurrentLocationInfo()
         {
             int LocationID = _gameColonist.LocationID;
 
             Location currentLocation = _gameUniverse.GetLocationById(LocationID);
-            DisplayGamePlayScreen("Current Location Info", Text.CurrentLocationInfo(1, _gameUniverse), ActionMenu.MainMenu, "");
+            DisplayGamePlayScreen("Current Location Info", Text.CurrentLocationInfo(LocationID, _gameUniverse), ActionMenu.MainMenu, "");
             GetContinueKey();
         }
 
@@ -678,7 +804,7 @@ namespace TBQuest
             GetContinueKey();
         }
 
-        //TODO: finish this method
+        
         public int DisplayGetNextLocation()
         {
             int locationId = 0;
@@ -690,9 +816,50 @@ namespace TBQuest
             while (!validLocationId)
             {
                 //get integer from the player
+                GetInteger($"Enter your new location {_gameColonist.Name}: ", 1, _gameUniverse.GetMaxLocationId(), out locationId);
+
+                //
+                //validate integer as valid location ID and determine accessibility
+                //
+                if (_gameUniverse.IsValidLocationId(locationId))
+                {
+                    if (_gameUniverse.IsAccessibleLocation(locationId))
+                    {
+                        validLocationId = true;
+                    }
+                    else
+                    {
+                        ClearInputBox();
+                        DisplayInputErrorMessage("It appears you are attempting to travel to an inaccessible location. Please try again.");
+                    }
+
+                }
+                else
+                {
+                    DisplayInputErrorMessage("It appears you entered a invalid location ID. Please try again.");
+                }
                 
             }
+
+            return locationId;
         }
+
+        public void DisplayLocationsVisited()
+        {
+            //
+            //generate a list of locations that have been visited
+            //
+            List<Location> visitedLocations = new List<Location>();
+            foreach (int locationId in _gameColonist.LocationsVisited)
+            {
+                visitedLocations.Add(_gameUniverse.GetLocationById(locationId));
+            }
+
+            DisplayGamePlayScreen("Locations Visited", Text.VisitedLocations(visitedLocations), ActionMenu.MainMenu, "Press any key to continue.");
+            GetContinueKey();
+        }
+
+
 
         #endregion
     }

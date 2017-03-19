@@ -40,7 +40,7 @@ namespace TBQuest
         // menu box configuration
         //
         public static int MenuBoxWidth = 37;
-        public static int MenuBoxHeight = 25;
+        public static int MenuBoxHeight = 20;
         public static int MenuBoxPositionLeft = 122;
         public static int MenuBoxPositionTop = 3;
 
@@ -55,9 +55,17 @@ namespace TBQuest
         //
         // input box configuration
         //
-        public static int InputBoxWidth = 158;
+        public static int InputBoxWidth = 120;
         public static int InputBoxHeight = 4;
         public static int InputBoxPositionLeft = 1;
         public static int InputBoxPositionTop = 28;
+
+        //
+        // status box configuration
+        //
+        public static int StatusBoxWidth = 37;
+        public static int StatusBoxHeight = 9;
+        public static int StatusBoxPositionLeft = 122;
+        public static int StatusBoxPositionTop = 23;
     }
 }

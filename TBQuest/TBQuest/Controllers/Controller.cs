@@ -94,16 +94,18 @@ namespace TBQuest
             //
             //prepare game play screen
             //
-            //_gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(), ActionMenu.MainMenu, "");
+            _currentLocation = _gameUniverse.GetLocationById(_gameColonist.LocationID);
+            UpdateGameStatus();
+            
 
             //
             // game loop
             //
             while (_playingGame)
             {
-                _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(1, _gameUniverse), ActionMenu.MainMenu, "");
+                _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_gameColonist.LocationID, _gameUniverse), ActionMenu.MainMenu, "");
                 travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
-
+                
                 //
                 // choose an action based on the user's menu choice
                 //
@@ -127,12 +129,29 @@ namespace TBQuest
                         _gameColonist.Magic = playerEdit.Magic;
                         _gameColonist.Agility = playerEdit.Agility;
                         _gameColonist.WeaponName = playerEdit.WeaponName;
+                        
+                        
                         break;
                     case ColonistAction.LookAround:
                         _gameConsoleView.DisplayLookAround();
                         break;
                     case ColonistAction.ListLocations:
                         _gameConsoleView.DisplayListOfLocations();
+                        break;
+                    case ColonistAction.Travel:
+                        //
+                        //get new location choice and update the current location property
+                        //
+                        _gameColonist.LocationID = _gameConsoleView.DisplayGetNextLocation();
+                        _currentLocation = _gameUniverse.GetLocationById(_gameColonist.LocationID);
+
+                        //
+                        //set the game play screen to the current location info format
+                        //
+                        _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_currentLocation), ActionMenu.MainMenu, "");
+                        break;
+                    case ColonistAction.ColonistLocationsVisited:
+                        _gameConsoleView.DisplayLocationsVisited();
                         break;
                     
                     case ColonistAction.Exit:
@@ -142,6 +161,11 @@ namespace TBQuest
                     default:
                         break;
                 }
+
+                //
+                // process all flags, events, and stats
+                //
+                UpdateGameStatus();
             }
 
             //
@@ -164,9 +188,32 @@ namespace TBQuest
             _gameColonist.Agility = playerResponse.Agility;
             _gameColonist.WeaponName = playerResponse.WeaponName;
             _gameColonist.LocationID = 1;
+
+            _gameColonist.ExperiencePoints = 0;
+            _gameColonist.Health = 100;
+            _gameColonist.Lives = 3;
             
-            
+                      
         }
+
+
+
+        private void UpdateGameStatus()
+        {
+            if (!_gameColonist.HasVisited(_currentLocation.LocationID))
+            {
+                //
+                //add new location to list of visited locations if this is a first visit
+                //
+                _gameColonist.LocationsVisited.Add(_currentLocation.LocationID);
+
+                //
+                //update experience points for visiting locations
+                //
+                _gameColonist.ExperiencePoints += _currentLocation.ExperiencePoints;
+            }
+        }
+
 
         #endregion
     }
