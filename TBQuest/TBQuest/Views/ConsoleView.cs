@@ -97,7 +97,7 @@ namespace TBQuest
         }
 
         /// <summary>
-        /// get a action menu choice from the user
+        /// get an action menu choice from the user
         /// </summary>
         /// <returns>action menu choice</returns>
         public ColonistAction GetActionMenuChoice(Menu menu)
@@ -126,6 +126,40 @@ namespace TBQuest
             }
             
            
+
+            return choosenAction;
+        }
+
+        /// <summary>
+        /// get an edit character menu choice from the user
+        /// </summary>
+        /// <returns>action menu choice</returns>
+        public EditColonist GetActionEditMenuChoice(Menu menu)
+        {
+            EditColonist choosenAction = EditColonist.None;
+            Console.CursorVisible = false;
+
+            bool validKeystroke = false;
+            while (!validKeystroke)
+            {
+                try
+                {
+                    ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+                    char keyPressed = keyPressedInfo.KeyChar;
+                    choosenAction = menu.EditColonistMenuChoices[keyPressed];
+                }
+                catch (KeyNotFoundException)
+                {
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
+                    Console.ReadLine();
+                    ClearCurrentConsoleLine();
+                    continue;
+                }
+                validKeystroke = true;
+            }
+
+
 
             return choosenAction;
         }
@@ -449,6 +483,27 @@ namespace TBQuest
         }
 
         /// <summary>
+        /// if a player has >=4 strength on edit, they can modify weapon name.
+        /// </summary>
+        /// <param name="console"></param>
+        /// <param name="tempObject"></param>
+        /// <returns></returns>
+        public string EditWeaponName(ConsoleView console, Colonist tempObject)
+        {
+            string playerWeaponName = "";
+
+            if (tempObject.Strength >= 4)
+            {
+                tempObject.IsMeleeColonist = true;
+                console.DisplayGamePlayScreen("Colonist Edit - Name Weapon", Text.EditColonistGetWeaponName(tempObject), ActionMenu.MissionIntro, "");
+                console.DisplayInputBoxPrompt($" Enter you weapon's new name (or press Enter to leave it unchanged) .");
+                playerWeaponName = console.GetString();
+            }
+
+            return playerWeaponName;
+        }
+
+        /// <summary>
         /// display splash screen
         /// </summary>
         /// <returns>player chooses to play</returns>
@@ -531,15 +586,34 @@ namespace TBQuest
             Console.ForegroundColor = ConsoleTheme.MenuForegroundColor;
             int topRow = ConsoleLayout.MenuBoxPositionTop + 3;
 
-            foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
+            //
+            // use the proper dictionary based on what menu is being passed
+            //
+            if (menu == ActionMenu.MainMenu)
             {
-                if (menuChoice.Value != ColonistAction.None)
+                foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
                 {
-                    string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
-                    Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
-                    Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+                    if (menuChoice.Value != ColonistAction.None)
+                    {
+                        string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
+                        Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+                        Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+                    }
                 }
             }
+            else if (menu == ActionMenu.EditColonistMenu)
+            {
+                foreach (KeyValuePair<char, EditColonist> menuChoice in menu.EditColonistMenuChoices)
+                {
+                    if (menuChoice.Value != EditColonist.None)
+                    {
+                        string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
+                        Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+                        Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+                    }
+                }
+            }
+            
         }
 
         private void DisplayMessageBox(string headerText, string messageText)
@@ -776,8 +850,106 @@ namespace TBQuest
         {
             Colonist playerEdit = new Colonist();
 
-            playerEdit = DisplayGetColonistInfo(console);
+            /*playerEdit = DisplayGetColonistInfo(console);*/
+            EditColonist editActionChoice = EditColonist.None;
 
+            
+
+
+            bool editing = true;
+            while (editing)
+            {
+                //
+                // sub-screen
+                //
+                console.DisplayGamePlayScreen("Edit Colonist Info", Text.EditColonistSubMenu(), ActionMenu.EditColonistMenu, "");
+                editActionChoice = console.GetActionEditMenuChoice(ActionMenu.EditColonistMenu);
+
+                //
+                // choose the edit screen based on user's choice
+                //
+                switch (editActionChoice)
+                {
+                    case EditColonist.None:
+                        break;
+                    case EditColonist.Name:
+                        console.DisplayGamePlayScreen("Colonist Edit - Name", Text.InitializeMissionGetTravelerName(), ActionMenu.MissionIntro, "");
+                        console.DisplayInputBoxPrompt("Enter your name: ");
+                        playerEdit.Name = console.GetString();
+                        break;
+                    case EditColonist.Age:
+                        bool validAge = false;
+                        while (!validAge)
+                        {
+                            int userAge;
+                            console.DisplayGamePlayScreen("Colonist Edit - Age", Text.InitializeMissionGetTravelerAge(playerEdit), ActionMenu.MissionIntro, "");
+                            console.DisplayInputBoxPrompt($"Enter your age {playerEdit.Name}: ");
+                            try
+                            {
+                                userAge = console.GetInteger();
+                            }
+                            catch (FormatException)
+                            {
+                                console.ClearCurrentConsoleLine();
+                                console.DisplayInputBoxPrompt("You did not enter an integer. Press enter to try again.");
+                                console.GetContinueKey();
+                                continue;
+
+                            }
+                            catch (Exception)
+                            {
+                                console.ClearCurrentConsoleLine();
+                                console.DisplayInputBoxPrompt("You did not enter an integer. Press enter to try again.");
+                                console.GetContinueKey();
+                                continue;
+                            }
+
+                            if (userAge < 0)
+                            {
+                                console.ClearCurrentConsoleLine();
+                                console.DisplayInputBoxPrompt("You did not enter a valid age. Press enter to try again.");
+                                console.GetContinueKey();
+                                continue;
+                            }
+
+                            validAge = true;
+                            playerEdit.Age = userAge;
+                        }
+                        break;
+                    case EditColonist.AbilityPoints:
+                        
+                        console.DisplayGamePlayScreen("Colonist Edit - Ability Points", Text.InitializeMissionGetAbilityPoints(playerEdit), ActionMenu.MissionIntro, "");
+
+                        playerEdit.AbilityPoints = 10;
+                        playerEdit.Strength = console.GetStrength(console, playerEdit);
+                        
+                        playerEdit.Constitution = console.GetConstitution(console, playerEdit);
+                        playerEdit.Magic = console.GetMagic(console, playerEdit);
+                        playerEdit.Agility = console.GetAgility(console, playerEdit);
+
+                        //
+                        // reset ability points in case player did not use all of them
+                        //
+                        playerEdit.AbilityPoints = 0;
+
+                        //
+                        // if strength >= 4, offer a chance to edit weapon name
+                        //
+                        if (playerEdit.Strength >= 4)
+                        {
+                            playerEdit.WeaponName = console.GetWeaponName(console, playerEdit);
+                        }
+                        
+                        break;
+
+                    case EditColonist.ExitEditMenu:
+                        editing = false;
+                        break;
+
+
+                }
+            }
+            
             return playerEdit;
         }
 

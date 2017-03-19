@@ -11,7 +11,7 @@ namespace TBQuest
         public string MenuName { get; set; }
         public string MenuTitle { get; set; }
         public Dictionary<char, ColonistAction> MenuChoices { get; set; }
-        //public Dictionary<char, EditColonist> EditColonistMenuChoices { get; set; }
+        public Dictionary<char, EditColonist> EditColonistMenuChoices { get; set; }
 
     }
 }

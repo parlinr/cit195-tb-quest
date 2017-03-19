@@ -25,7 +25,7 @@ namespace TBQuest
 
         private string _name;
         protected int _locationID;
-        private int _age;
+        private int _age = 0;
         private RaceType _race;
         private bool _isAlive = true;
         

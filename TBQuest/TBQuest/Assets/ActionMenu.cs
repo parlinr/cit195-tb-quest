@@ -47,19 +47,8 @@ namespace TBQuest
                 }
         };
 
-        //public static Menu ManageTraveler = new Menu()
-        //{
-        //    MenuName = "ManageTraveler",
-        //    MenuTitle = "Manage Colonist",
-        //    MenuChoices = new Dictionary<char, ColonistAction>()
-        //            {
-        //                ColonistAction.MissionSetup,
-        //                ColonistAction.TravelerInfo,
-        //                ColonistAction.Exit
-        //            }
-        //};
-
-        /*
+        
+        
         public static Menu EditColonistMenu = new Menu()
         {
             MenuName = "EditColonistMenu",
@@ -68,15 +57,11 @@ namespace TBQuest
             {
                 { '1', EditColonist.Name },
                 { '2', EditColonist.Age },
-                { '3', EditColonist.Strength },
-                { '4', EditColonist.Constitution },
-                { '5', EditColonist.Magic },
-                { '6', EditColonist.Agility },
-                { '7', EditColonist.WeaponName },
-                { '8', EditColonist.Exit }
+                { '3', EditColonist.AbilityPoints },
+                { '0', EditColonist.ExitEditMenu }
             }
         };
-        */
+        
 
     }
 }

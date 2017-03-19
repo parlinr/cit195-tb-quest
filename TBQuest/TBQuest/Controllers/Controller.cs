@@ -126,17 +126,46 @@ namespace TBQuest
                         Colonist playerEdit = new Colonist();
                         playerEdit = _gameConsoleView.DisplayEditColonistInfo(_gameConsoleView);
 
-                        _gameColonist.Name = playerEdit.Name;
-                        _gameColonist.IsMeleeColonist = playerEdit.IsMeleeColonist;
-                        _gameColonist.Age = playerEdit.Age;
-                        _gameColonist.Strength = playerEdit.Strength;
-                        _gameColonist.Constitution = playerEdit.Constitution;
-                        _gameColonist.Magic = playerEdit.Magic;
-                        _gameColonist.Agility = playerEdit.Agility;
-                        _gameColonist.WeaponName = playerEdit.WeaponName;
-                        
-                        
+                        if (playerEdit.Name != "")
+                        {
+                            _gameColonist.Name = playerEdit.Name;
+                        }
+                        if (playerEdit.Age != 0)
+                        {
+                            _gameColonist.Age = playerEdit.Age;
+                        }
+                        if (playerEdit.Strength != 0)
+                        {
+                            _gameColonist.Strength = playerEdit.Strength;
+                        }
+                        if (playerEdit.Strength >= 4)
+                        {
+                            _gameColonist.IsMeleeColonist = true;
+                        }
+                        else if (playerEdit.Strength > 0 && playerEdit.Strength < 4)
+                        {
+                            _gameColonist.IsMeleeColonist = false;
+                        }
+
+                        if (playerEdit.Constitution != 0)
+                        {
+                            _gameColonist.Constitution = playerEdit.Constitution;
+                        }
+                        if (playerEdit.Magic != 0)
+                        {
+                            _gameColonist.Magic = playerEdit.Magic;
+                        }
+                        if (playerEdit.Agility != 0)
+                        {
+                            _gameColonist.Agility = playerEdit.Agility;
+                        }
+                        if (playerEdit.WeaponName != "")
+                        {
+                            _gameColonist.WeaponName = playerEdit.WeaponName;
+                        }
+
                         break;
+
                     case ColonistAction.LookAround:
                         _gameConsoleView.DisplayLookAround();
                         break;
@@ -167,10 +196,7 @@ namespace TBQuest
                         break;
                 }
 
-                //
-                // process all flags, events, and stats
-                //
-                UpdateGameStatus();
+                
             }
 
             //

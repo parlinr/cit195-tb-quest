@@ -12,10 +12,11 @@ namespace TBQuest
         Name,
         Age,
         Strength,
+        AbilityPoints,
         Constitution,
         Magic,
         Agility,
         WeaponName,
-        Exit
+        ExitEditMenu
     }
 }

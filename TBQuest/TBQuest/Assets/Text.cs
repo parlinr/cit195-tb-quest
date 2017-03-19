@@ -137,6 +137,14 @@ namespace TBQuest
             return messageBoxText;
         }
 
+        public static string EditColonistGetWeaponName(Colonist gameColonist)
+        {
+            string messageBoxText =
+                $"Since you put four or more points into strength you may now edit your weapon.";
+
+            return messageBoxText;
+        }
+
         public static string InitializeMissionEchoTravelerInfo(Colonist gameTraveler)
         {
             string messageBoxText =
@@ -308,6 +316,18 @@ namespace TBQuest
 
             return messageBoxText;
         }
+        #endregion
+
+        #region EditColonistInfo
+        public static string EditColonistSubMenu()
+        {
+            string messageBoxText =
+                "Use the menu to the right to edit your information.";
+
+            return messageBoxText;
+        }
+
+
         #endregion
     }
 }
