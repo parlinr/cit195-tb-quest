@@ -24,7 +24,7 @@ namespace TBQuest
             "You are a colonist of a far-off land, atempting to establish a colony " +
             "in the Kanti system. The Kanti system has three planets: Phobos, Brypso, and Duskore; " +
             "your colony is on Brypso. The Kanti system has native life that is impeding your progress in " +
-            "establishing a colony. Also, since the Kanti system is the only place for some distance with the" +
+            "establishing a colony. Also, since the Kanti system is the only place for some distance with the " +
             "conditions necessary to support life and the resources to make colonization worthwhile, you may find " +
             "that there is a competitor waiting in the wings ....";
 

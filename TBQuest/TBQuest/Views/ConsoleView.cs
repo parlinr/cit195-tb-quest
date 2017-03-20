@@ -815,6 +815,8 @@ namespace TBQuest
             //
             // get ability points
             //
+
+            
             console.DisplayGamePlayScreen("Mission Initialization - Ability Points", Text.InitializeMissionGetAbilityPoints(tempObject), ActionMenu.MissionIntro, "");
             
             tempObject.AbilityPoints = 10;
@@ -830,6 +832,8 @@ namespace TBQuest
 
             //console.GetContinueKey();
             
+
+
 
             //
             // echo the traveler's info

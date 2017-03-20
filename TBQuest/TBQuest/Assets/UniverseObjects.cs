@@ -43,7 +43,41 @@ namespace TBQuest
                 GeneralContents = "",
                 Accessible = true,
                 ExperiencePoints = 0
+            },
+
+            new Location
+            {
+                CommonName = "Brypso Forward Outpost",
+                LocationID = 4,
+                Description = "This is a location away from the colony on Brypso that is nearby several locations of interest.",
+                GeneralContents = "",
+                Accessible = true,
+                ExperiencePoints = 10
+        
+            },
+
+            new Location
+            {
+                CommonName = "Phobos Forward Outpost",
+                LocationID = 5,
+                Description = "This is a location on Phobos that is nearby several locations of interest. Also, this is the location where you "
+                                + "will travel from Phobos to another planet.",
+                GeneralContents = "",
+                Accessible = true,
+                ExperiencePoints = 10
+            },
+
+            new Location
+            {
+                CommonName = "Duskore Forward Outpost",
+                LocationID = 6,
+                Description = "This is a location on Duskore that is nearby several locations of interest. Also, this is the location where you "
+                                + "will travel from Duskore to another planet.",
+                GeneralContents = "",
+                Accessible = true,
+                ExperiencePoints = 10
             }
+
         };
     }
 }

@@ -26,6 +26,7 @@ namespace TBQuest
         private bool _isMeleeColonist = false;
         private string _weaponName = "";
         private List<int> _locationsVisited;
+        private List<Key> _keyring;
         private int _experiencePoints;
         private int _health;
         private int _lives;
@@ -89,6 +90,12 @@ namespace TBQuest
             set { _locationsVisited = value; }
         }
 
+        public List<Key> Keyring
+        {
+            get { return _keyring; }
+            set { _keyring = value; }
+        }
+
         public int ExperiencePoints
         {
             get { return _experiencePoints; }
@@ -116,11 +123,13 @@ namespace TBQuest
         public Colonist()
         {
             _locationsVisited = new List<int>();
+            _keyring = new List<Key>();
         }
 
         public Colonist(string name, RaceType race, int spaceTimeLocationID) : base(name, race, spaceTimeLocationID)
         {
             _locationsVisited = new List<int>();
+            _keyring = new List<Key>();
         }
 
         #endregion
