@@ -11,7 +11,7 @@ namespace TBQuest
     /// </summary>
     public static class Text
     {
-        public static List<string> HeaderText = new List<string>() { "KantiCraft" };
+        public static List<string> HeaderText = new List<string>() { "Kantonian Trail" };
         public static List<string> FooterText = new List<string>() { "(c) MMXVII" };
 
         /// <summary>
@@ -24,7 +24,8 @@ namespace TBQuest
             "You are a colonist of a far-off land, atempting to establish a colony " +
             "in the Kanti system. The Kanti system has three planets: Phobos, Brypso, and Duskore; " +
             "your colony is on Brypso. The Kanti system has native life that is impeding your progress in " +
-            "establishing a colony. Also, since the Kanti system is the only place for some distance with the " +
+            "establishing a colony. Since you have limited ammunition for your modern weapons, you will have to travel " +
+            "as light as possible until you can find materials to make more. You may have to improvise for combat. Also, since the Kanti system is the only place for some distance with the " +
             "conditions necessary to support life and the resources to make colonization worthwhile, you may find " +
             "that there is a competitor waiting in the wings ....";
 
@@ -250,8 +251,8 @@ namespace TBQuest
                 //display table header
                 //
 
-                "ID".PadRight(10) + "Name".PadRight(30) + "Accessible".PadRight(10) + " \n" +
-                "---".PadRight(10) + "---------------------".PadRight(30) + "-------".PadRight(10) + "\n";
+                "ID".PadRight(10) + "Name".PadRight(30) + " \n" +
+                "---".PadRight(10) + "---------------------".PadRight(30) + "\n";
 
             //
             //display all accessible locations except current location
@@ -265,7 +266,6 @@ namespace TBQuest
                     locationList +=
                         $"{location.LocationID}".PadRight(10) +
                         $"{location.CommonName}".PadRight(30) +
-                        $"{location.Accessible}".PadRight(10) +
                         Environment.NewLine;
                 }
             }
@@ -314,6 +314,8 @@ namespace TBQuest
             }
 
             messageBoxText += locationList;
+            messageBoxText += "\n" +
+                "Press any key to continue.";
 
             return messageBoxText;
         }

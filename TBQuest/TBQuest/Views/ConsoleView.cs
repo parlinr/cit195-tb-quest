@@ -521,11 +521,11 @@ namespace TBQuest
             //Ogre font (c) 1993 Glenn Chappell & Ian Chai
             Console.SetCursorPosition(0, 10);
             string tabSpace = new String(' ', 35);
-            Console.WriteLine(tabSpace + @"                  _   _   ___           __ _   ");
-            Console.WriteLine(tabSpace + @"  /\ /\__ _ _ __ | |_(_) / __\ __ __ _ / _| |_ ");
-            Console.WriteLine(tabSpace + @" / //_/ _` | '_ \| __| |/ / | '__/ _` | |_| __|");
-            Console.WriteLine(tabSpace + @"/ __ \ (_| | | | | |_| / /__| | | (_| |  _| |_ ");
-            Console.WriteLine(tabSpace + @"\/  \/\__,_|_| |_|\__|_\____/_|  \__,_|_|  \__|");
+            Console.WriteLine(tabSpace + @"                  _              _               _____           _ _ ");
+            Console.WriteLine(tabSpace + @"  /\ /\__ _ _ __ | |_ ___  _ __ (_) __ _ _ __   /__   \_ __ __ _(_) |");
+            Console.WriteLine(tabSpace + @" / //_/ _` | '_ \| __/ _ \| '_ \| |/ _` | '_ \    / /\/ '__/ _` | | |");
+            Console.WriteLine(tabSpace + @"/ __ \ (_| | | | | || (_) | | | | | (_| | | | |  / /  | | | (_| | | |");
+            Console.WriteLine(tabSpace + @"\/  \/\__,_|_| |_|\__\___/|_| |_|_|\__,_|_| |_|  \/   |_|  \__,_|_|_|");
               
 
             Console.SetCursorPosition(80, 25);
@@ -547,7 +547,7 @@ namespace TBQuest
             ConsoleWindowControl.DisableResize();
             ConsoleWindowControl.DisableMaximize();
             ConsoleWindowControl.DisableMinimize();
-            Console.Title = "KantiCraft";
+            Console.Title = "Kantonian Trail";
 
             //
             // set the default console window values
@@ -1036,7 +1036,7 @@ namespace TBQuest
                 visitedLocations.Add(_gameUniverse.GetLocationById(locationId));
             }
 
-            DisplayGamePlayScreen("Locations Visited", Text.VisitedLocations(visitedLocations), ActionMenu.MainMenu, "Press any key to continue.");
+            DisplayGamePlayScreen("Locations Visited", Text.VisitedLocations(visitedLocations), ActionMenu.MainMenu, "");
             GetContinueKey();
         }
 

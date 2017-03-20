@@ -16,7 +16,6 @@ namespace TBQuest
                 LocationID = 1,
                 Description = "You are in the atrium of the main colony building.",
                 GeneralContents = "",
-                Accessible = true,
                 ExperiencePoints = 0,
                 AccessibleLocations = new List<int>()
                 {
@@ -24,7 +23,7 @@ namespace TBQuest
                     2,
                     3
                 }
-                
+
             },
 
             new Location
@@ -34,7 +33,6 @@ namespace TBQuest
                 Description = "You are in the hangar of the main colony building. From here, you "
                               + "may travel to the other planets in the system.",
                 GeneralContents = "",
-                Accessible = true,
                 ExperiencePoints = 0,
                 AccessibleLocations = new List<int>()
                 {
@@ -53,7 +51,6 @@ namespace TBQuest
                 Description = "You are in the motor pool of the main colony building. From here, "
                                + "you may travel to other locations on Brypso.",
                 GeneralContents = "",
-                Accessible = true,
                 ExperiencePoints = 0,
                 AccessibleLocations = new List<int>()
                 {
@@ -69,14 +66,13 @@ namespace TBQuest
                 LocationID = 4,
                 Description = "This is a location away from the colony on Brypso that is nearby several locations of interest.",
                 GeneralContents = "",
-                Accessible = true,
                 ExperiencePoints = 10,
                 AccessibleLocations = new List<int>()
                 {
                     3,
                     4
                 }
-        
+
             },
 
             new Location
@@ -86,7 +82,6 @@ namespace TBQuest
                 Description = "This is a location on Phobos that is nearby several locations of interest. Also, this is the location where you "
                                 + "will travel from Phobos to another planet.",
                 GeneralContents = "",
-                Accessible = true,
                 ExperiencePoints = 10,
                 AccessibleLocations = new List<int>()
                 {
@@ -102,12 +97,42 @@ namespace TBQuest
                 Description = "This is a location on Duskore that is nearby several locations of interest. Also, this is the location where you "
                                 + "will travel from Duskore to another planet.",
                 GeneralContents = "",
-                Accessible = true,
                 ExperiencePoints = 10,
                 AccessibleLocations = new List<int>()
                 {
                     2,
                     6
+                }
+            },
+
+            new Location
+            {
+                CommonName = "Boreal Forest",
+                LocationID = 7,
+                Description = "This is a dense forest with many old-growth plants that resemble trees. Some wildlife can be heard within the forest. "
+                                +"Initial scouting reveals that there could be a water source which could serve the colony's water needs.",
+                GeneralContents = "",
+                ExperiencePoints = 10,
+                AccessibleLocations = new List<int>()
+                {
+                    6,
+                    7
+                }
+
+            },
+
+            new Location
+            {
+                CommonName = "Brypsonian Mountains",
+                LocationID = 8,
+                Description = "This is a location at the foothills of a mountain range on Brypso. The mountians may contain mineral resources "
+                                + "that could be used by the colony.",
+                GeneralContents = "",
+                ExperiencePoints = 10,
+                AccessibleLocations = new List<int>()
+                {
+                    4,
+                    8
                 }
             }
 
