@@ -238,7 +238,7 @@ namespace TBQuest
         #endregion
 
         #region Travel
-        public static string Travel(Colonist gameColonist, List<Location> locations)
+        public static string Travel(Colonist gameColonist, Universe gameUniverse, List<Location> locations)
         {
             string messageBoxText =
                 $"{gameColonist.Name}, the colony HQ will need to know the name of the new location. \n" +
@@ -254,12 +254,13 @@ namespace TBQuest
                 "---".PadRight(10) + "---------------------".PadRight(30) + "-------".PadRight(10) + "\n";
 
             //
-            //display all locations except current location
+            //display all accessible locations except current location
             //
             string locationList = null;
+            Location currentLocation = gameUniverse.GetLocationById(gameColonist.LocationID);
             foreach (Location location in locations)
             {
-                if (location.LocationID != gameColonist.LocationID)
+                if (currentLocation.AccessibleLocations.Contains(location.LocationID))
                 {
                     locationList +=
                         $"{location.LocationID}".PadRight(10) +

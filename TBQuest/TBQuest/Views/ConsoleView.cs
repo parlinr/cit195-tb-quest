@@ -991,7 +991,7 @@ namespace TBQuest
             int locationId = 0;
             bool validLocationId = false;
 
-            DisplayGamePlayScreen("Travel to a New Location", Text.Travel(_gameColonist,
+            DisplayGamePlayScreen("Travel to a New Location", Text.Travel(_gameColonist, _gameUniverse,
                 _gameUniverse.Locations), ActionMenu.MainMenu, "");
 
             while (!validLocationId)
@@ -1004,7 +1004,7 @@ namespace TBQuest
                 //
                 if (_gameUniverse.IsValidLocationId(locationId))
                 {
-                    if (_gameUniverse.IsAccessibleLocation(locationId))
+                    if (_gameUniverse.IsAccessibleLocation(locationId, _gameColonist.LocationID))
                     {
                         validLocationId = true;
                     }

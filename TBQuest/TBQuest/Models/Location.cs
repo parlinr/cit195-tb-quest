@@ -17,6 +17,7 @@ namespace TBQuest
         private string _description;
         private string _generalContents;
         private bool _accessible;
+        private List<int> _accessibleLocations;
         private int _experiencePoints;
 
         #endregion
@@ -72,11 +73,19 @@ namespace TBQuest
             set { _experiencePoints = value; }
         }
 
+        public List<int> AccessibleLocations
+        {
+            get { return _accessibleLocations; }
+            set { _accessibleLocations = value; }
+        }
         #endregion
 
 
         #region CONSTRUCTORS
-
+        public Location()
+        {
+            
+        }
 
 
         #endregion

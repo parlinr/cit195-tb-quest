@@ -98,10 +98,10 @@ namespace TBQuest
             }
         }
 
-        public bool IsAccessibleLocation(int locationId)
+        public bool IsAccessibleLocation(int locationId, int currentLocationId)
         {
             Location location = GetLocationById(locationId);
-            if (location.Accessible == true)
+            if (location.AccessibleLocations.Contains(currentLocationId))
             {
                 return true;
             }

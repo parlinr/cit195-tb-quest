@@ -17,9 +17,14 @@ namespace TBQuest
                 Description = "You are in the atrium of the main colony building.",
                 GeneralContents = "",
                 Accessible = true,
-                ExperiencePoints = 0
-
-
+                ExperiencePoints = 0,
+                AccessibleLocations = new List<int>()
+                {
+                    1,
+                    2,
+                    3
+                }
+                
             },
 
             new Location
@@ -30,7 +35,14 @@ namespace TBQuest
                               + "may travel to the other planets in the system.",
                 GeneralContents = "",
                 Accessible = true,
-                ExperiencePoints = 0
+                ExperiencePoints = 0,
+                AccessibleLocations = new List<int>()
+                {
+                    1,
+                    2,
+                    5,
+                    6
+                }
 
             },
 
@@ -42,7 +54,13 @@ namespace TBQuest
                                + "you may travel to other locations on Brypso.",
                 GeneralContents = "",
                 Accessible = true,
-                ExperiencePoints = 0
+                ExperiencePoints = 0,
+                AccessibleLocations = new List<int>()
+                {
+                    1,
+                    3,
+                    4
+                }
             },
 
             new Location
@@ -52,7 +70,12 @@ namespace TBQuest
                 Description = "This is a location away from the colony on Brypso that is nearby several locations of interest.",
                 GeneralContents = "",
                 Accessible = true,
-                ExperiencePoints = 10
+                ExperiencePoints = 10,
+                AccessibleLocations = new List<int>()
+                {
+                    3,
+                    4
+                }
         
             },
 
@@ -64,7 +87,12 @@ namespace TBQuest
                                 + "will travel from Phobos to another planet.",
                 GeneralContents = "",
                 Accessible = true,
-                ExperiencePoints = 10
+                ExperiencePoints = 10,
+                AccessibleLocations = new List<int>()
+                {
+                    2,
+                    5
+                }
             },
 
             new Location
@@ -75,9 +103,15 @@ namespace TBQuest
                                 + "will travel from Duskore to another planet.",
                 GeneralContents = "",
                 Accessible = true,
-                ExperiencePoints = 10
+                ExperiencePoints = 10,
+                AccessibleLocations = new List<int>()
+                {
+                    2,
+                    6
+                }
             }
 
         };
+        
     }
 }
