@@ -12,6 +12,15 @@ namespace TBQuest
         {
             new Location
             {
+                CommonName = "Player's Inventory",
+                LocationID = 0,
+                Description = "Player's Inventory",
+                GeneralContents = "",
+                ExperiencePoints = 0
+            },
+
+            new Location
+            {
                 CommonName = "Colony Home Base",
                 LocationID = 1,
                 Description = "You are in the atrium of the main colony building.",
