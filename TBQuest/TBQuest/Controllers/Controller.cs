@@ -147,6 +147,9 @@ namespace TBQuest
                     case ColonistAction.ColonistLocationsVisited:
                         _gameConsoleView.DisplayLocationsVisited();
                         break;
+                    case ColonistAction.ListGameObjects:
+                        _gameConsoleView.DisplayListOfAllGameObjects();
+                        break;
                     
                     case ColonistAction.Exit:
                         _playingGame = false;

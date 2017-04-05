@@ -32,6 +32,7 @@ namespace TBQuest
         EditAgility,
         EditWeaponName,
         ColonistLocationsVisited,
+        ListGameObjects,
         Exit
     }
 }

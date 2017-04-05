@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBQuest
 {
-    public static class UniverseObjects
+    public static partial class UniverseObjects
     {
         public static List<Location> Locations = new List<Location>()
         {

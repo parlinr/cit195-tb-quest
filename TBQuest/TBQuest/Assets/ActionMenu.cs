@@ -43,6 +43,7 @@ namespace TBQuest
                     { '4', ColonistAction.Travel},
                     { '5', ColonistAction.ColonistLocationsVisited},
                     {'6', ColonistAction.ListLocations},
+                    {'7', ColonistAction.ListGameObjects},
                     {'0', ColonistAction.Exit }
                 }
         };

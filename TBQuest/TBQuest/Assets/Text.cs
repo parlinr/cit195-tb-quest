@@ -332,5 +332,45 @@ namespace TBQuest
 
 
         #endregion
+
+        #region ListAllGameObjects
+        public static string ListAllGameObjects(List<GameObject> gameObjects)
+        {
+            //
+            // display table name and column headers
+            //
+            string messageBoxText =
+                "Game Objects \n" +
+                " \n" +
+
+                //
+                // display table header
+                //
+                "ID".PadRight(10) +
+                "Name".PadRight(30) +
+                "Location ID".PadRight(10) + "\n" +
+                "---".PadRight(10) +
+                "--------------------".PadRight(30) +
+                "---".PadRight(10) + "\n";
+
+            //
+            // display all colonist objects in rows
+            //
+            string gameObjectRows = null;
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObjectRows +=
+                    $"{gameObject.Id}".PadRight(10) +
+                    $"{gameObject.Name}".PadRight(30) +
+                    $"{gameObject.LocationId}".PadRight(10) +
+                    Environment.NewLine;
+            }
+
+            messageBoxText += gameObjectRows;
+
+            return messageBoxText;
+            
+        }
+        #endregion
     }
 }
