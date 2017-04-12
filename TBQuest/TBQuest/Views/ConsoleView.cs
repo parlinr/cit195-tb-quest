@@ -985,15 +985,27 @@ namespace TBQuest
         public void DisplayListOfLocations()
         {
             DisplayGamePlayScreen("List: Locations", Text.ListLocations
-                (_gameUniverse.Locations), ActionMenu.MainMenu, "");
+                (_gameUniverse.Locations), ActionMenu.AdminMenu, "");
             GetContinueKey();
         }
 
         public void DisplayLookAround()
         {
+            //
+            // get current location 
+            //
             Location currentLocation = _gameUniverse.GetLocationById
                 (_gameColonist.LocationID);
-            DisplayGamePlayScreen("Current Location", Text.LookAround(currentLocation),
+
+            //
+            // get list of game objects in current location 
+            //
+            List<GameObject> gameObjectsInCurrentLocation = _gameUniverse.GetGameObjectByLocationId(_gameColonist.LocationID);
+
+            string messageBoxText = Text.LookAround(currentLocation) + Environment.NewLine + Environment.NewLine;
+            messageBoxText += Text.ListAllGameObjects(gameObjectsInCurrentLocation);
+
+            DisplayGamePlayScreen("Current Location", messageBoxText,
                 ActionMenu.MainMenu, "");
             GetContinueKey();
         }
@@ -1055,7 +1067,7 @@ namespace TBQuest
 
         public void DisplayListOfAllGameObjects()
         {
-            DisplayGamePlayScreen("List: Game Objects", Text.ListAllGameObjects(_gameUniverse.GameObjects), ActionMenu.MainMenu, "");
+            DisplayGamePlayScreen("List: Game Objects", Text.ListAllGameObjects(_gameUniverse.GameObjects), ActionMenu.AdminMenu, "");
         }
 
         public int DisplayGetGameObjectsToLookAt()
@@ -1100,6 +1112,15 @@ namespace TBQuest
             }
 
             return gameObjectId;
+        }
+
+        /// <summary>
+        /// display all relevant information about a game object
+        /// </summary>
+        /// <param name="gameObject"></param>
+        public void DisplayGameObjectInfo(GameObject gameObject)
+        {
+            DisplayGamePlayScreen("Current Location", Text.LookAt(gameObject), ActionMenu.MainMenu, "");
         }
 
         #endregion

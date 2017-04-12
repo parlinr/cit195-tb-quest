@@ -54,6 +54,7 @@
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\ColonistObject.cs" />
+    <Compile Include="Models\ColonistObjectType.cs" />
     <Compile Include="Models\EditColonist.cs" />
     <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\Key.cs" />

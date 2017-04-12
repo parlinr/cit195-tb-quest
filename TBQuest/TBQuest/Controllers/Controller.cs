@@ -150,6 +150,17 @@ namespace TBQuest
                     case ColonistAction.ListGameObjects:
                         _gameConsoleView.DisplayListOfAllGameObjects();
                         break;
+                    case ColonistAction.LookAt:
+                        LookAtAction();
+                        break;
+                    case ColonistAction.AdminMenu:
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.AdminMenu;
+                        _gameConsoleView.DisplayGamePlayScreen("Admin Menu", "Select an operation from the menu.", ActionMenu.AdminMenu, "");
+                        break;
+                    case ColonistAction.ReturnToMainMenu:
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+                        _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_currentLocation), ActionMenu.MainMenu, "");
+                        break;
                     
                     case ColonistAction.Exit:
                         _playingGame = false;
@@ -253,6 +264,32 @@ namespace TBQuest
 
         }
 
+        private void LookAtAction()
+        {
+            //
+            // display a list of traveler objects in location and get a player choice
+            //
+            int gameObjectToLookAtId = _gameConsoleView.DisplayGetGameObjectsToLookAt();
+
+            //
+            // display game object info
+            //
+            if (gameObjectToLookAtId != 0)
+            {
+                //
+                // get the game object from the universe
+                //
+                GameObject gameObject = _gameUniverse.GetGameObjectById(gameObjectToLookAtId);
+
+                //
+                // display information for the object chosen
+                //
+                _gameConsoleView.DisplayGameObjectInfo(gameObject);
+                _gameConsoleView.GetContinueKey();
+            }
+
+        }
+        
 
         #endregion
     }

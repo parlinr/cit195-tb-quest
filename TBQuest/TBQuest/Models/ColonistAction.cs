@@ -33,6 +33,8 @@ namespace TBQuest
         EditWeaponName,
         ColonistLocationsVisited,
         ListGameObjects,
+        AdminMenu,
+        ReturnToMainMenu,
         Exit
     }
 }

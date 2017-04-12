@@ -11,6 +11,16 @@ namespace TBQuest
     /// </summary>
     public static class ActionMenu
     {
+        public enum CurrentMenu
+        {
+            None,
+            MissionIntro,
+            InitializeMission,
+            MainMenu,
+            AdminMenu
+        }
+
+        public static CurrentMenu currentMenu = CurrentMenu.MainMenu;
         public static Menu MissionIntro = new Menu()
         {
             MenuName = "MissionIntro",
@@ -44,8 +54,21 @@ namespace TBQuest
                     { '5', ColonistAction.ColonistLocationsVisited},
                     {'6', ColonistAction.ListLocations},
                     {'7', ColonistAction.ListGameObjects},
+                    {'8', ColonistAction.LookAt},
                     {'0', ColonistAction.Exit }
                 }
+        };
+
+        public static Menu AdminMenu = new Menu()
+        {
+            MenuName = "AdminMenu",
+            MenuTitle = "Admin Menu",
+            MenuChoices = new Dictionary<char, ColonistAction>()
+            {
+                {'1', ColonistAction.ListLocations},
+                {'2', ColonistAction.ListGameObjects},
+                {'0', ColonistAction.ReturnToMainMenu }
+            }
         };
 
         

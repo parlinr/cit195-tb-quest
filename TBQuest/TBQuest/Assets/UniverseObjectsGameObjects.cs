@@ -20,7 +20,8 @@ namespace TBQuest
                 Value = 0,
                 CanInventory = true,
                 IsConsumable = true,
-                IsVisible = true
+                IsVisible = true,
+                LocationId = 2
             }
         };
         
