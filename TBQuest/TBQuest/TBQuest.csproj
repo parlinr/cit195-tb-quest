@@ -45,14 +45,17 @@
   <ItemGroup>
     <Compile Include="Assets\ActionMenu.cs" />
     <Compile Include="Assets\Text.cs" />
-    <Compile Include="Assets\UniverseObjects.cs" />
+    <Compile Include="Assets\UniverseObjectsGameObjects.cs" />
+    <Compile Include="Assets\UniverseObjectsLocations.cs" />
     <Compile Include="ConsoleUtilities\ConsoleLayout.cs" />
     <Compile Include="ConsoleUtilities\ConsoleTheme.cs" />
     <Compile Include="ConsoleUtilities\ConsoleWindowControl.cs" />
     <Compile Include="ConsoleUtilities\ConsoleWindowHelper.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Models\Character.cs" />
+    <Compile Include="Models\ColonistObject.cs" />
     <Compile Include="Models\EditColonist.cs" />
+    <Compile Include="Models\GameObject.cs" />
     <Compile Include="Models\Key.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\Menu.cs" />
