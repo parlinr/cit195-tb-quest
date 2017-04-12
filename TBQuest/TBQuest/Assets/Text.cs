@@ -372,5 +372,41 @@ namespace TBQuest
             
         }
         #endregion
+
+        #region LookAt
+        public static string LookAt(GameObject gameObject)
+        {
+            string messageBoxText = "";
+
+            messageBoxText =
+                $"{gameObject.Name}\n" +
+                "\n" +
+                gameObject.Description + "\n" +
+                "\n";
+
+            if (gameObject is ColonistObject)
+            {
+                ColonistObject colonistObject = gameObject as ColonistObject;
+
+                messageBoxText += $"The {colonistObject.Name} has a value of {colonistObject.Value} and ";
+
+                if (colonistObject.CanInventory)
+                {
+                    messageBoxText += "may be added to your inventory.";
+                }
+                else
+                {
+                    messageBoxText += "may not be added to your inventory.";
+                }
+            }
+            else
+            {
+                messageBoxText += $"The {gameObject.Name} may not be added to your inventory.";
+            }
+
+            return messageBoxText;
+
+        }
+        #endregion
     }
 }
