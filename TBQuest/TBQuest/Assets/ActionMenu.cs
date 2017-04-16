@@ -52,9 +52,9 @@ namespace TBQuest
                     { '3', ColonistAction.LookAround},
                     { '4', ColonistAction.Travel},
                     { '5', ColonistAction.ColonistLocationsVisited},
-                    {'6', ColonistAction.ListLocations},
-                    {'7', ColonistAction.ListGameObjects},
-                    {'8', ColonistAction.LookAt},
+                    {'6', ColonistAction.LookAt},
+					{'7', ColonistAction.ColonistInventory},
+					{'8', ColonistAction.AdminMenu},
                     {'0', ColonistAction.Exit }
                 }
         };

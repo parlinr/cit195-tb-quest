@@ -21,8 +21,22 @@ namespace TBQuest
                 CanInventory = true,
                 IsConsumable = true,
                 IsVisible = true,
-                LocationId = 2
-            }
+                LocationId = 0
+            },
+
+			new ColonistObject
+			{
+				Id = 2,
+				Name = "Rusty Dagger",
+				Description = "A rusty dagger. It probably will not be very effective in combat.",
+				Type = ColonistObjectType.Weapon,
+				Value = 10,
+				CanInventory = true,
+				IsConsumable = false,
+				IsVisible = true,
+				LocationId = 0
+			}
+
         };
         
     }

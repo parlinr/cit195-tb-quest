@@ -130,11 +130,45 @@ namespace TBQuest
             return choosenAction;
         }
 
-        /// <summary>
-        /// get an edit character menu choice from the user
-        /// </summary>
-        /// <returns>action menu choice</returns>
-        public EditColonist GetActionEditMenuChoice(Menu menu)
+		/// <summary>
+		/// get an admin menu choice from the user
+		/// </summary>
+		/// <returns>action menu choice</returns>
+		public ColonistAction GetAdminMenuChoice(Menu menu)
+		{
+			ColonistAction choosenAction = ColonistAction.None;
+			Console.CursorVisible = false;
+
+			bool validKeystroke = false;
+			while (!validKeystroke)
+			{
+				try
+				{
+					ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+					char keyPressed = keyPressedInfo.KeyChar;
+					choosenAction = menu.MenuChoices[keyPressed];
+				}
+				catch (KeyNotFoundException)
+				{
+					ClearCurrentConsoleLine();
+					DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
+					Console.ReadLine();
+					ClearCurrentConsoleLine();
+					continue;
+				}
+				validKeystroke = true;
+			}
+
+
+
+			return choosenAction;
+		}
+
+		/// <summary>
+		/// get an edit character menu choice from the user
+		/// </summary>
+		/// <returns>action menu choice</returns>
+		public EditColonist GetActionEditMenuChoice(Menu menu)
         {
             EditColonist choosenAction = EditColonist.None;
             Console.CursorVisible = false;
@@ -626,8 +660,21 @@ namespace TBQuest
                     }
                 }
             }
-            
-        }
+			else if (menu == ActionMenu.AdminMenu)
+			{
+				foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
+				{
+					if (menuChoice.Value != ColonistAction.None)
+					{
+						string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
+						Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+						Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+					}
+				}
+			}
+
+
+		}
 
         private void DisplayMessageBox(string headerText, string messageText)
         {
@@ -1010,8 +1057,7 @@ namespace TBQuest
             GetContinueKey();
         }
 
-        
-        public int DisplayGetNextLocation()
+		public int DisplayGetNextLocation()
         {
             int locationId = 0;
             bool validLocationId = false;
@@ -1123,6 +1169,72 @@ namespace TBQuest
             DisplayGamePlayScreen("Current Location", Text.LookAt(gameObject), ActionMenu.MainMenu, "");
         }
 
-        #endregion
-    }
+		public void DisplayInventory()
+		{
+			DisplayGamePlayScreen("Current Inventory", Text.CurrentInventory(_gameColonist.Inventory), ActionMenu.MainMenu, "");
+		}
+
+		/// <summary>
+		/// display the information required for the player to choose an object to pick up
+		/// </summary>
+		/// <returns>game object Id</returns>
+		public int DisplayGetColonistObjectToPickUp()
+		{
+			int gameObjectId = 0;
+			bool validGameObjectId = false;
+
+			//
+			// get a list of colonist objects in the current location
+			//
+			List<ColonistObject> colonistObjectsInLocation = _gameUniverse.GetColonistObjectsByLocationId(_gameColonist.LocationID);
+
+			if (colonistObjectsInLocation.Count > 0)
+			{
+				DisplayGamePlayScreen("Pick Up Game Object", Text.GameObjectsChooseList(colonistObjectsInLocation), ActionMenu.MainMenu, "");
+
+				while (!validGameObjectId)
+				{
+					//
+					// get an integer from the player
+					//
+					GetInteger($"Enter the Id number of the object you wish to add to your inventory: ", 0, 0, out gameObjectId);
+
+					//
+					// validate integer as a valid game object id and in current location
+					//
+					if (_gameUniverse.IsValidColonistObjectByLocationId(gameObjectId, _gameColonist.LocationID))
+					{
+						ColonistObject travelerObject = _gameUniverse.GetGameObjectById(gameObjectId) as ColonistObject;
+						if (travelerObject.CanInventory)
+						{
+							validGameObjectId = true;
+						}
+						else
+						{
+							ClearInputBox();
+							DisplayInputErrorMessage("It appears you may not inventory that object. Please try again.");
+						}
+					}
+					else
+					{
+						ClearInputBox();
+						DisplayInputErrorMessage("It appears you entered an invalid game object id. Please try again.");
+					}
+				}
+			}
+			else
+			{
+				DisplayGamePlayScreen("Pick Up Game Object", "It appears there are no game objects here.", ActionMenu.MainMenu, "");
+			}
+
+			return gameObjectId;
+		}
+
+		public void DisplayConfirmColonistObjectAddedToInventory(ColonistObject objectAddedToInventory)
+		{
+			DisplayGamePlayScreen("Pick Up Game Object", $"The {objectAddedToInventory.Name} has been added to your inventory.", ActionMenu.MainMenu, "");
+		}
+
+		#endregion
+	}
 }

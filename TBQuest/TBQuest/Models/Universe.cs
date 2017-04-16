@@ -210,6 +210,65 @@ namespace TBQuest
 
             return gameObjects;
         }
-        #endregion
-    }
+
+		/// <summary>
+		/// validate colonist object id number in current location
+		/// </summary>
+		/// <param name="colonistObjectId"></param>
+		/// <returns>is Id valid</returns>
+		public bool IsValidColonistObjectByLocationId(int colonistObjectId, int currentLocation)
+		{
+			List<int> colonistObjectIds = new List<int>();
+
+			//
+			// create a list of traveler object ids in current space-time location
+			//
+			foreach (GameObject gameObject in _gameObjects)
+			{
+				if (gameObject.LocationId == currentLocation && gameObject is ColonistObject)
+				{
+					colonistObjectIds.Add(gameObject.Id);
+				}
+
+			}
+
+			//
+			// determine if the game object id is a valid id and return the result
+			//
+			if (colonistObjectIds.Contains(colonistObjectId))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// get all colonist objects in a location
+		/// </summary>
+		/// <param name="locationId">space-time location id</param>
+		/// <returns>list of traveler objects</returns>
+		public List<ColonistObject> GetColonistObjectsByLocationId(int locationId)
+		{
+			List<ColonistObject> colonistObjects = new List<ColonistObject>();
+
+			//
+			// run through the game object list and grab all that are in the current space-time location
+			//
+			foreach (GameObject gameObject in _gameObjects)
+			{
+				if (gameObject.LocationId ==  locationId && gameObject is ColonistObject)
+				{
+					colonistObjects.Add(gameObject as ColonistObject);
+				}
+			}
+
+			return colonistObjects;
+		}
+
+
+		#endregion
+	}
 }

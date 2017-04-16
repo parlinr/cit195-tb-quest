@@ -30,6 +30,7 @@ namespace TBQuest
         private int _experiencePoints;
         private int _health;
         private int _lives;
+		private List<ColonistObject> _inventory;
 
 
         #endregion
@@ -114,6 +115,12 @@ namespace TBQuest
             set { _health = value; }
         }
 
+		public List<ColonistObject> Inventory
+		{
+			get { return _inventory; }
+			set { _inventory = value; }
+		}
+
 
         #endregion
 
@@ -124,13 +131,15 @@ namespace TBQuest
         {
             _locationsVisited = new List<int>();
             _keyring = new List<Key>();
+			_inventory = new List<ColonistObject>();
         }
 
         public Colonist(string name, RaceType race, int spaceTimeLocationID) : base(name, race, spaceTimeLocationID)
         {
             _locationsVisited = new List<int>();
             _keyring = new List<Key>();
-        }
+			_inventory = new List<ColonistObject>();
+		}
 
         #endregion
 

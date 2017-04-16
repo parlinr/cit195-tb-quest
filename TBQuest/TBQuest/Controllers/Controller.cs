@@ -54,7 +54,13 @@ namespace TBQuest
             _gameColonist = new Colonist();
             _gameUniverse = new Universe();
             _gameConsoleView = new ConsoleView(_gameColonist, _gameUniverse);
-            _playingGame = true;
+			_playingGame = true;
+
+			//
+			// add initial items to the player's inventory
+			//
+			_gameColonist.Inventory.Add(_gameUniverse.GetGameObjectById(1) as ColonistObject);
+			_gameColonist.Inventory.Add(_gameUniverse.GetGameObjectById(2) as ColonistObject);
             
 
             Console.CursorVisible = false;
@@ -109,7 +115,18 @@ namespace TBQuest
                 UpdateGameStatus();
 
                 _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_gameColonist.LocationID, _gameUniverse), ActionMenu.MainMenu, "");
-                travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
+				//
+				// get next game action from player
+				//
+				if (ActionMenu.currentMenu == ActionMenu.CurrentMenu.MainMenu)
+				{
+					travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.MainMenu);
+				}
+				else if (ActionMenu.currentMenu == ActionMenu.CurrentMenu.AdminMenu)
+				{
+					travelerActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.AdminMenu);
+				}
+				
                 
                 //
                 // choose an action based on the user's menu choice
@@ -149,20 +166,46 @@ namespace TBQuest
                         break;
                     case ColonistAction.ListGameObjects:
                         _gameConsoleView.DisplayListOfAllGameObjects();
+						_gameConsoleView.GetContinueKey();
                         break;
                     case ColonistAction.LookAt:
                         LookAtAction();
+						_gameConsoleView.GetContinueKey();
                         break;
                     case ColonistAction.AdminMenu:
+						bool inAdminMenu = true;
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.AdminMenu;
-                        _gameConsoleView.DisplayGamePlayScreen("Admin Menu", "Select an operation from the menu.", ActionMenu.AdminMenu, "");
-                        break;
-                    case ColonistAction.ReturnToMainMenu:
-                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
-                        _gameConsoleView.DisplayGamePlayScreen("Current Location", Text.CurrentLocationInfo(_currentLocation), ActionMenu.MainMenu, "");
-                        break;
-                    
-                    case ColonistAction.Exit:
+						ColonistAction adminMenuChoice = ColonistAction.None;
+						while (inAdminMenu)
+						{
+							_gameConsoleView.DisplayGamePlayScreen("Admin Menu", "Select an operation from the menu.", ActionMenu.AdminMenu, "");
+							adminMenuChoice = _gameConsoleView.GetAdminMenuChoice(ActionMenu.AdminMenu);
+							switch (adminMenuChoice)
+							{
+								case ColonistAction.None:
+									break;
+								case ColonistAction.ListLocations:
+									_gameConsoleView.DisplayListOfLocations();
+									break;
+								case ColonistAction.ListGameObjects:
+									_gameConsoleView.DisplayListOfAllGameObjects();
+									_gameConsoleView.GetContinueKey();
+									break;
+								case ColonistAction.ReturnToMainMenu:
+									ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+									inAdminMenu = false;
+									break;
+							}
+						}
+						break;
+					case ColonistAction.ColonistInventory:
+						_gameConsoleView.DisplayInventory();
+						_gameConsoleView.GetContinueKey();
+						break;
+					case ColonistAction.PickUpItem:
+						PickUpAction();
+						break;
+					case ColonistAction.Exit:
                         _playingGame = false;
                         break;
 
@@ -289,8 +332,40 @@ namespace TBQuest
             }
 
         }
-        
 
-        #endregion
-    }
+		/// <summary>
+		/// process the Pick Up action
+		/// </summary>
+		private void PickUpAction()
+		{
+			//
+			// display a list of colonist objects in the location and get a player choice
+			//
+			int colonistObjectToPickUpId = _gameConsoleView.DisplayGetColonistObjectToPickUp();
+
+			//
+			// add the object to inventory
+			//
+			if (colonistObjectToPickUpId != 0)
+			{
+				//
+				// get the game object from the universe
+				//
+				ColonistObject colonistObject = _gameUniverse.GetGameObjectById(colonistObjectToPickUpId) as ColonistObject;
+
+				//
+				// note:object is added to list and the location is set to 0
+				//
+				_gameColonist.Inventory.Add(colonistObject);
+				colonistObject.LocationId = 0;
+
+				//
+				// display confirmation message
+				//
+				_gameConsoleView.DisplayConfirmColonistObjectAddedToInventory(colonistObject);
+			}
+		}
+
+		#endregion
+	}
 }

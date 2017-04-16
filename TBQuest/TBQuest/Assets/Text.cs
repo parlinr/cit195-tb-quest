@@ -407,6 +407,82 @@ namespace TBQuest
             return messageBoxText;
 
         }
-        #endregion
-    }
+		#endregion
+
+		#region CurrentInventory
+		public static string CurrentInventory(List<ColonistObject> inventory)
+		{
+			string messageBoxText = "";
+
+			//
+			// display table header
+			//
+			messageBoxText =
+			"ID".PadRight(10) +
+			"Name".PadRight(30) +
+			"Type".PadRight(10) +
+			"\n" +
+			"---".PadRight(10) +
+			"----------------------------".PadRight(30) +
+			"----------------------".PadRight(10) +
+			"\n";
+
+			//
+			// display all player objects in rows
+			//
+			string inventoryObjectRows = null;
+			foreach (ColonistObject inventoryObject in inventory)
+			{
+				inventoryObjectRows +=
+					$"{inventoryObject.Id}".PadRight(10) +
+					$"{inventoryObject.Name}".PadRight(30) +
+					$"{inventoryObject.Type}".PadRight(10) +
+					Environment.NewLine;
+			}
+
+			messageBoxText += inventoryObjectRows;
+			messageBoxText += "\n" +
+				"Press any key to continue.";
+				
+
+			return messageBoxText;
+		}
+		#endregion
+
+		#region GameObjectsChooseList
+		public static string GameObjectsChooseList(IEnumerable<GameObject> gameObjects)
+		{
+			//
+			// display table name and column headers
+			//
+			string messageBoxText =
+				"Game Objects\n" +
+				" \n" +
+
+				//
+				// display table header
+				//
+				"ID".PadRight(10) +
+				"Name".PadRight(30) + "\n" +
+				"---".PadRight(10) +
+				"----------------------".PadRight(30) + "\n";
+
+			//
+			// display all traveler objects in rows
+			//
+			string gameObjectRows = null;
+			foreach (GameObject gameObject in gameObjects)
+			{
+				gameObjectRows +=
+					$"{gameObject.Id}".PadRight(10) +
+					$"{gameObject.Name}".PadRight(30) +
+					Environment.NewLine;
+			}
+
+			messageBoxText += gameObjectRows;
+
+			return messageBoxText;
+		}
+		#endregion
+	}
 }
