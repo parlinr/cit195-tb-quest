@@ -27,7 +27,7 @@ namespace TBQuest
             "establishing a colony. Since you have limited ammunition for your modern weapons, you will have to travel " +
             "as light as possible until you can find materials to make more. You may have to improvise for combat. Also, since the Kanti system is the only place for some distance with the " +
             "conditions necessary to support life and the resources to make colonization worthwhile, you may find " +
-            "that there is a competitor waiting in the wings ....";
+            "that there is a competitor waiting in the wings ....";     
 
             return messageBoxText;
         }
