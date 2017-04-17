@@ -59,7 +59,6 @@ namespace TBQuest
 			//
 			// add initial items to the player's inventory
 			//
-			_gameColonist.Inventory.Add(_gameUniverse.GetGameObjectById(1) as ColonistObject);
 			_gameColonist.Inventory.Add(_gameUniverse.GetGameObjectById(2) as ColonistObject);
             
 
@@ -305,7 +304,7 @@ namespace TBQuest
                 // display information for the object chosen
                 //
                 _gameConsoleView.DisplayGameObjectInfo(gameObject);
-                _gameConsoleView.GetContinueKey();
+				
             }
 
         }

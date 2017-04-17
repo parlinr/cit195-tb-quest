@@ -27,7 +27,7 @@ namespace TBQuest
         private string _weaponName = "";
         private List<int> _locationsVisited;
         private List<Key> _keyring;
-        private int _experiencePoints;
+        private double _experiencePoints;
         private int _health;
         private int _lives;
 		private List<ColonistObject> _inventory;
@@ -97,7 +97,7 @@ namespace TBQuest
             set { _keyring = value; }
         }
 
-        public int ExperiencePoints
+        public double ExperiencePoints
         {
             get { return _experiencePoints; }
             set { _experiencePoints = value; }

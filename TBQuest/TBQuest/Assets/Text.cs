@@ -367,6 +367,7 @@ namespace TBQuest
             }
 
             messageBoxText += gameObjectRows;
+			messageBoxText += "\n" + "Press any key to continue.";
 
             return messageBoxText;
             
@@ -404,6 +405,8 @@ namespace TBQuest
                 messageBoxText += $"The {gameObject.Name} may not be added to your inventory.";
             }
 
+			messageBoxText += "\n";
+			messageBoxText += "Press any key to continue.";
             return messageBoxText;
 
         }

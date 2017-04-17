@@ -14,14 +14,14 @@ namespace TBQuest
             new ColonistObject
             {
                 Id = 1,
-                Name = "Health Potion",
-                Description = "A potion that restores X health.",
-                Type = ColonistObjectType.Medicine,
-                Value = 0,
-                CanInventory = true,
-                IsConsumable = true,
-                IsVisible = true,
-                LocationId = 0
+                Name = "Steel Sword,",
+				Description = "A steel sword. It will likely be effective against lower level monsters.",
+				Type = ColonistObjectType.Weapon,
+				Value = 75,
+				CanInventory = true,
+				IsConsumable = false,
+				IsVisible = true,
+				LocationId = 4
             },
 
 			new ColonistObject
@@ -30,7 +30,7 @@ namespace TBQuest
 				Name = "Rusty Dagger",
 				Description = "A rusty dagger. It probably will not be very effective in combat.",
 				Type = ColonistObjectType.Weapon,
-				Value = 10,
+				Value = 10.5,
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
@@ -43,12 +43,54 @@ namespace TBQuest
 				Name = "Secret Box",
 				Description = "A secret box.",
 				Type = ColonistObjectType.Treasure,
-				Value = 0,
+				Value = 25.5,
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
 				LocationId = 1
+			},
+
+			new ColonistObject
+			{
+				Id = 4,
+				Name = "Hastily Scrawled Note",
+				Description = "A hastily scrawled note. It says, 'You should try searching Brypso first. There are some "
+					+ "formidable monsters on Phobos and Duskore.'",
+				Type = ColonistObjectType.Information,
+				Value = 0,
+				CanInventory = true,
+				IsConsumable = false,
+				IsVisible = true,
+				LocationId = 2
+		
+			},
+
+			new ColonistObject
+			{
+				Id = 5,
+				Name = "Sack of electrum pieces",
+				Description = "A sack of electrum (gold and silver mix) pieces.",
+				Type = ColonistObjectType.Treasure,
+				Value = 200,
+				CanInventory = true,
+				IsConsumable = false,
+				IsVisible = true,
+				LocationId = 8
+			},
+
+			new ColonistObject
+			{
+				Id = 6,
+				Name = "Adamantine Sword",
+				Description = "An adamantine sword. It looks like it could stand up to higher level monsters.",
+				Type = ColonistObjectType.Weapon,
+				Value = 150,
+				CanInventory = true,
+				IsConsumable = false,
+				IsVisible = true,
+				LocationId = 6
 			}
+
 
 
         };

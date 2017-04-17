@@ -95,7 +95,8 @@ namespace TBQuest
                 AccessibleLocations = new List<int>()
                 {
                     2,
-                    5
+                    5,
+					6
                 }
             },
 
@@ -110,6 +111,7 @@ namespace TBQuest
                 AccessibleLocations = new List<int>()
                 {
                     2,
+					5,
                     6
                 }
             },

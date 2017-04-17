@@ -1278,7 +1278,7 @@ namespace TBQuest
 
 		public void DisplayConfirmColonistObjectAddedToInventory(ColonistObject objectAddedToInventory)
 		{
-			DisplayGamePlayScreen("Pick Up Game Object", $"The {objectAddedToInventory.Name} has been added to your inventory.", ActionMenu.ObjectInteractionMenu, "");
+			DisplayGamePlayScreen("Pick Up Game Object", $"The {objectAddedToInventory.Name} has been added to your inventory. Press any key to continue.", ActionMenu.ObjectInteractionMenu, "");
 		}
 
 		/// <summary>
@@ -1335,7 +1335,7 @@ namespace TBQuest
 		/// <param name="objectRemovedFromInventory">game object</param>
 		public void DisplayConfirmColonistObjectRemovedFromInventory(ColonistObject objectRemovedFromInventory)
 		{
-			DisplayGamePlayScreen("Put Down Game Object", $"The {objectRemovedFromInventory.Name} has been removed from your inventory.", ActionMenu.ObjectInteractionMenu, "");
+			DisplayGamePlayScreen("Put Down Game Object", $"The {objectRemovedFromInventory.Name} has been removed from your inventory. Press any key to continue.", ActionMenu.ObjectInteractionMenu, "");
 		}
 
 		#endregion
