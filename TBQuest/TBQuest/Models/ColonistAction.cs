@@ -12,10 +12,8 @@ namespace TBQuest
         MissionSetup,
         LookAround,
         LookAt,
-        PickUpItem,
-        PickUpTreasure,
-        PutDownItem,
-        PutDownTreasure,
+        PickUp,
+        PutDown,
         Travel,
         ColonistInfo,
         EditColonistInfo,
@@ -34,6 +32,7 @@ namespace TBQuest
         ColonistLocationsVisited,
         ListGameObjects,
         AdminMenu,
+		ObjectInteractionMenu,
         ReturnToMainMenu,
         Exit
     }

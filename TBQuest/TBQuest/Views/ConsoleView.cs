@@ -165,6 +165,40 @@ namespace TBQuest
 		}
 
 		/// <summary>
+		/// get an object menu choice from the user
+		/// </summary>
+		/// <returns>action menu choice</returns>
+		public ColonistAction GetObjectMenuChoice(Menu menu)
+		{
+			ColonistAction choosenAction = ColonistAction.None;
+			Console.CursorVisible = false;
+
+			bool validKeystroke = false;
+			while (!validKeystroke)
+			{
+				try
+				{
+					ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+					char keyPressed = keyPressedInfo.KeyChar;
+					choosenAction = menu.MenuChoices[keyPressed];
+				}
+				catch (KeyNotFoundException)
+				{
+					ClearCurrentConsoleLine();
+					DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
+					Console.ReadLine();
+					ClearCurrentConsoleLine();
+					continue;
+				}
+				validKeystroke = true;
+			}
+
+
+
+			return choosenAction;
+		}
+
+		/// <summary>
 		/// get an edit character menu choice from the user
 		/// </summary>
 		/// <returns>action menu choice</returns>
@@ -661,6 +695,18 @@ namespace TBQuest
                 }
             }
 			else if (menu == ActionMenu.AdminMenu)
+			{
+				foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
+				{
+					if (menuChoice.Value != ColonistAction.None)
+					{
+						string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
+						Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+						Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+					}
+				}
+			}
+			else if (menu == ActionMenu.ObjectInteractionMenu)
 			{
 				foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
 				{
@@ -1190,7 +1236,7 @@ namespace TBQuest
 
 			if (colonistObjectsInLocation.Count > 0)
 			{
-				DisplayGamePlayScreen("Pick Up Game Object", Text.GameObjectsChooseList(colonistObjectsInLocation), ActionMenu.MainMenu, "");
+				DisplayGamePlayScreen("Pick Up Game Object", Text.GameObjectsChooseList(colonistObjectsInLocation), ActionMenu.ObjectInteractionMenu, "");
 
 				while (!validGameObjectId)
 				{
@@ -1224,7 +1270,7 @@ namespace TBQuest
 			}
 			else
 			{
-				DisplayGamePlayScreen("Pick Up Game Object", "It appears there are no game objects here.", ActionMenu.MainMenu, "");
+				DisplayGamePlayScreen("Pick Up Game Object", "It appears there are no game objects here.", ActionMenu.ObjectInteractionMenu, "");
 			}
 
 			return gameObjectId;
@@ -1232,7 +1278,64 @@ namespace TBQuest
 
 		public void DisplayConfirmColonistObjectAddedToInventory(ColonistObject objectAddedToInventory)
 		{
-			DisplayGamePlayScreen("Pick Up Game Object", $"The {objectAddedToInventory.Name} has been added to your inventory.", ActionMenu.MainMenu, "");
+			DisplayGamePlayScreen("Pick Up Game Object", $"The {objectAddedToInventory.Name} has been added to your inventory.", ActionMenu.ObjectInteractionMenu, "");
+		}
+
+		/// <summary>
+		/// display the information required for the player to choose an object to put down
+		/// </summary>
+		/// <returns>game object Id</returns>
+		public int DisplayGetInventoryObjectToPutDown()
+		{
+			int colonistObjectId = 0;
+			bool validInventoryObjectId = false;
+
+			if (_gameColonist.Inventory.Count > 0)
+			{
+				DisplayGamePlayScreen("Put Down Game Object", Text.GameObjectsChooseList(_gameColonist.Inventory), ActionMenu.ObjectInteractionMenu, "");
+
+				while (!validInventoryObjectId)
+				{
+					//
+					// get an integer from the player
+					//
+					GetInteger($"Enter the Id number of the object you wish to remove from your inventory: ", 0, 0, out colonistObjectId);
+
+					//
+					// find object in inventory
+					// note: LINQ used, but a foreach loop may also be used 
+					//
+					ColonistObject objectToPutDown = _gameColonist.Inventory.FirstOrDefault(o => o.Id == colonistObjectId);
+
+					//
+					// validate object in inventory
+					//
+					if (objectToPutDown != null)
+					{
+						validInventoryObjectId = true;
+					}
+					else
+					{
+						ClearInputBox();
+						DisplayInputErrorMessage("It appears you entered the Id of an object not in the inventory. Please try again.");
+					}
+				}
+			}
+			else
+			{
+				DisplayGamePlayScreen("Put Down Game Object", "It appears there are no objects currently in inventory.", ActionMenu.MainMenu, "");
+			}
+
+			return colonistObjectId;
+		}
+
+		/// <summary>
+		/// confirm object removed from inventory
+		/// </summary>
+		/// <param name="objectRemovedFromInventory">game object</param>
+		public void DisplayConfirmColonistObjectRemovedFromInventory(ColonistObject objectRemovedFromInventory)
+		{
+			DisplayGamePlayScreen("Put Down Game Object", $"The {objectRemovedFromInventory.Name} has been removed from your inventory.", ActionMenu.ObjectInteractionMenu, "");
 		}
 
 		#endregion

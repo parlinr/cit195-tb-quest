@@ -35,7 +35,21 @@ namespace TBQuest
 				IsConsumable = false,
 				IsVisible = true,
 				LocationId = 0
+			},
+
+			new ColonistObject
+			{
+				Id=3,
+				Name = "Secret Box",
+				Description = "A secret box.",
+				Type = ColonistObjectType.Treasure,
+				Value = 0,
+				CanInventory = true,
+				IsConsumable = false,
+				IsVisible = true,
+				LocationId = 1
 			}
+
 
         };
         

@@ -173,37 +173,14 @@ namespace TBQuest
 						_gameConsoleView.GetContinueKey();
                         break;
                     case ColonistAction.AdminMenu:
-						bool inAdminMenu = true;
-                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.AdminMenu;
-						ColonistAction adminMenuChoice = ColonistAction.None;
-						while (inAdminMenu)
-						{
-							_gameConsoleView.DisplayGamePlayScreen("Admin Menu", "Select an operation from the menu.", ActionMenu.AdminMenu, "");
-							adminMenuChoice = _gameConsoleView.GetAdminMenuChoice(ActionMenu.AdminMenu);
-							switch (adminMenuChoice)
-							{
-								case ColonistAction.None:
-									break;
-								case ColonistAction.ListLocations:
-									_gameConsoleView.DisplayListOfLocations();
-									break;
-								case ColonistAction.ListGameObjects:
-									_gameConsoleView.DisplayListOfAllGameObjects();
-									_gameConsoleView.GetContinueKey();
-									break;
-								case ColonistAction.ReturnToMainMenu:
-									ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
-									inAdminMenu = false;
-									break;
-							}
-						}
+						AdminMenu();
 						break;
 					case ColonistAction.ColonistInventory:
 						_gameConsoleView.DisplayInventory();
 						_gameConsoleView.GetContinueKey();
 						break;
-					case ColonistAction.PickUpItem:
-						PickUpAction();
+					case ColonistAction.ObjectInteractionMenu:
+						ObjectInteractionMenu();
 						break;
 					case ColonistAction.Exit:
                         _playingGame = false;
@@ -364,6 +341,95 @@ namespace TBQuest
 				//
 				_gameConsoleView.DisplayConfirmColonistObjectAddedToInventory(colonistObject);
 			}
+		}
+		/// <summary>
+		/// processes the admin menu choices
+		/// </summary>
+		private void AdminMenu()
+		{
+			bool inAdminMenu = true;
+			ActionMenu.currentMenu = ActionMenu.CurrentMenu.AdminMenu;
+			ColonistAction adminMenuChoice = ColonistAction.None;
+			while (inAdminMenu)
+			{
+				_gameConsoleView.DisplayGamePlayScreen("Admin Menu", "Select an operation from the menu.", ActionMenu.AdminMenu, "");
+				adminMenuChoice = _gameConsoleView.GetAdminMenuChoice(ActionMenu.AdminMenu);
+				switch (adminMenuChoice)
+				{
+					case ColonistAction.None:
+						break;
+					case ColonistAction.ListLocations:
+						_gameConsoleView.DisplayListOfLocations();
+						break;
+					case ColonistAction.ListGameObjects:
+						_gameConsoleView.DisplayListOfAllGameObjects();
+						_gameConsoleView.GetContinueKey();
+						break;
+					case ColonistAction.ReturnToMainMenu:
+						ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+						inAdminMenu = false;
+						break;
+				}
+			}
+		}
+		/// <summary>
+		/// handles object interaction menu choices
+		/// </summary>
+		private void ObjectInteractionMenu()
+		{
+			bool inObjectMenu = true;
+			ActionMenu.currentMenu = ActionMenu.CurrentMenu.ObjectInteractionMenu;
+			ColonistAction objectMenuChoice = ColonistAction.None;
+			while (inObjectMenu)
+			{
+				_gameConsoleView.DisplayGamePlayScreen("Object Interaction Menu", "Select an operation from the menu.", ActionMenu.ObjectInteractionMenu, "");
+				objectMenuChoice = _gameConsoleView.GetObjectMenuChoice(ActionMenu.ObjectInteractionMenu);
+				switch (objectMenuChoice)
+				{
+					case ColonistAction.None:
+						break;
+					case ColonistAction.PickUp:
+						PickUpAction();
+						_gameConsoleView.GetContinueKey();
+						break;
+					case ColonistAction.PutDown:
+						PutDownAction();
+						_gameConsoleView.GetContinueKey();
+						break;
+					case ColonistAction.ReturnToMainMenu:
+						ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+						inObjectMenu = false;
+						break;
+				}
+			}
+		}
+
+		/// <summary>
+		/// process the Put Down action
+		/// </summary>
+		private void PutDownAction()
+		{
+			//
+			// display a list of traveler objects in inventory and get a player choice
+			//
+			int inventoryObjectToPutDownId = _gameConsoleView.DisplayGetInventoryObjectToPutDown();
+
+			//
+			// get the game object from the universe
+			//
+			ColonistObject colonistObject = _gameUniverse.GetGameObjectById(inventoryObjectToPutDownId) as ColonistObject;
+
+			//
+			// remove the object from inventory and set the space-time location to the current value
+			//
+			_gameColonist.Inventory.Remove(colonistObject);
+			colonistObject.LocationId = _gameColonist.LocationID;
+
+			//
+			// display confirmation message
+			//
+			_gameConsoleView.DisplayConfirmColonistObjectRemovedFromInventory(colonistObject);
+
 		}
 
 		#endregion

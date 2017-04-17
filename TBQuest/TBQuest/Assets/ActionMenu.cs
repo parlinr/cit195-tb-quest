@@ -17,7 +17,8 @@ namespace TBQuest
             MissionIntro,
             InitializeMission,
             MainMenu,
-            AdminMenu
+            AdminMenu,
+			ObjectInteractionMenu
         }
 
         public static CurrentMenu currentMenu = CurrentMenu.MainMenu;
@@ -54,7 +55,8 @@ namespace TBQuest
                     { '5', ColonistAction.ColonistLocationsVisited},
                     {'6', ColonistAction.LookAt},
 					{'7', ColonistAction.ColonistInventory},
-					{'8', ColonistAction.AdminMenu},
+					{'8', ColonistAction.ObjectInteractionMenu },
+					{'9', ColonistAction.AdminMenu},
                     {'0', ColonistAction.Exit }
                 }
         };
@@ -85,6 +87,18 @@ namespace TBQuest
                 { '0', EditColonist.ExitEditMenu }
             }
         };
+
+		public static Menu ObjectInteractionMenu = new Menu()
+		{
+			MenuName = "ObjectInteractionMenu",
+			MenuTitle = "Object Interaction Menu",
+			MenuChoices = new Dictionary<char, ColonistAction>()
+			{
+				{'1', ColonistAction.PickUp },
+				{'2', ColonistAction.PutDown },
+				{'0', ColonistAction.ReturnToMainMenu }
+			}
+		};
         
 
     }
