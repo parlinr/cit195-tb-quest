@@ -845,7 +845,7 @@ namespace TBQuest
 
         public void DisplayColonistInfo()
         {
-            DisplayGamePlayScreen("Colonist Information", Text.InitializeMissionEchoTravelerInfo(_gameColonist), ActionMenu.MissionIntro, "");
+            DisplayGamePlayScreen("Colonist Information", Text.InitializeMissionEchoTravelerInfo(_gameColonist), ActionMenu.MainMenu, "");
             GetContinueKey();
         }
 
@@ -1095,8 +1095,15 @@ namespace TBQuest
             //
             List<GameObject> gameObjectsInCurrentLocation = _gameUniverse.GetGameObjectByLocationId(_gameColonist.LocationID);
 
+            //
+            // get list of NPCs in current location
+            //
+            List<Npc> npcsInCurrentLocation = _gameUniverse.GetNpcByLocationId(_gameColonist.LocationID);
+
             string messageBoxText = Text.LookAround(currentLocation) + Environment.NewLine + Environment.NewLine;
-            messageBoxText += Text.ListAllGameObjects(gameObjectsInCurrentLocation);
+            messageBoxText += Text.ListAllGameObjects(gameObjectsInCurrentLocation) + Environment.NewLine;
+            messageBoxText += Text.NpcsChooseList(npcsInCurrentLocation);
+
 
             DisplayGamePlayScreen("Current Location", messageBoxText,
                 ActionMenu.MainMenu, "");
@@ -1153,7 +1160,7 @@ namespace TBQuest
                 visitedLocations.Add(_gameUniverse.GetLocationById(locationId));
             }
 
-            DisplayGamePlayScreen("Locations Visited", Text.VisitedLocations(visitedLocations), ActionMenu.MainMenu, "");
+            DisplayGamePlayScreen("Locations Visited", Text.VisitedLocations(visitedLocations), ActionMenu.ColonistMenu, "");
             GetContinueKey();
         }
 
@@ -1174,7 +1181,7 @@ namespace TBQuest
 
             if (gameObjectsInLocation.Count > 0)
             {
-                DisplayGamePlayScreen("Look at an Object", Text.ListAllGameObjects(gameObjectsInLocation), ActionMenu.MainMenu, "");
+                DisplayGamePlayScreen("Look at an Object", Text.ListAllGameObjects(gameObjectsInLocation), ActionMenu.ObjectInteractionMenu, "");
 
                 while (!validGameObjectId)
                 {
@@ -1200,7 +1207,7 @@ namespace TBQuest
             }
             else
             {
-                DisplayGamePlayScreen("Look at an Object", "It appears there are no game objects here.", ActionMenu.MainMenu, "");
+                DisplayGamePlayScreen("Look at an Object", "It appears there are no game objects here.", ActionMenu.ObjectInteractionMenu, "");
             }
 
             return gameObjectId;
@@ -1212,12 +1219,12 @@ namespace TBQuest
         /// <param name="gameObject"></param>
         public void DisplayGameObjectInfo(GameObject gameObject)
         {
-            DisplayGamePlayScreen("Current Location", Text.LookAt(gameObject), ActionMenu.MainMenu, "");
+            DisplayGamePlayScreen("Current Location", Text.LookAt(gameObject), ActionMenu.ObjectInteractionMenu, "");
         }
 
 		public void DisplayInventory()
 		{
-			DisplayGamePlayScreen("Current Inventory", Text.CurrentInventory(_gameColonist.Inventory), ActionMenu.MainMenu, "");
+			DisplayGamePlayScreen("Current Inventory", Text.CurrentInventory(_gameColonist.Inventory), ActionMenu.ColonistMenu, "");
 		}
 
 		/// <summary>
@@ -1323,7 +1330,7 @@ namespace TBQuest
 			}
 			else
 			{
-				DisplayGamePlayScreen("Put Down Game Object", "It appears there are no objects currently in inventory.", ActionMenu.MainMenu, "");
+				DisplayGamePlayScreen("Put Down Game Object", "It appears there are no objects currently in inventory.", ActionMenu.ObjectInteractionMenu, "");
 			}
 
 			return colonistObjectId;
@@ -1337,6 +1344,13 @@ namespace TBQuest
 		{
 			DisplayGamePlayScreen("Put Down Game Object", $"The {objectRemovedFromInventory.Name} has been removed from your inventory. Press any key to continue.", ActionMenu.ObjectInteractionMenu, "");
 		}
+
+        public void DisplayListOfAllNpcObjects()
+        {
+            DisplayGamePlayScreen("List: NPC Objects", Text.ListAllNpcObjects(_gameUniverse.Npcs), ActionMenu.AdminMenu, "");
+        }
+
+
 
 		#endregion
 	}

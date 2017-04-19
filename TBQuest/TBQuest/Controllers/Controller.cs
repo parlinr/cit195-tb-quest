@@ -364,6 +364,10 @@ namespace TBQuest
 						_gameConsoleView.DisplayListOfAllGameObjects();
 						_gameConsoleView.GetContinueKey();
 						break;
+                    case ColonistAction.ListNonplayerCharacters:
+                        _gameConsoleView.DisplayListOfAllNpcObjects();
+                        _gameConsoleView.GetContinueKey();
+                        break;
 					case ColonistAction.ReturnToMainMenu:
 						ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
 						inAdminMenu = false;

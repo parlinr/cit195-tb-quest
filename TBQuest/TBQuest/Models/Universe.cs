@@ -14,6 +14,7 @@ namespace TBQuest
         #region FIELDS
         private List<Location> _locations;
         private List<GameObject> _gameObjects;
+        private List<Npc> _npcs;
         #endregion
 
         #region PROPERTIES
@@ -28,11 +29,18 @@ namespace TBQuest
             get { return _gameObjects; }
             set { _gameObjects = value; }
         }
-        
+
+        public List<Npc> Npcs
+        {
+            get { return _npcs; }
+            set { _npcs = value; }
+        }
+
+
 
         #endregion
 
-        
+
         #region Constructor
         //default constructor
         public Universe()
@@ -47,6 +55,7 @@ namespace TBQuest
         {
             _locations = UniverseObjects.Locations;
             _gameObjects = UniverseObjects.gameObjects;
+            _npcs = UniverseObjects.Npcs;
 
         }
 
@@ -267,6 +276,81 @@ namespace TBQuest
 
 			return colonistObjects;
 		}
+
+        public bool IsValidNpcByLocationId(int npcId, int currentLocation)
+        {
+            List<int> npcIds = new List<int>();
+
+            //
+            // create a list of NPC Ids in current location
+            //
+            foreach (Npc npc in _npcs)
+            {
+                if (npc.LocationID == currentLocation)
+                {
+                    npcIds.Add(npc.Id);
+                }
+            }
+
+            //
+            // determine if the game object id is a valid id and return the result
+            //
+            if (npcIds.Contains(npcId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Npc GetNpcById(int Id)
+        {
+            Npc npcToReturn = null;
+
+            //
+            // run through the NPC object list and grab the right one
+            //
+            foreach (Npc npc in _npcs)
+            {
+                if (npc.Id == Id)
+                {
+                    npcToReturn = npc;
+                }
+            }
+
+            //
+            // the specified Id was not found in the universe
+            // throw an exception 
+            //
+            if (npcToReturn == null)
+            {
+                string feedbackMessage = $"The NPC ID {Id} does not exist in the current Universe.";
+                throw new ArgumentException(Id.ToString(), feedbackMessage);
+            }
+
+            return npcToReturn;
+
+        }
+
+        public List<Npc> GetNpcByLocationId(int locationId)
+        {
+            List<Npc> npcs = new List<Npc>();
+
+            //
+            // run through the NPC object list and grab all the ones in the current location
+            //
+            foreach (Npc npc in _npcs)
+            {
+                if (npc.LocationID == locationId)
+                {
+                    npcs.Add(npc);
+                }
+            }
+
+            return npcs;
+        }
 
 
 		#endregion

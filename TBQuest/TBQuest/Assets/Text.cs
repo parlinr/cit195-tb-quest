@@ -367,8 +367,7 @@ namespace TBQuest
             }
 
             messageBoxText += gameObjectRows;
-			messageBoxText += "\n" + "Press any key to continue.";
-
+			
             return messageBoxText;
             
         }
@@ -486,6 +485,84 @@ namespace TBQuest
 
 			return messageBoxText;
 		}
-		#endregion
-	}
+        #endregion
+
+        #region ListAllNpcObjects
+        public static string ListAllNpcObjects(List<Npc> npcObjects)
+        {
+            //
+            // display table name and column headers
+            //
+            string messageBoxText =
+                "NPC Objects\n" +
+                "\n" +
+
+                //
+                // display table header
+                //
+                "ID".PadRight(10) +
+                "Name".PadRight(30) +
+                "Location ID".PadRight(10) + "\n" +
+                "---".PadRight(10) +
+                "--------------------".PadRight(30) +
+                "---".PadRight(10) + "\n";
+
+            //
+            // display all npc objects in rows
+            //
+            string npcObjectRows = null;
+            foreach (Npc npcObject in npcObjects)
+            {
+                npcObjectRows +=
+                    $"{npcObject.Id}".PadRight(10) +
+                    $"{npcObject.Name}".PadRight(30) +
+                    $"{npcObject.LocationID}".PadRight(10) +
+                    Environment.NewLine;
+            }
+
+            messageBoxText += npcObjectRows;
+            messageBoxText += "\n" + "Press any key to continue.";
+
+            return messageBoxText;
+
+        }
+
+        public static string NpcsChooseList(List<Npc> npcs)
+        {
+            //
+            // display table name and column headers
+            //
+            string messageBoxText =
+                "NPCs\n" +
+                "\n" +
+
+                //
+                // display table header
+                //
+                "ID".PadRight(10) +
+                "Name".PadRight(30) + "\n" +
+                "---".PadRight(10) +
+                "--------------------".PadRight(30) + "\n";
+
+            //
+            // display all NPCs in rows
+            //
+            string npcRows = null;
+            foreach (Npc npc in npcs)
+            {
+                npcRows +=
+                    $"{npc.Id}".PadRight(10) +
+                    $"{npc.Name}".PadRight(30) +
+                    Environment.NewLine;
+            }
+
+            messageBoxText += npcRows;
+            messageBoxText += "\n" + "Press any key to continue.";
+
+            return messageBoxText;
+
+  
+        }
+        #endregion
+    }
 }

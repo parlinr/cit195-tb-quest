@@ -18,7 +18,8 @@ namespace TBQuest
             InitializeMission,
             MainMenu,
             AdminMenu,
-			ObjectInteractionMenu
+			ObjectInteractionMenu,
+            NpcMenu
         }
 
         public static CurrentMenu currentMenu = CurrentMenu.MainMenu;
@@ -48,15 +49,12 @@ namespace TBQuest
             MenuTitle = "Main Menu",
             MenuChoices = new Dictionary<char, ColonistAction>()
                 {
-                    { '1', ColonistAction.ColonistInfo },
-                    { '2', ColonistAction.EditColonistInfo},
-                    { '3', ColonistAction.LookAround},
-                    { '4', ColonistAction.Travel},
-                    { '5', ColonistAction.ColonistLocationsVisited},
-                    {'6', ColonistAction.LookAt},
-					{'7', ColonistAction.ColonistInventory},
-					{'8', ColonistAction.ObjectInteractionMenu },
-					{'9', ColonistAction.AdminMenu},
+                    { '1', ColonistAction.LookAround},
+                    { '2', ColonistAction.Travel},
+                    {'3', ColonistAction.ObjectInteractionMenu },
+                    {'4', ColonistAction.NonplayerCharacterMenu },
+                    {'5', ColonistAction.ColonistMenu },
+					{'6', ColonistAction.AdminMenu},
                     {'0', ColonistAction.Exit }
                 }
         };
@@ -69,6 +67,7 @@ namespace TBQuest
             {
                 {'1', ColonistAction.ListLocations},
                 {'2', ColonistAction.ListGameObjects},
+                {'3', ColonistAction.ListNonplayerCharacters},
                 {'0', ColonistAction.ReturnToMainMenu }
             }
         };
@@ -94,11 +93,37 @@ namespace TBQuest
 			MenuTitle = "Object Interaction Menu",
 			MenuChoices = new Dictionary<char, ColonistAction>()
 			{
-				{'1', ColonistAction.PickUp },
-				{'2', ColonistAction.PutDown },
+                {'1', ColonistAction.LookAt },
+				{'2', ColonistAction.PickUp },
+				{'3', ColonistAction.PutDown },
 				{'0', ColonistAction.ReturnToMainMenu }
 			}
 		};
+
+        public static Menu ColonistMenu = new Menu()
+        {
+            MenuName = "ColonistMenu",
+            MenuTitle = "Colonist Menu",
+            MenuChoices = new Dictionary<char, ColonistAction>()
+            {
+                {'1', ColonistAction.ColonistInfo },
+                {'2', ColonistAction.ColonistInventory },
+                {'3', ColonistAction.ColonistLocationsVisited },
+                {'0', ColonistAction.ReturnToMainMenu  }
+            }
+        };
+
+        public static Menu NpcMenu = new Menu()
+        {
+            MenuName = "NpcMenu",
+            MenuTitle = "NPC Menu",
+            MenuChoices = new Dictionary<char, ColonistAction>()
+            {
+                {'1', ColonistAction.TalkTo },
+                {'0', ColonistAction.ReturnToMainMenu  }
+            }
+
+        };
         
 
     }

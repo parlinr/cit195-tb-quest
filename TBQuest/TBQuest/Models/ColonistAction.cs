@@ -34,6 +34,10 @@ namespace TBQuest
         AdminMenu,
 		ObjectInteractionMenu,
         ReturnToMainMenu,
+        ListNonplayerCharacters,
+        NonplayerCharacterMenu,
+        TalkTo,
+        ColonistMenu,
         Exit
     }
 }
