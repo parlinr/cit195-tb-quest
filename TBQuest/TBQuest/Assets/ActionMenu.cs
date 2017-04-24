@@ -19,6 +19,7 @@ namespace TBQuest
             MainMenu,
             AdminMenu,
 			ObjectInteractionMenu,
+            ColonistMenu,
             NpcMenu
         }
 

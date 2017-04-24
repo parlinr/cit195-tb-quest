@@ -164,11 +164,42 @@ namespace TBQuest
 			return choosenAction;
 		}
 
-		/// <summary>
-		/// get an object menu choice from the user
-		/// </summary>
-		/// <returns>action menu choice</returns>
-		public ColonistAction GetObjectMenuChoice(Menu menu)
+        public ColonistAction GetColonistMenuChoice(Menu menu)
+        {
+            ColonistAction choosenAction = ColonistAction.None;
+            Console.CursorVisible = false;
+
+            bool validKeystroke = false;
+            while (!validKeystroke)
+            {
+                try
+                {
+                    ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+                    char keyPressed = keyPressedInfo.KeyChar;
+                    choosenAction = menu.MenuChoices[keyPressed];
+                }
+                catch (KeyNotFoundException)
+                {
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
+                    Console.ReadLine();
+                    ClearCurrentConsoleLine();
+                    continue;
+                }
+                validKeystroke = true;
+            }
+
+
+
+            return choosenAction;
+        }
+
+
+        /// <summary>
+        /// get an object menu choice from the user
+        /// </summary>
+        /// <returns>action menu choice</returns>
+        public ColonistAction GetObjectMenuChoice(Menu menu)
 		{
 			ColonistAction choosenAction = ColonistAction.None;
 			Console.CursorVisible = false;
