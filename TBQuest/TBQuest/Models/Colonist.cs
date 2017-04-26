@@ -28,7 +28,6 @@ namespace TBQuest
         private List<int> _locationsVisited;
         private List<Key> _keyring;
         private double _experiencePoints;
-        private int _health;
         private int _lives;
 		private List<ColonistObject> _inventory;
 

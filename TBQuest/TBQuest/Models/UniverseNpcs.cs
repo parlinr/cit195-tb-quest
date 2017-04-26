@@ -16,6 +16,8 @@ namespace TBQuest
                 Id = 1,
                 Name = "Adoring Fan",
                 LocationID = 1,
+                Health = 1,
+                canFight = false,
                 Description = "An adoring fan. He won't stop following you around.",
                 Messages = new List<string>
                 {

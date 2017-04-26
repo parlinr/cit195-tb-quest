@@ -28,6 +28,7 @@ namespace TBQuest
         private int _age = 0;
         private RaceType _race;
         private bool _isAlive = true;
+        protected int _health;
         
 
         
@@ -68,6 +69,12 @@ namespace TBQuest
         {
             get { return _race; }
             set { _race = value; }
+        }
+
+        public int Health
+        {
+            get { return _health; }
+            set { _health = value; }
         }
 
         #endregion
