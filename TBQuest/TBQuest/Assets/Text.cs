@@ -27,7 +27,7 @@ namespace TBQuest
             "establishing a colony. Since you have limited ammunition for your modern weapons, you will have to travel " +
             "as light as possible until you can find materials to make more. You may have to improvise for combat. Also, since the Kanti system is the only place for some distance with the " +
             "conditions necessary to support life and the resources to make colonization worthwhile, you may find " +
-            "that there is a competitor waiting in the wings ....";     
+            "that there is a competitor waiting in the wings ....";
 
             return messageBoxText;
         }
@@ -72,7 +72,7 @@ namespace TBQuest
         {
             string messageBoxText =
                 "Enter your name.";
-              
+
             return messageBoxText;
         }
 
@@ -160,12 +160,12 @@ namespace TBQuest
                 $"\tColonist Constitution: {gameTraveler.Constitution}\n" +
                 $"\tColonist Magic: {gameTraveler.Magic}\n" +
                 $"\tColonist Agility: {gameTraveler.Agility}\n";
-                if (gameTraveler.IsMeleeColonist)
-                {
-                    messageBoxText += $"\tWeapon Name: {gameTraveler.WeaponName}\n";
-                }
-                messageBoxText += " \n" +
-                "Press any key to begin your mission.";
+            if (gameTraveler.IsMeleeColonist)
+            {
+                messageBoxText += $"\tWeapon Name: {gameTraveler.WeaponName}\n";
+            }
+            messageBoxText += " \n" +
+            "Press any key to begin your mission.";
 
             return messageBoxText;
         }
@@ -196,13 +196,13 @@ namespace TBQuest
         #region List All Locations
         public static string ListLocations(List<Location> locations)
         {
-            string messageBoxText = 
+            string messageBoxText =
                 "Locations\n" +
                 "\n" +
 
-                //
-                //display table header
-                //
+            //
+            //display table header
+            //
             "ID".PadRight(10) + "Name".PadRight(30) + "\n" +
             "---".PadRight(10) + "----------------------".PadRight(30) + "\n";
 
@@ -221,7 +221,7 @@ namespace TBQuest
             messageBoxText += locationList;
             messageBoxText += "\n" + "\n" + "\n" +
             "Press any key to continue.";
-            
+
             return messageBoxText;
         }
 
@@ -367,9 +367,9 @@ namespace TBQuest
             }
 
             messageBoxText += gameObjectRows;
-			
+
             return messageBoxText;
-            
+
         }
         #endregion
 
@@ -404,87 +404,87 @@ namespace TBQuest
                 messageBoxText += $"The {gameObject.Name} may not be added to your inventory.";
             }
 
-			messageBoxText += "\n";
-			messageBoxText += "Press any key to continue.";
+            messageBoxText += "\n";
+            messageBoxText += "Press any key to continue.";
             return messageBoxText;
 
         }
-		#endregion
+        #endregion
 
-		#region CurrentInventory
-		public static string CurrentInventory(List<ColonistObject> inventory)
-		{
-			string messageBoxText = "";
+        #region CurrentInventory
+        public static string CurrentInventory(List<ColonistObject> inventory)
+        {
+            string messageBoxText = "";
 
-			//
-			// display table header
-			//
-			messageBoxText =
-			"ID".PadRight(10) +
-			"Name".PadRight(30) +
-			"Type".PadRight(10) +
-			"\n" +
-			"---".PadRight(10) +
-			"----------------------------".PadRight(30) +
-			"----------------------".PadRight(10) +
-			"\n";
+            //
+            // display table header
+            //
+            messageBoxText =
+            "ID".PadRight(10) +
+            "Name".PadRight(30) +
+            "Type".PadRight(10) +
+            "\n" +
+            "---".PadRight(10) +
+            "----------------------------".PadRight(30) +
+            "----------------------".PadRight(10) +
+            "\n";
 
-			//
-			// display all player objects in rows
-			//
-			string inventoryObjectRows = null;
-			foreach (ColonistObject inventoryObject in inventory)
-			{
-				inventoryObjectRows +=
-					$"{inventoryObject.Id}".PadRight(10) +
-					$"{inventoryObject.Name}".PadRight(30) +
-					$"{inventoryObject.Type}".PadRight(10) +
-					Environment.NewLine;
-			}
+            //
+            // display all player objects in rows
+            //
+            string inventoryObjectRows = null;
+            foreach (ColonistObject inventoryObject in inventory)
+            {
+                inventoryObjectRows +=
+                    $"{inventoryObject.Id}".PadRight(10) +
+                    $"{inventoryObject.Name}".PadRight(30) +
+                    $"{inventoryObject.Type}".PadRight(10) +
+                    Environment.NewLine;
+            }
 
-			messageBoxText += inventoryObjectRows;
-			messageBoxText += "\n" +
-				"Press any key to continue.";
-				
+            messageBoxText += inventoryObjectRows;
+            messageBoxText += "\n" +
+                "Press any key to continue.";
 
-			return messageBoxText;
-		}
-		#endregion
 
-		#region GameObjectsChooseList
-		public static string GameObjectsChooseList(IEnumerable<GameObject> gameObjects)
-		{
-			//
-			// display table name and column headers
-			//
-			string messageBoxText =
-				"Game Objects\n" +
-				" \n" +
+            return messageBoxText;
+        }
+        #endregion
 
-				//
-				// display table header
-				//
-				"ID".PadRight(10) +
-				"Name".PadRight(30) + "\n" +
-				"---".PadRight(10) +
-				"----------------------".PadRight(30) + "\n";
+        #region GameObjectsChooseList
+        public static string GameObjectsChooseList(IEnumerable<GameObject> gameObjects)
+        {
+            //
+            // display table name and column headers
+            //
+            string messageBoxText =
+                "Game Objects\n" +
+                " \n" +
 
-			//
-			// display all traveler objects in rows
-			//
-			string gameObjectRows = null;
-			foreach (GameObject gameObject in gameObjects)
-			{
-				gameObjectRows +=
-					$"{gameObject.Id}".PadRight(10) +
-					$"{gameObject.Name}".PadRight(30) +
-					Environment.NewLine;
-			}
+                //
+                // display table header
+                //
+                "ID".PadRight(10) +
+                "Name".PadRight(30) + "\n" +
+                "---".PadRight(10) +
+                "----------------------".PadRight(30) + "\n";
 
-			messageBoxText += gameObjectRows;
+            //
+            // display all traveler objects in rows
+            //
+            string gameObjectRows = null;
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObjectRows +=
+                    $"{gameObject.Id}".PadRight(10) +
+                    $"{gameObject.Name}".PadRight(30) +
+                    Environment.NewLine;
+            }
 
-			return messageBoxText;
-		}
+            messageBoxText += gameObjectRows;
+
+            return messageBoxText;
+        }
         #endregion
 
         #region ListAllNpcObjects
@@ -527,6 +527,11 @@ namespace TBQuest
 
         }
 
+
+
+        #endregion
+
+        #region NpcsChooseList
         public static string NpcsChooseList(List<Npc> npcs)
         {
             //
@@ -561,8 +566,8 @@ namespace TBQuest
 
             return messageBoxText;
 
-  
         }
         #endregion
     }
 }
+

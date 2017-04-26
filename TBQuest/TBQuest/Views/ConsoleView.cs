@@ -193,7 +193,39 @@ namespace TBQuest
 
             return choosenAction;
         }
+        /// <summary>
+		/// get a NPC menu choice from the user
+		/// </summary>
+		/// <returns>action menu choice</returns>
+		public ColonistAction GetNpcMenuChoice(Menu menu)
+        {
+            ColonistAction choosenAction = ColonistAction.None;
+            Console.CursorVisible = false;
 
+            bool validKeystroke = false;
+            while (!validKeystroke)
+            {
+                try
+                {
+                    ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
+                    char keyPressed = keyPressedInfo.KeyChar;
+                    choosenAction = menu.MenuChoices[keyPressed];
+                }
+                catch (KeyNotFoundException)
+                {
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
+                    Console.ReadLine();
+                    ClearCurrentConsoleLine();
+                    continue;
+                }
+                validKeystroke = true;
+            }
+
+
+
+            return choosenAction;
+        }
 
         /// <summary>
         /// get an object menu choice from the user
@@ -749,9 +781,33 @@ namespace TBQuest
 					}
 				}
 			}
+            else if (menu == ActionMenu.NpcMenu)
+            {
+                foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
+                {
+                    if (menuChoice.Value != ColonistAction.None)
+                    {
+                        string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
+                        Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+                        Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+                    }
+                }
+            }
+            else if (menu == ActionMenu.ColonistMenu)
+            {
+                foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
+                {
+                    if (menuChoice.Value != ColonistAction.None)
+                    {
+                        string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
+                        Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+                        Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+                    }
+                }
+            }
 
 
-		}
+        }
 
         private void DisplayMessageBox(string headerText, string messageText)
         {
@@ -1381,8 +1437,72 @@ namespace TBQuest
             DisplayGamePlayScreen("List: NPC Objects", Text.ListAllNpcObjects(_gameUniverse.Npcs), ActionMenu.AdminMenu, "");
         }
 
+        public int DisplayGetNpcToTalkTo()
+        {
+            int npcId = 0;
+            bool validNpcId = false;
 
+            //
+            // get a list of NPCs in the current location
+            //
+            List<Npc> npcsInLocation = _gameUniverse.GetNpcByLocationId(_gameColonist.LocationID);
 
+            if (npcsInLocation.Count > 0)
+            {
+                DisplayGamePlayScreen("Choose Character To Speak With", Text.NpcsChooseList(npcsInLocation), ActionMenu.NpcMenu, "");
+
+                while (!validNpcId)
+                {
+                    //
+                    // get an integer from player
+                    //
+                    GetInteger("Enter the ID number of the character you wish to speak with: ", 0, 0, out npcId);
+
+                    //
+                    // validate integer as a valid NPC id in current location
+                    //
+                    if (_gameUniverse.IsValidNpcByLocationId(npcId, _gameColonist.LocationID))
+                    {
+                        Npc npc = _gameUniverse.GetNpcById(npcId);
+                        if (npc is ISpeak)
+                        {
+                            validNpcId = true;
+                        }
+                        else
+                        {
+                            ClearInputBox();
+                            DisplayInputErrorMessage("It appears this character has nothing to say. Please try again.");
+                        }
+                    }
+                    else
+                    {
+                        ClearInputBox();
+                        DisplayInputErrorMessage("It appears this character has nothing to say. Please try again.");
+                    }
+                }
+            }
+            else
+            {
+                DisplayGamePlayScreen("Choose Character to Speak With", "It appears there are no NPCs here.", ActionMenu.NpcMenu, "");
+            }
+
+            return npcId;
+        }
+
+        public void DisplayTalkTo(Npc npc)
+        {
+            ISpeak speakingNpc = npc as ISpeak;
+
+            string message = speakingNpc.Speak();
+
+            if (message == "")
+            {
+                message = "It appears this character has nothing to say. Please try again.";
+            }
+
+            DisplayGamePlayScreen("Speak to Character", message + "\n" + "\n" + "Press any key to continue.", ActionMenu.NpcMenu, "");
+            GetContinueKey();
+        }
 		#endregion
 	}
 }

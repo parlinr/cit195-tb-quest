@@ -194,8 +194,7 @@ namespace TBQuest
                         ObjectInteractionMenu();
                         break;
                     case ColonistAction.NonplayerCharacterMenu:
-                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.NpcMenu;
-                        _gameConsoleView.DisplayGamePlayScreen("NPC Menu", "Select an operation from the menu.", ActionMenu.NpcMenu, "");
+                        NpcMenu();
                         break;
                     case ColonistAction.ColonistMenu:
                         ColonistMenu();
@@ -434,7 +433,7 @@ namespace TBQuest
             while (inMenu)
             {
                 _gameConsoleView.DisplayGamePlayScreen("Colonist Menu", "Select an operation from the menu.", ActionMenu.ColonistMenu, "");
-                colonistMenuChoice = _gameConsoleView.GetColonistMenuChoice(ActionMenu.AdminMenu);
+                colonistMenuChoice = _gameConsoleView.GetColonistMenuChoice(ActionMenu.ColonistMenu);
                 switch (colonistMenuChoice)
                 {
                     case ColonistAction.None:
@@ -444,9 +443,10 @@ namespace TBQuest
                         _gameConsoleView.GetContinueKey();
                         break;
                     case ColonistAction.ColonistInfo:
-
+                        _gameConsoleView.DisplayColonistInfo();
                         break;
                     case ColonistAction.ColonistLocationsVisited:
+                        _gameConsoleView.DisplayLocationsVisited();
                         break;
                     case ColonistAction.ReturnToMainMenu:
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
@@ -513,6 +513,55 @@ namespace TBQuest
             return colonistActionChoice;
                    
         }
+
+        private void NpcMenu()
+        {
+            bool inMenu = true;
+            ActionMenu.currentMenu = ActionMenu.CurrentMenu.NpcMenu;
+            ColonistAction menuChoice = ColonistAction.None;
+            while (inMenu)
+            {
+                _gameConsoleView.DisplayGamePlayScreen("NPC Menu", "Select an operation from the menu.", ActionMenu.NpcMenu, "");
+                menuChoice = _gameConsoleView.GetNpcMenuChoice(ActionMenu.NpcMenu);
+                switch (menuChoice)
+                {
+                    case ColonistAction.None:
+                        break;
+                    case ColonistAction.TalkTo:
+                        TalkToAction();
+                        break;  
+                    case ColonistAction.ReturnToMainMenu:
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+                        inMenu = false;
+                        break;
+                }
+            }
+        }
+
+        private void TalkToAction()
+        {
+            //
+            // display a list of NPCs in location and get a player choice
+            //
+            int npcToTalkToId = _gameConsoleView.DisplayGetNpcToTalkTo();
+
+            //
+            // display NPC's message
+            //
+            if (npcToTalkToId != 0)
+            {
+                //
+                // get the NPC from the universe
+                //
+                Npc npc = _gameUniverse.GetNpcById(npcToTalkToId);
+
+                //
+                // display information for the object chosen
+                //
+                _gameConsoleView.DisplayTalkTo(npc);
+            }
+        }
+
         #endregion
     }
 }
