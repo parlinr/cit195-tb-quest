@@ -64,6 +64,7 @@
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\Colonist.cs" />
     <Compile Include="Models\ColonistAction.cs" />
+    <Compile Include="Models\Monster.cs" />
     <Compile Include="Models\Npc.cs" />
     <Compile Include="Models\Universe.cs" />
     <Compile Include="Models\UniverseNpcs.cs" />
