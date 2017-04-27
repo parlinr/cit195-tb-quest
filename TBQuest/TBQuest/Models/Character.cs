@@ -29,6 +29,9 @@ namespace TBQuest
         private RaceType _race;
         private bool _isAlive = true;
         protected int _health;
+        protected int _constitution;
+        protected int _agility;
+        protected int _strength;
         
 
         
@@ -75,6 +78,24 @@ namespace TBQuest
         {
             get { return _health; }
             set { _health = value; }
+        }
+
+        public int Constitution
+        {
+            get { return _constitution; }
+            set { _constitution = value; }
+        }
+
+        public int Strength
+        {
+            get { return _strength; }
+            set { _strength = value; }
+        }
+
+        public int Agility
+        {
+            get { return _agility; }
+            set { _agility = value; }
         }
 
         #endregion

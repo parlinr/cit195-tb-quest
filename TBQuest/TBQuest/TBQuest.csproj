@@ -58,6 +58,7 @@
     <Compile Include="Models\ColonistObjectType.cs" />
     <Compile Include="Models\EditColonist.cs" />
     <Compile Include="Models\GameObject.cs" />
+    <Compile Include="Models\IBattle.cs" />
     <Compile Include="Models\ISpeak.cs" />
     <Compile Include="Models\Key.cs" />
     <Compile Include="Models\Location.cs" />

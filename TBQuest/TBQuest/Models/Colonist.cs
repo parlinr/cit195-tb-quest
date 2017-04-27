@@ -17,10 +17,7 @@ namespace TBQuest
         #endregion
 
         #region FIELDS
-        private int _strength = 0;
-        private int _constitution = 0;
         private int _magic = 0;
-        private int _agility = 0;
         private int _abilityPoints = 0;
         private bool _isBeingChased = false;
         private bool _isMeleeColonist = false;
@@ -36,6 +33,7 @@ namespace TBQuest
 
 
         #region PROPERTIES
+        /*
         public int Strength
         {
             get { return _strength; }
@@ -47,12 +45,13 @@ namespace TBQuest
             get { return _constitution; }
             set { _constitution = value; }
         }
-
+        */
         public int Magic
         {
             get { return _magic; }
             set { _magic = value; }
         }
+        /*
 
         public int Agility
         {
@@ -60,6 +59,7 @@ namespace TBQuest
             set { _agility = value; }
         }
 
+        */
         public int AbilityPoints
         {
             get { return _abilityPoints; }
@@ -108,12 +108,13 @@ namespace TBQuest
             set { _lives = value; }
         }
 
+        /*
         public int Health
         {
             get { return _health; }
             set { _health = value; }
         }
-
+        */
 		public List<ColonistObject> Inventory
 		{
 			get { return _inventory; }

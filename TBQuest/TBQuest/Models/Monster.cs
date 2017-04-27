@@ -6,10 +6,19 @@ using System.Threading.Tasks;
 
 namespace TBQuest
 {
-    public class Monster : Npc
+    public class Monster : Npc, ISpeak
     {
         public override int Id { get; set; }
         public override string Description { get; set; }
+
+        public override bool canFight { get; set; }
+
+        public List<string> Messages { get; set; }
+        
+        public string Speak()
+        {
+            return "Roar! (This NPC may be attacked.)";
+        } 
         
     }
 }

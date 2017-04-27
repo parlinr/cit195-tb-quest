@@ -137,6 +137,10 @@ namespace TBQuest
                 {
                     travelerActionChoice = GetNextColonistAction();
                 }
+                else if (ActionMenu.currentMenu == ActionMenu.CurrentMenu.BattleMenu)
+                {
+                    travelerActionChoice = GetNextColonistAction();
+                }
 
 
                 //
@@ -198,6 +202,9 @@ namespace TBQuest
                         break;
                     case ColonistAction.ColonistMenu:
                         ColonistMenu();
+                        break;
+                    case ColonistAction.BattleMenu:
+                        BattleMenu();
                         break;
                     case ColonistAction.Exit:
                         _playingGame = false;
@@ -370,7 +377,7 @@ namespace TBQuest
             while (inAdminMenu)
             {
                 _gameConsoleView.DisplayGamePlayScreen("Admin Menu", "Select an operation from the menu.", ActionMenu.AdminMenu, "");
-                adminMenuChoice = _gameConsoleView.GetAdminMenuChoice(ActionMenu.AdminMenu);
+                adminMenuChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.AdminMenu);
                 switch (adminMenuChoice)
                 {
                     case ColonistAction.None:
@@ -393,6 +400,30 @@ namespace TBQuest
                 }
             }
         }
+
+        private void BattleMenu()
+        {
+            bool inMenu = true;
+            ActionMenu.currentMenu = ActionMenu.CurrentMenu.BattleMenu;
+            ColonistAction menuChoice = ColonistAction.None;
+            while (inMenu)
+            {
+                _gameConsoleView.DisplayGamePlayScreen("Battle Menu", "Select an operation from the menu.", ActionMenu.BattleMenu, "");
+                menuChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.BattleMenu);
+                switch (menuChoice)
+                {
+                    case ColonistAction.None:
+                        break;
+                    case ColonistAction.Attack:
+                        AttackAction();
+                        break;
+                    case ColonistAction.ReturnToMainMenu:
+                        ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
+                        inMenu = false;
+                        break;
+                }
+            }
+        }
         /// <summary>
         /// handles object interaction menu choices
         /// </summary>
@@ -404,7 +435,7 @@ namespace TBQuest
             while (inObjectMenu)
             {
                 _gameConsoleView.DisplayGamePlayScreen("Object Interaction Menu", "Select an operation from the menu.", ActionMenu.ObjectInteractionMenu, "");
-                objectMenuChoice = _gameConsoleView.GetObjectMenuChoice(ActionMenu.ObjectInteractionMenu);
+                objectMenuChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.ObjectInteractionMenu);
                 switch (objectMenuChoice)
                 {
                     case ColonistAction.None:
@@ -433,7 +464,7 @@ namespace TBQuest
             while (inMenu)
             {
                 _gameConsoleView.DisplayGamePlayScreen("Colonist Menu", "Select an operation from the menu.", ActionMenu.ColonistMenu, "");
-                colonistMenuChoice = _gameConsoleView.GetColonistMenuChoice(ActionMenu.ColonistMenu);
+                colonistMenuChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.ColonistMenu);
                 switch (colonistMenuChoice)
                 {
                     case ColonistAction.None:
@@ -454,6 +485,14 @@ namespace TBQuest
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// processes the attack action
+        /// </summary>
+        private void AttackAction()
+        {
+
         }
 
         /// <summary>
@@ -505,6 +544,9 @@ namespace TBQuest
                 case ActionMenu.CurrentMenu.AdminMenu:
                     colonistActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.AdminMenu);
                     break;
+                case ActionMenu.CurrentMenu.BattleMenu:
+                    colonistActionChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.BattleMenu);
+                    break;
                 default:
                     break;
 
@@ -522,14 +564,14 @@ namespace TBQuest
             while (inMenu)
             {
                 _gameConsoleView.DisplayGamePlayScreen("NPC Menu", "Select an operation from the menu.", ActionMenu.NpcMenu, "");
-                menuChoice = _gameConsoleView.GetNpcMenuChoice(ActionMenu.NpcMenu);
+                menuChoice = _gameConsoleView.GetActionMenuChoice(ActionMenu.NpcMenu);
                 switch (menuChoice)
                 {
                     case ColonistAction.None:
                         break;
                     case ColonistAction.TalkTo:
                         TalkToAction();
-                        break;  
+                        break;
                     case ColonistAction.ReturnToMainMenu:
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
                         inMenu = false;

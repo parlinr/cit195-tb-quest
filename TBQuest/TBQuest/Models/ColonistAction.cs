@@ -38,6 +38,9 @@ namespace TBQuest
         NonplayerCharacterMenu,
         TalkTo,
         ColonistMenu,
+        BattleMenu,
+        Attack,
+        RunAway,
         Exit
     }
 }

@@ -20,6 +20,7 @@ namespace TBQuest
             AdminMenu,
 			ObjectInteractionMenu,
             ColonistMenu,
+            BattleMenu,
             NpcMenu
         }
 
@@ -56,6 +57,7 @@ namespace TBQuest
                     {'4', ColonistAction.NonplayerCharacterMenu },
                     {'5', ColonistAction.ColonistMenu },
 					{'6', ColonistAction.AdminMenu},
+                    {'7', ColonistAction.BattleMenu},
                     {'0', ColonistAction.Exit }
                 }
         };
@@ -124,6 +126,18 @@ namespace TBQuest
                 {'0', ColonistAction.ReturnToMainMenu  }
             }
 
+        };
+
+        public static Menu BattleMenu = new Menu()
+        {
+            MenuName = "BattleMenu",
+            MenuTitle = "Battle Menu",
+            MenuChoices = new Dictionary<char, ColonistAction>()
+            {
+                {'1', ColonistAction.Attack},
+                {'2', ColonistAction.RunAway },
+                {'0', ColonistAction.ReturnToMainMenu }
+            }
         };
         
 

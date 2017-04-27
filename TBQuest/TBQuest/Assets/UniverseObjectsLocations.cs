@@ -79,7 +79,8 @@ namespace TBQuest
                 AccessibleLocations = new List<int>()
                 {
                     3,
-                    4
+                    4,
+                    8
                 }
 
             },

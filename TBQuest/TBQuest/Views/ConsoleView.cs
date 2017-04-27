@@ -131,137 +131,6 @@ namespace TBQuest
         }
 
 		/// <summary>
-		/// get an admin menu choice from the user
-		/// </summary>
-		/// <returns>action menu choice</returns>
-		public ColonistAction GetAdminMenuChoice(Menu menu)
-		{
-			ColonistAction choosenAction = ColonistAction.None;
-			Console.CursorVisible = false;
-
-			bool validKeystroke = false;
-			while (!validKeystroke)
-			{
-				try
-				{
-					ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
-					char keyPressed = keyPressedInfo.KeyChar;
-					choosenAction = menu.MenuChoices[keyPressed];
-				}
-				catch (KeyNotFoundException)
-				{
-					ClearCurrentConsoleLine();
-					DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
-					Console.ReadLine();
-					ClearCurrentConsoleLine();
-					continue;
-				}
-				validKeystroke = true;
-			}
-
-
-
-			return choosenAction;
-		}
-
-        public ColonistAction GetColonistMenuChoice(Menu menu)
-        {
-            ColonistAction choosenAction = ColonistAction.None;
-            Console.CursorVisible = false;
-
-            bool validKeystroke = false;
-            while (!validKeystroke)
-            {
-                try
-                {
-                    ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
-                    char keyPressed = keyPressedInfo.KeyChar;
-                    choosenAction = menu.MenuChoices[keyPressed];
-                }
-                catch (KeyNotFoundException)
-                {
-                    ClearCurrentConsoleLine();
-                    DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
-                    Console.ReadLine();
-                    ClearCurrentConsoleLine();
-                    continue;
-                }
-                validKeystroke = true;
-            }
-
-
-
-            return choosenAction;
-        }
-        /// <summary>
-		/// get a NPC menu choice from the user
-		/// </summary>
-		/// <returns>action menu choice</returns>
-		public ColonistAction GetNpcMenuChoice(Menu menu)
-        {
-            ColonistAction choosenAction = ColonistAction.None;
-            Console.CursorVisible = false;
-
-            bool validKeystroke = false;
-            while (!validKeystroke)
-            {
-                try
-                {
-                    ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
-                    char keyPressed = keyPressedInfo.KeyChar;
-                    choosenAction = menu.MenuChoices[keyPressed];
-                }
-                catch (KeyNotFoundException)
-                {
-                    ClearCurrentConsoleLine();
-                    DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
-                    Console.ReadLine();
-                    ClearCurrentConsoleLine();
-                    continue;
-                }
-                validKeystroke = true;
-            }
-
-
-
-            return choosenAction;
-        }
-
-        /// <summary>
-        /// get an object menu choice from the user
-        /// </summary>
-        /// <returns>action menu choice</returns>
-        public ColonistAction GetObjectMenuChoice(Menu menu)
-		{
-			ColonistAction choosenAction = ColonistAction.None;
-			Console.CursorVisible = false;
-
-			bool validKeystroke = false;
-			while (!validKeystroke)
-			{
-				try
-				{
-					ConsoleKeyInfo keyPressedInfo = Console.ReadKey();
-					char keyPressed = keyPressedInfo.KeyChar;
-					choosenAction = menu.MenuChoices[keyPressed];
-				}
-				catch (KeyNotFoundException)
-				{
-					ClearCurrentConsoleLine();
-					DisplayInputBoxPrompt("Invalid keystroke. Press enter to try again.");
-					Console.ReadLine();
-					ClearCurrentConsoleLine();
-					continue;
-				}
-				validKeystroke = true;
-			}
-
-
-
-			return choosenAction;
-		}
-
-		/// <summary>
 		/// get an edit character menu choice from the user
 		/// </summary>
 		/// <returns>action menu choice</returns>
@@ -794,6 +663,18 @@ namespace TBQuest
                 }
             }
             else if (menu == ActionMenu.ColonistMenu)
+            {
+                foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
+                {
+                    if (menuChoice.Value != ColonistAction.None)
+                    {
+                        string formatedMenuChoice = ConsoleWindowHelper.ToLabelFormat(menuChoice.Value.ToString());
+                        Console.SetCursorPosition(ConsoleLayout.MenuBoxPositionLeft + 3, topRow++);
+                        Console.Write($"{menuChoice.Key}. {formatedMenuChoice}");
+                    }
+                }
+            }
+            else if (menu == ActionMenu.BattleMenu)
             {
                 foreach (KeyValuePair<char, ColonistAction> menuChoice in menu.MenuChoices)
                 {
@@ -1503,6 +1384,56 @@ namespace TBQuest
             DisplayGamePlayScreen("Speak to Character", message + "\n" + "\n" + "Press any key to continue.", ActionMenu.NpcMenu, "");
             GetContinueKey();
         }
+
+
+        public int DisplayGetMonsterToFight()
+        {
+            int monsterId = 0;
+            bool validMonsterId = false;
+
+            //
+            // get a list of monsters in the current location
+            //
+            List<Monster> monstersInLocation = _gameUniverse.GetMonsterByLocationId(_gameColonist.LocationID);
+
+            if (monstersInLocation.Count > 0)
+            {
+                DisplayGamePlayScreen("Choose Monster to Attack", Text.MonstersChooseList(monstersInLocation), ActionMenu.BattleMenu, "");
+
+                while (!validMonsterId)
+                {
+                    //
+                    // get an integer from the player
+                    //
+                    GetInteger($"Enter the Id number of the monster you wish to attack: ", 0, 0, out monsterId);
+
+                    //
+                    // validate integer as a valid monster Id in current location
+                    //
+                    if (_gameUniverse.IsValidMonsterByLocationId(monsterId, _gameColonist.LocationID))
+                    {
+                        Monster monster = _gameUniverse.GetMonsterById(monsterId);
+                        if (monster is IBattle)
+                        {
+                            validMonsterId = true;
+                        }
+                        else
+                        {
+                            ClearInputBox();
+                            DisplayInputErrorMessage("It appears you entered an invalid monster id. Please try again.");
+                        }
+                    }
+
+                    else
+                    {
+                        DisplayGamePlayScreen("Choose Monster to Attack", "It appears there are no monsters here.", ActionMenu.BattleMenu, "");
+                    }
+                }
+            }
+
+            return monsterId;
+        }
+        
 		#endregion
 	}
 }

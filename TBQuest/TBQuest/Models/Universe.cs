@@ -15,6 +15,7 @@ namespace TBQuest
         private List<Location> _locations;
         private List<GameObject> _gameObjects;
         private List<Npc> _npcs;
+        private List<Monster> _monsters;
         #endregion
 
         #region PROPERTIES
@@ -34,6 +35,11 @@ namespace TBQuest
         {
             get { return _npcs; }
             set { _npcs = value; }
+        }
+        public List<Monster> Monsters
+        {
+            get { return _monsters; }
+            set { _monsters = value; }
         }
 
 
@@ -56,6 +62,8 @@ namespace TBQuest
             _locations = UniverseObjects.Locations;
             _gameObjects = UniverseObjects.gameObjects;
             _npcs = UniverseObjects.Npcs;
+            _monsters = UniverseObjects.Monsters;
+
 
         }
 
@@ -351,8 +359,84 @@ namespace TBQuest
 
             return npcs;
         }
+        
+        public List<Monster> GetMonsterByLocationId(int locationId)
+        {
+            List<Monster> monsters = new List<Monster>();
+
+            //
+            // run through the monster object list and grab all the ones in the current location
+            //
+            foreach (Monster monster in _monsters)
+            {
+                if (monster.LocationID == locationId)
+                {
+                    monsters.Add(monster);
+                }
+            }
+
+            return monsters;
+        }
+
+        public bool IsValidMonsterByLocationId(int monsterId, int currentLocation)
+        {
+            List<int> monsterIds = new List<int>();
+
+            //
+            // create a list of monster Ids in current location
+            //
+            foreach (Monster monster in _monsters)
+            {
+                if (monster.LocationID == currentLocation)
+                {
+                    monsterIds.Add(monster.Id);
+                }
+            }
+
+            //
+            // determine if the game object id is a valid id and return the result
+            //
+            if (monsterIds.Contains(monsterId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public Monster GetMonsterById(int Id)
+        {
+            Monster monsterToReturn = null;
+
+            //
+            // run through the monster object list and grab the right one
+            //
+            foreach (Monster monster in _monsters)
+            {
+                if (monster.Id == Id)
+                {
+                    monsterToReturn = monster;
+                }
+            }
+
+            //
+            // the specified Id was not found in the universe
+            // throw an exception 
+            //
+            if (monsterToReturn == null)
+            {
+                string feedbackMessage = $"The monster ID {Id} does not exist in the current Universe.";
+                throw new ArgumentException(Id.ToString(), feedbackMessage);
+            }
+
+            return monsterToReturn;
+
+        }
 
 
-		#endregion
-	}
+
+        #endregion
+    }
 }

@@ -568,6 +568,44 @@ namespace TBQuest
 
         }
         #endregion
+
+        #region MonstersChooseList
+        public static string MonstersChooseList(List<Monster> monsters)
+        {
+            //
+            // display table name and column headers
+            //
+            string messageBoxText =
+                "Monsters\n" +
+                "\n" +
+
+                //
+                // display table header
+                //
+                "ID".PadRight(10) +
+                "Name".PadRight(30) + "\n" +
+                "---".PadRight(10) +
+                "--------------------".PadRight(30) + "\n";
+
+            //
+            // display all monsters in rows
+            //
+            string monsterRows = null;
+            foreach (Monster monster in monsters)
+            {
+                monsterRows +=
+                    $"{monster.Id}".PadRight(10) +
+                    $"{monster.Name}".PadRight(30) +
+                    Environment.NewLine;
+            }
+
+            messageBoxText += monsterRows;
+            messageBoxText += "\n" + "Press any key to continue.";
+
+            return messageBoxText;
+
+        }
+        #endregion
     }
 }
 
