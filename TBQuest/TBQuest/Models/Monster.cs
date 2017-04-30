@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TBQuest
 {
-    public class Monster : Npc, ISpeak
+    public class Monster : Npc, ISpeak, IBattle
     {
         public override int Id { get; set; }
         public override string Description { get; set; }

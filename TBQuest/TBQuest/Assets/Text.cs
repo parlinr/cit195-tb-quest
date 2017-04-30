@@ -605,7 +605,43 @@ namespace TBQuest
             return messageBoxText;
 
         }
-        #endregion
-    }
+		#endregion
+
+		#region EquippedItems
+		public static string EquippedItems(List<ColonistObject> equippedItems)
+		{
+			string messageBoxText = "";
+
+			//
+			// display table header
+			//
+			messageBoxText =
+					"ID".PadRight(10) +
+					"Name".PadRight(30) +
+					"Type".PadRight(10) +
+					"\n" +
+					"---".PadRight(10) +
+					"--------------------".PadRight(30) +
+					"------".PadRight(10) + "\n";
+
+			// display all equipped objects in rows
+			string equippedObjectsRows = null;
+			foreach (ColonistObject equippedObject in equippedItems) 
+			{
+				equippedObjectsRows +=
+					$"{equippedObject.Id}".PadRight(10) +
+					$"{equippedObject.Name}".PadRight(30) +
+					$"{equippedObject.Type}".PadRight(10) +
+					Environment.NewLine;
+			}
+
+			messageBoxText += equippedObjectsRows;
+			messageBoxText += "\n" + "Press any key to continue";
+
+			return messageBoxText;
+		}
+		
+		#endregion
+	}
 }
 

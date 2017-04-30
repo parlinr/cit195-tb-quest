@@ -38,18 +38,21 @@ namespace TBQuest
                 Description = "A winged beast, similar to a dragon but not as dangerous. " +
                                 "He's still a pretty tough customer.",
                 Health = 200,
-                Strength = 3,
+                Strength = 4,
                 Constitution = 3,
-                Agility = 2
+                Agility = 3
             },
             new Monster
             {
-                Id = 2
+                Id = 2,
+				LocationID = 9,
+				canFight = true
             },
             new Monster
             {
                 Id = 3,
                 Name = "Chimera",
+				LocationID = 7,
                 canFight = true,
                 Description = "A three-headed beast. If this is the first monster you have "
                                 + "encountered, you're not going to make it."

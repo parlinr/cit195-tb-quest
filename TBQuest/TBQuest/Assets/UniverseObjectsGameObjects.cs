@@ -8,20 +8,21 @@ namespace TBQuest
 {
     public static partial class UniverseObjects
     {
-        //TODO: make more objects
-        public static List<GameObject> gameObjects = new List<GameObject>()
-        {
-            new ColonistObject
-            {
-                Id = 1,
-                Name = "Steel Sword,",
+		//TODO: make more objects
+		public static List<GameObject> gameObjects = new List<GameObject>()
+		{
+			new ColonistObject
+			{
+				Id = 1,
+				Name = "Steel Sword,",
 				Description = "A steel sword. It will likely be effective against lower level monsters.",
 				Type = ColonistObjectType.Weapon,
 				Value = 75,
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
-				LocationId = 4
+				LocationId = 4,
+				CanEquip = true
             },
 
 			new ColonistObject
@@ -34,7 +35,8 @@ namespace TBQuest
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
-				LocationId = 0
+				LocationId = 0,
+				CanEquip = true
 			},
 
 			new ColonistObject
@@ -47,7 +49,8 @@ namespace TBQuest
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
-				LocationId = 1
+				LocationId = 1,
+				CanEquip = false
 			},
 
 			new ColonistObject
@@ -61,7 +64,8 @@ namespace TBQuest
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
-				LocationId = 2
+				LocationId = 2,
+				CanEquip = false
 		
 			},
 
@@ -75,7 +79,8 @@ namespace TBQuest
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
-				LocationId = 8
+				LocationId = 8,
+				CanEquip = false
 			},
 
 			new ColonistObject
@@ -84,12 +89,29 @@ namespace TBQuest
 				Name = "Adamantine Sword",
 				Description = "An adamantine sword. It looks like it could stand up to higher level monsters.",
 				Type = ColonistObjectType.Weapon,
+				Value = 300,
+				CanInventory = true,
+				IsConsumable = false,
+				IsVisible = true,
+				LocationId = 6,
+				CanEquip = true
+			},
+
+			new ColonistObject
+			{
+				Id = 7,
+				Name = "Mithril Sword",
+				Description = "A mithril sword. It appears like it could stand up to medium level monsters.",
+				Type = ColonistObjectType.Weapon,
 				Value = 150,
 				CanInventory = true,
 				IsConsumable = false,
 				IsVisible = true,
-				LocationId = 6
+				LocationId = 5,
+				CanEquip = true
 			}
+
+
 
 
 

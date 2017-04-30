@@ -17,6 +17,7 @@ namespace TBQuest
         public bool IsConsumable { get; set; }
         public bool IsVisible { get; set; }
         public double Value { get; set; }
+		public bool CanEquip { get; set; }
 
         
 

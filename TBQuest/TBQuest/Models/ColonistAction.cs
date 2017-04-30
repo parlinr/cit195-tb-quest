@@ -41,6 +41,8 @@ namespace TBQuest
         BattleMenu,
         Attack,
         RunAway,
+		EquipObject,
+		EquippedItems,
         Exit
     }
 }

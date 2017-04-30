@@ -10,7 +10,16 @@ namespace TBQuest
     {
         public static List<Location> Locations = new List<Location>()
         {
-            new Location
+			new Location
+			{
+				CommonName = "Player's Equipped Items",
+				LocationID = -1,
+				Description = "Player's Equipped Items",
+				GeneralContents = "",
+				ExperiencePoints = 0
+			},
+
+			new Location
             {
                 CommonName = "Player's Inventory",
                 LocationID = 0,
@@ -146,7 +155,22 @@ namespace TBQuest
                     4,
                     8
                 }
-            }
+            },
+
+			new Location
+			{
+				CommonName = "Steppes",
+				LocationID = 9,
+				Description = "A wide expanse of grassland.",
+				GeneralContents = "",
+				ExperiencePoints = 10,
+				AccessibleLocations = new List<int>()
+				{
+					5,
+					9
+				}
+
+			}
 
         };
         

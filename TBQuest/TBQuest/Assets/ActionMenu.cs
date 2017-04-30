@@ -99,6 +99,7 @@ namespace TBQuest
                 {'1', ColonistAction.LookAt },
 				{'2', ColonistAction.PickUp },
 				{'3', ColonistAction.PutDown },
+				{'4', ColonistAction.EquipObject},
 				{'0', ColonistAction.ReturnToMainMenu }
 			}
 		};
@@ -111,7 +112,8 @@ namespace TBQuest
             {
                 {'1', ColonistAction.ColonistInfo },
                 {'2', ColonistAction.ColonistInventory },
-                {'3', ColonistAction.ColonistLocationsVisited },
+				{'3', ColonistAction.EquippedItems },
+                {'4', ColonistAction.ColonistLocationsVisited },
                 {'0', ColonistAction.ReturnToMainMenu  }
             }
         };

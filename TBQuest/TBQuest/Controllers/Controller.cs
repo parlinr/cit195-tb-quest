@@ -448,6 +448,10 @@ namespace TBQuest
                         PutDownAction();
                         _gameConsoleView.GetContinueKey();
                         break;
+					case ColonistAction.EquipObject:
+						EquipObject();
+						_gameConsoleView.GetContinueKey();
+						break;
                     case ColonistAction.ReturnToMainMenu:
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
                         inObjectMenu = false;
@@ -479,6 +483,10 @@ namespace TBQuest
                     case ColonistAction.ColonistLocationsVisited:
                         _gameConsoleView.DisplayLocationsVisited();
                         break;
+					case ColonistAction.EquippedItems:
+						_gameConsoleView.DisplayEquippedItems();
+						_gameConsoleView.GetContinueKey();
+						break;
                     case ColonistAction.ReturnToMainMenu:
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
                         inMenu = false;
@@ -488,10 +496,41 @@ namespace TBQuest
         }
 
         /// <summary>
-        /// processes the attack action
+        /// processes the attack action (combat math is done here)
         /// </summary>
         private void AttackAction()
         {
+			//
+			// get the desired monster to attack
+			//
+			int monsterToAttackId = _gameConsoleView.DisplayGetMonsterById();
+			Monster monsterToAttack = _gameUniverse.GetMonsterById(monsterToAttackId);
+
+			//
+			// handle combat math
+			// formula: strength + constitution + agility = attackScore
+			// higher score wins
+			// damage based on difference in scores
+			//
+			int playerAttackScore = _gameColonist.Agility + _gameColonist.Constitution + _gameColonist.Strength;
+			int monsterAttackScore = monsterToAttack.Agility + monsterToAttack.Constitution + monsterToAttack.Strength;
+
+			//
+			// if the player has a certain weapon equipped, they get an attackScore buff
+			//
+			if (_gameUniverse.GetGameObjectById(1).LocationId == -1) // if steel sword is equipped
+			{
+				playerAttackScore += 3;
+			}
+			if (_gameUniverse.GetGameObjectById(7).LocationId == -1) // if mithril sword is equipped
+			{
+
+			}
+			if (_gameUniverse.GetGameObjectById(6).LocationId == -1) // if adamantine sword is equipped
+			{
+
+			}
+
 
         }
 
@@ -603,6 +642,47 @@ namespace TBQuest
                 _gameConsoleView.DisplayTalkTo(npc);
             }
         }
+
+		private void EquipObject()
+		{
+			//
+			// display a list of objects in inventory and get a player choice
+			//
+			int objectToPickUpId = _gameConsoleView.DisplayGetColonistObjectToEquip();
+
+			//
+			// add the object to the equipped list
+			//
+			if (objectToPickUpId != 0)
+			{
+				//
+				// get the object from the inventory
+				//
+				ColonistObject colonistObject = _gameUniverse.GetGameObjectById(objectToPickUpId) as ColonistObject;
+
+				//
+				// if there is a weapon already equipped, un-equip it
+				// implementation taken from: http://stackoverflow.com/questions/4937060/how-to-check-if-listt-element-contains-an-item-with-a-particular-property-valu
+				//
+				ColonistObject alreadyEquippedWeapon = _gameColonist.EquippedItems.FirstOrDefault(x => x.Type == ColonistObjectType.Weapon);
+				if (alreadyEquippedWeapon != null)
+				{
+					_gameColonist.EquippedItems.Remove(alreadyEquippedWeapon);
+					alreadyEquippedWeapon.LocationId = 0;
+				}
+
+				//
+				// object is added to equipped list and location is set to -1
+				//
+				_gameColonist.EquippedItems.Add(colonistObject);
+				colonistObject.LocationId = -1;
+
+				//
+				// display confirmation message
+				//
+				_gameConsoleView.DisplayConfirmColonistObjectEquipped(colonistObject);
+			}
+		}
 
         #endregion
     }

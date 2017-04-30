@@ -1386,7 +1386,7 @@ namespace TBQuest
         }
 
 
-        public int DisplayGetMonsterToFight()
+        public int DisplayGetMonsterById()
         {
             int monsterId = 0;
             bool validMonsterId = false;
@@ -1433,7 +1433,70 @@ namespace TBQuest
 
             return monsterId;
         }
-        
+
+		public void DisplayEquippedItems()
+		{
+			DisplayGamePlayScreen("Equipped Items", Text.EquippedItems(_gameColonist.EquippedItems), ActionMenu.ColonistMenu, "");
+			
+		}
+
+		public int DisplayGetColonistObjectToEquip()
+		{
+			int gameObjectId = 0;
+			bool validGameObjectId = false;
+
+			//
+			// get a list of objects in the player's inventory
+			//
+			List<ColonistObject> equippableObjects = _gameUniverse.GetColonistObjectsByLocationId(0);
+
+			if (equippableObjects.Count > 0)
+			{
+				DisplayGamePlayScreen("Equip Object", Text.GameObjectsChooseList(equippableObjects), ActionMenu.ObjectInteractionMenu, "");
+
+				while (!validGameObjectId)
+				{
+					//
+					// get an integer from the player
+					//
+					GetInteger($"Enter the ID number of the object you wish to equip: ", 0, 0, out gameObjectId);
+
+					//
+					// validate integer as a valid game object id in inventory
+					//
+					if (_gameUniverse.IsValidColonistObjectByLocationId(gameObjectId, 0))
+					{
+						ColonistObject colonistObject = _gameUniverse.GetGameObjectById(gameObjectId) as ColonistObject;
+						if (colonistObject.CanEquip)
+						{
+							validGameObjectId = true;
+						}
+						else
+						{
+							ClearInputBox();
+							DisplayInputErrorMessage("It appears you may not equip that object. Please try again.");
+						}
+					}
+					else
+					{
+						ClearInputBox();
+						DisplayInputErrorMessage("It appears you entered an invalid game object ID. Please try again.");
+					}
+				}
+			}
+			else
+			{
+				DisplayGamePlayScreen("Equip Object", "It appears there are no equippable objects in your inventory.", ActionMenu.ObjectInteractionMenu, "");
+			}
+
+			return gameObjectId;
+		}
+
+		public void DisplayConfirmColonistObjectEquipped(ColonistObject objectEquipped)
+		{
+			DisplayGamePlayScreen("Equip Object", $"The {objectEquipped.Name} has been equipped. \n" + "Press any key to continue.", ActionMenu.ObjectInteractionMenu, "");
+		}
+		        
 		#endregion
 	}
 }
