@@ -19,6 +19,13 @@ namespace TBQuest
         {
             return "Roar! (This NPC may be attacked.)";
         } 
+		
+		public int Attack()
+		{
+			int attackScore = this.Agility + this.Constitution + this.Strength;
+			return attackScore;
+			
+		}
         
     }
 }

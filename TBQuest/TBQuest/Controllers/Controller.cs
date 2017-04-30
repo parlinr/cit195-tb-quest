@@ -452,6 +452,10 @@ namespace TBQuest
 						EquipObject();
 						_gameConsoleView.GetContinueKey();
 						break;
+					case ColonistAction.UnequipObject:
+						UnEquipObject();
+						_gameConsoleView.GetContinueKey();
+						break;
                     case ColonistAction.ReturnToMainMenu:
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
                         inObjectMenu = false;
@@ -487,6 +491,9 @@ namespace TBQuest
 						_gameConsoleView.DisplayEquippedItems();
 						_gameConsoleView.GetContinueKey();
 						break;
+					case ColonistAction.UseAbilityPoints:
+						UseAbilityPoints();
+						break;
                     case ColonistAction.ReturnToMainMenu:
                         ActionMenu.currentMenu = ActionMenu.CurrentMenu.MainMenu;
                         inMenu = false;
@@ -501,10 +508,25 @@ namespace TBQuest
         private void AttackAction()
         {
 			//
+			// some variables
+			//
+			int damage;
+			Monster monsterToAttack = null;
+			//
 			// get the desired monster to attack
 			//
 			int monsterToAttackId = _gameConsoleView.DisplayGetMonsterById();
-			Monster monsterToAttack = _gameUniverse.GetMonsterById(monsterToAttackId);
+			try
+			{
+				monsterToAttack = _gameUniverse.GetMonsterById(monsterToAttackId);
+			}
+			catch (Exception e)
+			{
+				_gameConsoleView.DisplayGamePlayScreen("Attack Monster", e.Message + " Press any key to continue.", ActionMenu.BattleMenu, "");
+				_gameConsoleView.GetContinueKey();
+				return;
+			}
+			
 
 			//
 			// handle combat math
@@ -512,23 +534,68 @@ namespace TBQuest
 			// higher score wins
 			// damage based on difference in scores
 			//
-			int playerAttackScore = _gameColonist.Agility + _gameColonist.Constitution + _gameColonist.Strength;
-			int monsterAttackScore = monsterToAttack.Agility + monsterToAttack.Constitution + monsterToAttack.Strength;
+			int playerAttackScore = _gameColonist.Attack();
+			int monsterAttackScore = monsterToAttack.Attack();
 
 			//
-			// if the player has a certain weapon equipped, they get an attackScore buff
+			// resolve damage here
 			//
-			if (_gameUniverse.GetGameObjectById(1).LocationId == -1) // if steel sword is equipped
+			if (playerAttackScore > monsterAttackScore)
 			{
-				playerAttackScore += 3;
+				damage = (playerAttackScore - monsterAttackScore) * 50;
+				monsterToAttack.Health -= damage;
+				if (monsterToAttack.Health > 0)
+				{
+					_gameConsoleView.DisplayGamePlayScreen("Attack Monster", $"You dealt {damage} damage to the {monsterToAttack.Name}. The "
+					+ $"{monsterToAttack.Name} has {monsterToAttack.Health} health remaining. Press any key to continue.", ActionMenu.BattleMenu, "");
+					_gameConsoleView.GetContinueKey();
+				}
+				else
+				{
+					monsterToAttack.IsAlive = false;
+					_gameConsoleView.DisplayGamePlayScreen("Attack Monster", $"You dealt {damage} damage to the {monsterToAttack.Name}. "
+						+ $"You killed the {monsterToAttack.Name}! You gained four ability points. \n Press any key to continue", ActionMenu.BattleMenu, "");
+					_gameColonist.AbilityPoints += 4;
+					_gameColonist.Health = 100;
+					_gameColonist.Lives = 3;
+					_gameConsoleView.GetContinueKey();
+				}
+					
 			}
-			if (_gameUniverse.GetGameObjectById(7).LocationId == -1) // if mithril sword is equipped
+			else if (monsterAttackScore > playerAttackScore)
 			{
-
+				damage = (monsterAttackScore - playerAttackScore) * 50;
+				_gameColonist.Health -= damage;
+				if (_gameColonist.Health > 0)
+				{
+					_gameConsoleView.DisplayGamePlayScreen("Attack Monster", $"The {monsterToAttack.Name} dealt {damage} damage to you. Press any key to continue",
+					ActionMenu.BattleMenu, "");
+					_gameConsoleView.GetContinueKey();
+				}
+				else if (_gameColonist.Lives > 1)
+				{
+					_gameColonist.Health = 100;
+					_gameColonist.Lives--;
+					_gameConsoleView.DisplayGamePlayScreen("Attack Monster", $"The {monsterToAttack.Name} dealt {damage} to you. "
+						+ $"You lost one life. Press any key to continue", ActionMenu.BattleMenu, "");
+					_gameConsoleView.GetContinueKey();
+				}
+				else
+				{
+					_gameColonist.Lives--;
+					_gameColonist.Health = 0;
+					_gameConsoleView.DisplayGamePlayScreen("Attack Monster", $"The {monsterToAttack.Name} dealt {damage} to you. "
+						+ $"You have died. Press any key to exit.", ActionMenu.BattleMenu, "");
+					_gameConsoleView.GetContinueKey();
+					Environment.Exit(2);
+				}
+				
 			}
-			if (_gameUniverse.GetGameObjectById(6).LocationId == -1) // if adamantine sword is equipped
+			else
 			{
-
+				damage = 0;
+				_gameConsoleView.DisplayGamePlayScreen("Attack Monster", $"You dealt {damage} damage to the {monsterToAttack.Name}. Press any key to continue.", ActionMenu.BattleMenu, "");
+				_gameConsoleView.GetContinueKey();
 			}
 
 
@@ -682,6 +749,61 @@ namespace TBQuest
 				//
 				_gameConsoleView.DisplayConfirmColonistObjectEquipped(colonistObject);
 			}
+		}
+
+		private void UnEquipObject()
+		{
+			//
+			// display a list of objects in the equipped list and get a player choice
+			//
+			int colonistObjectToUnEquipId = _gameConsoleView.DisplayGetColonistObjectToUnequip();
+
+			//
+			// remove the object from the equipped list
+			//
+			if (colonistObjectToUnEquipId != 0)
+			{
+				//
+				// get the game object from the universe
+				//
+				ColonistObject colonistObject = _gameUniverse.GetGameObjectById(colonistObjectToUnEquipId) as ColonistObject;
+
+				//
+				// note: object is removed from the equipped list and placed in inventory
+				//
+				_gameColonist.EquippedItems.Remove(colonistObject);
+				colonistObject.LocationId = 0;
+
+				//
+				// display confirmation message
+				//
+				_gameConsoleView.DisplayConfirmColonistObjectUnEquipped(colonistObject);
+			}
+		}
+
+		private void UseAbilityPoints()
+		{
+			Colonist tempColonist = new Colonist();
+			tempColonist.AbilityPoints = _gameColonist.AbilityPoints;
+			_gameConsoleView.ClearCurrentConsoleLine();
+			_gameConsoleView.DisplayGamePlayScreen("Use Ability Points", "Follow the prompt instructions to use your ability points.", ActionMenu.ColonistMenu, "");
+			tempColonist.Strength = _gameConsoleView.GetStrength(tempColonist);
+			tempColonist.Constitution = _gameConsoleView.GetConstitution(tempColonist);
+			tempColonist.Agility = _gameConsoleView.GetAgility(tempColonist);
+
+			if (tempColonist.Strength != 0)
+			{
+				_gameColonist.Strength += tempColonist.Strength;
+			}
+			if (tempColonist.Constitution != 0)
+			{
+				_gameColonist.Constitution += tempColonist.Constitution;
+			}
+			if (tempColonist.Agility != 0)
+			{
+				_gameColonist.Agility += tempColonist.Agility;
+			}
+			_gameColonist.AbilityPoints = tempColonist.AbilityPoints;
 		}
 
         #endregion

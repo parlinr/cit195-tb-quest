@@ -272,41 +272,40 @@ namespace TBQuest
         /// <summary>
         /// gets the initial strength value form the user
         /// </summary>
-        /// <param name="console"></param>
         /// <param name="tempObject"></param>
         /// <returns>user's chosen strength value</returns>
-        public int GetStrength(ConsoleView console, Colonist tempObject)
+        public int GetStrength(Colonist tempObject)
         {
             int userStrength = 0;
             bool validStrength = false;
             while (!validStrength)
             {
-                console.ClearCurrentConsoleLine();
-                console.DisplayInputBoxPrompt($"Enter your strength value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
+                ClearCurrentConsoleLine();
+                DisplayInputBoxPrompt($"Enter your strength value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
                 try
                 {
-                    userStrength = console.GetInteger();
+                    userStrength = GetInteger();
                 }
                 catch (FormatException)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
                 catch (Exception)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("An unknown error occurred. Press enter to try agian.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("An unknown error occurred. Press enter to try agian.");
+                    GetContinueKey();
                     continue;
                 }
 
                 if (userStrength > tempObject.AbilityPoints || userStrength < 0)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of strength than is possible. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("You either chose a higher or lower amount of strength than is possible. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
 
@@ -322,42 +321,41 @@ namespace TBQuest
         /// <summary>
         /// gets the initial constitution value from the user
         /// </summary>
-        /// <param name="console"></param>
         /// <param name="tempObject"></param>
         /// <returns>user chosen constitution value</returns>
-        public int GetConstitution(ConsoleView console, Colonist tempObject)
+        public int GetConstitution(Colonist tempObject)
         {
-            console.DisplayGamePlayScreen("Mission Initialization - Ability Points", Text.InitializeMissionGetAbilityPoints(tempObject), ActionMenu.MissionIntro, "");
+            //DisplayGamePlayScreen("Mission Initialization - Ability Points", Text.InitializeMissionGetAbilityPoints(tempObject), ActionMenu.MissionIntro, "");
             int userConstitution = 0;
             bool validConstitution = false;
             while (!validConstitution)
             {
-                console.ClearCurrentConsoleLine();
-                console.DisplayInputBoxPrompt($"Enter your constitution value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
+                ClearCurrentConsoleLine();
+                DisplayInputBoxPrompt($"Enter your constitution value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
                 try
                 {
-                    userConstitution = console.GetInteger();
+                    userConstitution = GetInteger();
                 }
                 catch (FormatException)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
                 catch (Exception)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("An unknown error occurred. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("An unknown error occurred. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
 
                 if (userConstitution > tempObject.AbilityPoints || userConstitution < 0)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of constitution than is possible. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("You either chose a higher or lower amount of constitution than is possible. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
 
@@ -429,38 +427,38 @@ namespace TBQuest
         /// <param name="console"></param>
         /// <param name="tempObject"></param>
         /// <returns>user chosen agility value</returns>
-        public int GetAgility(ConsoleView console, Colonist tempObject)
+        public int GetAgility(Colonist tempObject)
         {
             int userAgility = 0;
             bool validAgility = false;
             while (!validAgility)
             {
-                console.ClearCurrentConsoleLine();
-                console.DisplayInputBoxPrompt($"Enter your agility value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
+                ClearCurrentConsoleLine();
+                DisplayInputBoxPrompt($"Enter your agility value {tempObject.Name} (0-{tempObject.AbilityPoints}): ");
                 try
                 {
-                    userAgility = console.GetInteger();
+                    userAgility = GetInteger();
                 }
                 catch (FormatException)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("Not an integer. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
                 catch (Exception)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("An unknown error occurred. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("An unknown error occurred. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
 
                 if (userAgility > tempObject.AbilityPoints || userAgility < 0)
                 {
-                    console.ClearCurrentConsoleLine();
-                    console.DisplayInputBoxPrompt("You either chose a higher or lower amount of agility than is possible. Press enter to try again.");
-                    console.GetContinueKey();
+                    ClearCurrentConsoleLine();
+                    DisplayInputBoxPrompt("You either chose a higher or lower amount of agility than is possible. Press enter to try again.");
+                    GetContinueKey();
                     continue;
                 }
 
@@ -894,11 +892,11 @@ namespace TBQuest
             console.DisplayGamePlayScreen("Mission Initialization - Ability Points", Text.InitializeMissionGetAbilityPoints(tempObject), ActionMenu.MissionIntro, "");
             
             tempObject.AbilityPoints = 10;
-            tempObject.Strength = console.GetStrength(console, tempObject);
+            tempObject.Strength = console.GetStrength(tempObject);
             tempObject.WeaponName = console.GetWeaponName(console, tempObject);
-            tempObject.Constitution = console.GetConstitution(console, tempObject);
-            tempObject.Magic = console.GetMagic(console, tempObject);
-            tempObject.Agility = console.GetAgility(console, tempObject);
+            tempObject.Constitution = console.GetConstitution(tempObject);
+            //tempObject.Magic = console.GetMagic(console, tempObject);
+            tempObject.Agility = console.GetAgility(tempObject);
             
 
             //reset ability points in case player did not use all 10 of them
@@ -999,11 +997,11 @@ namespace TBQuest
                         console.DisplayGamePlayScreen("Colonist Edit - Ability Points", Text.InitializeMissionGetAbilityPoints(playerEdit), ActionMenu.MissionIntro, "");
 
                         playerEdit.AbilityPoints = 10;
-                        playerEdit.Strength = console.GetStrength(console, playerEdit);
+                        playerEdit.Strength = console.GetStrength(playerEdit);
                         
-                        playerEdit.Constitution = console.GetConstitution(console, playerEdit);
+                        playerEdit.Constitution = console.GetConstitution(playerEdit);
                         playerEdit.Magic = console.GetMagic(console, playerEdit);
-                        playerEdit.Agility = console.GetAgility(console, playerEdit);
+                        playerEdit.Agility = console.GetAgility(playerEdit);
 
                         //
                         // reset ability points in case player did not use all of them
@@ -1067,10 +1065,13 @@ namespace TBQuest
             // get list of NPCs in current location
             //
             List<Npc> npcsInCurrentLocation = _gameUniverse.GetNpcByLocationId(_gameColonist.LocationID);
+			List<Monster> monstersInCurrentLocation = _gameUniverse.GetMonsterByLocationId(_gameColonist.LocationID);
 
             string messageBoxText = Text.LookAround(currentLocation) + Environment.NewLine + Environment.NewLine;
             messageBoxText += Text.ListAllGameObjects(gameObjectsInCurrentLocation) + Environment.NewLine;
-            messageBoxText += Text.NpcsChooseList(npcsInCurrentLocation);
+			messageBoxText += Text.NpcsChooseList(npcsInCurrentLocation) + Environment.NewLine;
+			messageBoxText += Text.MonstersChooseList(monstersInCurrentLocation);
+
 
 
             DisplayGamePlayScreen("Current Location", messageBoxText,
@@ -1415,7 +1416,11 @@ namespace TBQuest
                         Monster monster = _gameUniverse.GetMonsterById(monsterId);
                         if (monster is IBattle)
                         {
-                            validMonsterId = true;
+							if (monster.IsAlive == true)
+							{
+								validMonsterId = true;
+							}
+                            
                         }
                         else
                         {
@@ -1496,7 +1501,64 @@ namespace TBQuest
 		{
 			DisplayGamePlayScreen("Equip Object", $"The {objectEquipped.Name} has been equipped. \n" + "Press any key to continue.", ActionMenu.ObjectInteractionMenu, "");
 		}
-		        
+
+		public int DisplayGetColonistObjectToUnequip()
+		{
+			int gameObjectId = 0;
+			bool validGameObjectId = false;
+
+			//
+			// get a list of objects in the player's equipped list
+			//
+			List<ColonistObject> unEquippableObjects = _gameUniverse.GetColonistObjectsByLocationId(-1);
+
+			if (unEquippableObjects.Count > 0)
+			{
+				DisplayGamePlayScreen("Unequip Object", Text.GameObjectsChooseList(unEquippableObjects), ActionMenu.ObjectInteractionMenu, "");
+
+				while (!validGameObjectId)
+				{
+					//
+					// get an integer from the player
+					//
+					GetInteger($"Enter the ID number of the object you wish to unequip: ", 0, 0, out gameObjectId);
+
+					//
+					// validate integer as a valid game object id in inventory
+					//
+					if (_gameUniverse.IsValidColonistObjectByLocationId(gameObjectId, -1))
+					{
+						ColonistObject colonistObject = _gameUniverse.GetGameObjectById(gameObjectId) as ColonistObject;
+						if (colonistObject.CanEquip)
+						{
+							validGameObjectId = true;
+						}
+						else
+						{
+							ClearInputBox();
+							DisplayInputErrorMessage("It appears you may not unequip that object. Please try again.");
+						}
+					}
+					else
+					{
+						ClearInputBox();
+						DisplayInputErrorMessage("It appears you entered an invalid game object ID. Please try again.");
+					}
+				}
+			}
+			else
+			{
+				DisplayGamePlayScreen("Unequip Object", "It appears there are no unequippable objects in your inventory. Press any key to continue.", ActionMenu.ObjectInteractionMenu, "");
+			}
+
+			return gameObjectId;
+		}
+
+		public void DisplayConfirmColonistObjectUnEquipped(ColonistObject objectUnEquipped)
+		{
+			DisplayGamePlayScreen("Unequip Object", $"The {objectUnEquipped.Name} has been unequipped. \n" + "Press any key to continue.", ActionMenu.ObjectInteractionMenu, "");
+		}
+
 		#endregion
 	}
 }

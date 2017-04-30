@@ -42,7 +42,9 @@ namespace TBQuest
         Attack,
         RunAway,
 		EquipObject,
+		UnequipObject,
 		EquippedItems,
+		UseAbilityPoints,
         Exit
     }
 }

@@ -115,16 +115,15 @@ namespace TBQuest
         {
             string messageBoxText =
                 $"{gameColonist.Name}, you will now have to select your desired distribution of ability points. By distributing your " +
-                $"ability points, you influence how your character will perform in combat. There are four abilities that you may add points " +
-                $"to, and when you level up, you will gain one point to add to any of these categories. The categories are: \n \n" +
+                $"ability points, you influence how your character will perform in combat. There are three abilities that you may add points " +
+                $"to, and when you level up, you will gain points to add to any of these categories. The categories are: \n \n" +
 
                 $"Strength (influences melee combat) \n" +
                 $"Constitution (influences total health points) \n" +
-                $"Magic (influences magic combat) \n" +
                 $"Agility (influences damage resistance) \n \n" +
 
                 $"You will receive 10 points to distribute as you choose. Keep in mind that you should put at least one point in " +
-                $"either Strength or Magic, or else you will do no damage and not be able to fend off the attackers that will " +
+                $"Strength or else you will do no damage and not be able to fend off the attackers that will " +
                 "inevitably come your way. \n \n";
 
             return messageBoxText;
@@ -158,7 +157,7 @@ namespace TBQuest
                 $"\tColonist Age: {gameTraveler.Age}\n" +
                 $"\tColonist Strength: {gameTraveler.Strength}\n" +
                 $"\tColonist Constitution: {gameTraveler.Constitution}\n" +
-                $"\tColonist Magic: {gameTraveler.Magic}\n" +
+                //$"\tColonist Magic: {gameTraveler.Magic}\n" +
                 $"\tColonist Agility: {gameTraveler.Agility}\n";
             if (gameTraveler.IsMeleeColonist)
             {
@@ -562,7 +561,7 @@ namespace TBQuest
             }
 
             messageBoxText += npcRows;
-            messageBoxText += "\n" + "Press any key to continue.";
+            
 
             return messageBoxText;
 

@@ -8,7 +8,7 @@ namespace TBQuest
 {
     public static partial class UniverseObjects
     {
-        //TODO: Add NPCs
+        
         public static List<Npc> Npcs = new List<Npc>()
         {
             new Civilian
@@ -23,8 +23,36 @@ namespace TBQuest
                 {
                         "You're the best!"
                 }
-            }
-            
+            },
+			new Civilian
+			{
+				Id = 2,
+				Name = "Doomsayer",
+				LocationID = 5,
+				Health = 1,
+				canFight = false,
+				Description = "A strange man who is convinced the end times are here.",
+				Messages = new List<string>
+				{
+					"The end is coming!",
+					"I knew it!"
+				}
+			},
+			new Civilian
+			{
+				Id = 3,
+				Name = "Dr. Kleiner",
+				LocationID = 2,
+				Health = 1,
+				canFight = false,
+				Description = "A professor of physics from the homeland. We still don't know why he volunteered to come out here.",
+				Messages = new List<string>
+				{
+					"There's a certain mysticism about the frontier, probably associated with the proverbial blank slate it offers.",
+					
+				}
+			}
+			
         };
 
         public static List<Monster> Monsters = new List<Monster>()
@@ -46,7 +74,13 @@ namespace TBQuest
             {
                 Id = 2,
 				LocationID = 9,
-				canFight = true
+				canFight = true,
+				Name = "Troll",
+				Description = "A large humanoid creture. He has quite a menacing club.",
+				Health = 300,
+				Strength = 8,
+				Constitution = 8,
+				Agility = 2
             },
             new Monster
             {
@@ -55,10 +89,12 @@ namespace TBQuest
 				LocationID = 7,
                 canFight = true,
                 Description = "A three-headed beast. If this is the first monster you have "
-                                + "encountered, you're not going to make it."
-            }
-
-
+                                + "encountered, you're not going to make it.",
+				Strength = 9,
+				Constitution = 9,
+				Agility = 6
+            },
+			
         };
     }
 }

@@ -106,7 +106,8 @@ namespace TBQuest
                 {
                     2,
                     5,
-					6
+					6,
+					9
                 }
             },
 
@@ -122,7 +123,8 @@ namespace TBQuest
                 {
                     2,
 					5,
-                    6
+                    6,
+					7
                 }
             },
 

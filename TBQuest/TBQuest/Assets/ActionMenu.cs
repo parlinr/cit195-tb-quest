@@ -100,6 +100,7 @@ namespace TBQuest
 				{'2', ColonistAction.PickUp },
 				{'3', ColonistAction.PutDown },
 				{'4', ColonistAction.EquipObject},
+				{'5', ColonistAction.UnequipObject},
 				{'0', ColonistAction.ReturnToMainMenu }
 			}
 		};
@@ -114,6 +115,7 @@ namespace TBQuest
                 {'2', ColonistAction.ColonistInventory },
 				{'3', ColonistAction.EquippedItems },
                 {'4', ColonistAction.ColonistLocationsVisited },
+				{'5', ColonistAction.UseAbilityPoints },
                 {'0', ColonistAction.ReturnToMainMenu  }
             }
         };
@@ -137,7 +139,6 @@ namespace TBQuest
             MenuChoices = new Dictionary<char, ColonistAction>()
             {
                 {'1', ColonistAction.Attack},
-                {'2', ColonistAction.RunAway },
                 {'0', ColonistAction.ReturnToMainMenu }
             }
         };

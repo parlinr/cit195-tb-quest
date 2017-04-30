@@ -9,7 +9,7 @@ namespace TBQuest
     /// <summary>
     /// the character class the player uses in the game
     /// </summary>
-    public class Colonist : Character
+    public class Colonist : Character, IBattle
     {
         #region ENUMERABLES
        
@@ -166,6 +166,42 @@ namespace TBQuest
                 return false;
             }
         }
+
+		public int Attack()
+		{
+			int attackScore = this.Agility + this.Constitution + this.Strength;
+			//
+			// if the player has a certain weapon equipped, they get an attackScore buff
+			// implementation from: http://stackoverflow.com/questions/4937060/how-to-check-if-listt-element-contains-an-item-with-a-particular-property-valu
+			//
+			ColonistObject equippedWeapon = _equippedItems.Find(x => (x.Id == 1) || (x.Id == 6) || (x.Id == 7));
+			try
+			{
+				if (equippedWeapon.Id == 1) // if steel sword is equipped
+				{
+					attackScore += 3;
+				}
+				else if (equippedWeapon.Id == 7) // if mithril sword is equipped
+				{
+					attackScore += 5;
+				}
+				else if (equippedWeapon.Id == 6) // if adamantine sword is equipped
+				{
+					attackScore += 7;
+				}
+				else
+				{
+					attackScore += 0;
+				}
+			}
+			catch (Exception e)
+			{
+
+			}
+			
+
+			return attackScore;
+		}
 
         #endregion
     }

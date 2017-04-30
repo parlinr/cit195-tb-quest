@@ -369,7 +369,7 @@ namespace TBQuest
             //
             foreach (Monster monster in _monsters)
             {
-                if (monster.LocationID == locationId)
+                if (monster.LocationID == locationId && monster.IsAlive == true)
                 {
                     monsters.Add(monster);
                 }
@@ -415,7 +415,7 @@ namespace TBQuest
             //
             foreach (Monster monster in _monsters)
             {
-                if (monster.Id == Id)
+                if (monster.Id == Id && monster.IsAlive == true)
                 {
                     monsterToReturn = monster;
                 }

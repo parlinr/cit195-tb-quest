@@ -8,6 +8,6 @@ namespace TBQuest
 {
     interface IBattle
     {
-
+		int Attack();
     }
 }
