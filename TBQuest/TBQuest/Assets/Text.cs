@@ -487,7 +487,7 @@ namespace TBQuest
         #endregion
 
         #region ListAllNpcObjects
-        public static string ListAllNpcObjects(List<Npc> npcObjects)
+        public static string ListAllNpcObjects(List<Npc> npcObjects, List<Monster> monsterObjects)
         {
             //
             // display table name and column headers
@@ -519,10 +519,42 @@ namespace TBQuest
                     Environment.NewLine;
             }
 
-            messageBoxText += npcObjectRows;
-            messageBoxText += "\n" + "Press any key to continue.";
+			messageBoxText += npcObjectRows + "\n" + Environment.NewLine;
+			
 
-            return messageBoxText;
+			messageBoxText +=
+				"Monster Objects\n" +
+				"\n" +
+
+				//
+				// display table header
+				//
+				"ID".PadRight(10) +
+				"Name".PadRight(30) +
+				"Location ID".PadRight(10) + "\n" +
+				"---".PadRight(10) +
+				"--------------------".PadRight(30) +
+				"---".PadRight(10) + "\n";
+
+			//
+			// display all npc objects in rows
+			//
+			string monsterObjectRows = null;
+			foreach (Monster monsterObject in monsterObjects)
+			{
+				monsterObjectRows +=
+					$"{monsterObject.Id}".PadRight(10) +
+					$"{monsterObject.Name}".PadRight(30) +
+					$"{monsterObject.LocationID}".PadRight(10) +
+					Environment.NewLine;
+			}
+
+			messageBoxText += monsterObjectRows;
+			messageBoxText += "\n" + "Press any key to continue.";
+
+			return messageBoxText;
+
+			
 
         }
 
@@ -639,7 +671,48 @@ namespace TBQuest
 
 			return messageBoxText;
 		}
-		
+
+		#endregion
+
+		#region ListAllMonsterObjects
+		public static string ListAllMonsterObjects(List<Monster> monsterObjects)
+		{
+			//
+			// display table name and column headers
+			//
+			string messageBoxText =
+				"Monster Objects\n" +
+				"\n" +
+
+				//
+				// display table header
+				//
+				"ID".PadRight(10) +
+				"Name".PadRight(30) +
+				"Location ID".PadRight(10) + "\n" +
+				"---".PadRight(10) +
+				"--------------------".PadRight(30) +
+				"---".PadRight(10) + "\n";
+
+			//
+			// display all npc objects in rows
+			//
+			string monsterObjectRows = null;
+			foreach (Monster monsterObject in monsterObjects)
+			{
+				monsterObjectRows +=
+					$"{monsterObject.Id}".PadRight(10) +
+					$"{monsterObject.Name}".PadRight(30) +
+					$"{monsterObject.LocationID}".PadRight(10) +
+					Environment.NewLine;
+			}
+
+			messageBoxText += monsterObjectRows;
+			messageBoxText += "\n" + "Press any key to continue.";
+
+			return messageBoxText;
+
+		}
 		#endregion
 	}
 }

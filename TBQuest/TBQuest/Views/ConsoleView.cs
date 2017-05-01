@@ -1316,10 +1316,12 @@ namespace TBQuest
 
         public void DisplayListOfAllNpcObjects()
         {
-            DisplayGamePlayScreen("List: NPC Objects", Text.ListAllNpcObjects(_gameUniverse.Npcs), ActionMenu.AdminMenu, "");
+            DisplayGamePlayScreen("List: NPC Objects", Text.ListAllNpcObjects(_gameUniverse.Npcs, _gameUniverse.Monsters), ActionMenu.AdminMenu, "");
+			
         }
 
-        public int DisplayGetNpcToTalkTo()
+		
+		public int DisplayGetNpcToTalkTo()
         {
             int npcId = 0;
             bool validNpcId = false;
