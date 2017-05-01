@@ -622,6 +622,11 @@ namespace TBQuest
             _gameColonist.Inventory.Remove(colonistObject);
             colonistObject.LocationId = _gameColonist.LocationID;
 
+			//
+			// if equipped, unequip the object
+			//
+			_gameColonist.EquippedItems.Remove(colonistObject);
+
             //
             // display confirmation message
             //
